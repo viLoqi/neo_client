@@ -1,14 +1,27 @@
 "use client"
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { CardSchema, GetRepoResponse, PostDeckResponse } from './types'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState, useRef } from 'react'
+import { CardSchema, GetRepoResponse, PostDeckResponse } from '../types'
 
 
 const Deck = ({ deck_id, modified }: GetRepoResponse) => {
+    const router = useRouter()
 
+    const handleOnView = () => {
+        router.push(`/mock/deck/${deck_id}`)
+    }
     return <div className='border border-white'>
         <p>{deck_id}</p>
         <p>{new Date(modified).toISOString()}</p>
+        <button className='text-sky-400' onClick={handleOnView}>View</button>
+    </div>
+}
+
+const InputField = ({ name }: { name: string }) => {
+    return <div>
+        <label htmlFor={name}>{name}</label>
+        <input name={name}></input>
     </div>
 }
 
@@ -16,19 +29,25 @@ export default function Home() {
     const [decks, setDecks] = useState<GetRepoResponse[]>([])
     const [refresh, setRefresh] = useState(false)
 
+    const questionRef = useRef<HTMLInputElement>(null)
+    const answerRef = useRef<HTMLInputElement>(null)
+    const hintRef = useRef<HTMLInputElement>(null)
+    const titleRef = useRef<HTMLInputElement>(null)
+    const descriptionRef = useRef<HTMLInputElement>(null)
+    const tagRef = useRef<HTMLInputElement>(null)
+
     useEffect(() => {
-        fetch("/api/repository/get/general").then(async (r) => {
+        fetch("/api/repository/").then(async r => {
             const data = await r.json()
-            if (data !== undefined && data.length != 0)
+            if (Array.isArray(data) && data.length)
                 setDecks(data[0].decks)
             else
                 setDecks([])
         })
     }, [refresh])
 
-    const handleCreateRandomDeck = () => {
-        const cards: CardSchema[] = [{ question: "What is 9+10?", answer: "21", hint: "a dead meme :(", order: 0 }]
-
+    const handleCreateDeck = () => {
+        const cards: CardSchema[] = [{ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }]
         // Jie: These fetch requests can lowkey be helper functions
         fetch("/api/deck/deck", {
             // First make the request to create the deck
@@ -71,8 +90,9 @@ export default function Home() {
                 </div>
 
                 <div>
-                    <button className="outline-lime-400" onClick={handleCreateRandomDeck}>Create Random</button>
-                    <button className="outline-lime-400" onClick={handleWipeTopic}>Wipe All</button>
+                    <button className="outline-lime-400" onClick={handleCreateDeck}>Create</button>
+                    <br></br>
+                    <button className="outline-lime-400" onClick={handleWipeTopic}>Wipe</button>
                 </div>
             </main >
         )

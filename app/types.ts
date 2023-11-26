@@ -10,6 +10,7 @@ export interface DeckSchema {
     cards: CardSchema[]
 }
 
+
 export interface PostDeckResponse {
     deck_id: string,
     deck_name: string

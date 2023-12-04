@@ -17,10 +17,12 @@ const DeckPage = ({ params }: { params: { deck_id: string } }) => {
     const [flashCards, setFlashCards] = useState<CardSchema[]>([])
     const [refresh, setRefresh] = useState(false)
 
+
+    // TODO: maybe we can cache deck from the homepage so we don't need a network request to fetch basic deck info
+
     useEffect(() => {
         fetch(`/api/deck/deck/${params.deck_id}`).then(async r => {
             const data = await r.json()
-            console.log(data)
             if (Array.isArray(data) && data.length)
                 setFlashCards(data)
             else
@@ -28,7 +30,8 @@ const DeckPage = ({ params }: { params: { deck_id: string } }) => {
         })
     }, [params.deck_id, refresh])
 
-    return <div>ID: {params.deck_id}
+    return <div>
+        <p>ID: {params.deck_id}</p>
         {flashCards.map(c => <FlashCard key={c.question} {...c} />)}
 
     </div>

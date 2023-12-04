@@ -15,8 +15,7 @@ export interface PostDeckResponse {
     deck_id: string,
     deck_name: string
 }
-
-export interface GetRepoResponse {
+export interface RepositoryDecksSchema {
     created: Date,
     deck_id: string,
     deck_name: string,
@@ -24,4 +23,8 @@ export interface GetRepoResponse {
     modified: Date,
     upvotes: number,
     downvotes: number
+}
+export interface RepositorySchema {
+    _id: string
+    decks: RepositoryDecksSchema[]
 }

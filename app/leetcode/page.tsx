@@ -7,7 +7,12 @@ interface Problem {
     id: number,
     name: string,
     url: string
-    checked_by: string[]
+    checked_by: CheckObj[]
+}
+
+interface CheckObj {
+    who: string
+    when: number
 }
 
 const LeetCode = () => {
@@ -24,7 +29,7 @@ const LeetCode = () => {
 
         return <div className="m-10">
             <h1>{name}</h1> - <a href={url}>{url}</a>
-            <p>This problem has been done by: {checked_by.map(p => <div key={crypto.randomUUID()}>{p}</div>)}</p>
+            <p>This problem has been done by: {checked_by.map((p: CheckObj) => <div key={crypto.randomUUID()}>{p.who} on {p.when}</div>)}</p>
             I have done this: <input type="text" ref={nameRef} className="bg-orange-500" placeholder="Put your name here :D"></input>
             <button className="bg-green-500" onClick={handleAck}>CLick ME TO ACKNOWLEDGE</button>
         </div>

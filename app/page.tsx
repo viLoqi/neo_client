@@ -1,7 +1,8 @@
 "use client"
 import { Button } from './components/Button';
+import HomePage from './components/Homepage';
 import { initFirebase } from './firebase';
-import { GoogleAuthProvider, signInWithPopup, getAuth} from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function Home() {
@@ -12,15 +13,15 @@ export default function Home() {
     hd: "stonybrook.edu"
   })
   const auth = getAuth();
-  const [ user, loading] = useAuthState(auth);
-  
+  const [user, loading] = useAuthState(auth);
+
 
   if (loading) {
     return (
       <main className="flex min-h-screen flex-col items-center p-24">
-      <div>
+        <div>
           <h1>Loading...</h1>
-      </div>
+        </div>
       </main >
     )
   }
@@ -28,10 +29,7 @@ export default function Home() {
     return (
       <main className="flex min-h-screen flex-col items-center p-24">
         <div>
-          <h1>Welcome {user.displayName}!</h1>
-          <Button size='sm' variant='outline' onClick={() => auth.signOut()}>
-              Sign Out 
-          </Button>
+          <HomePage user={user} auth={auth} />
         </div>
       </main >
     )
@@ -46,10 +44,10 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center p-24">
       <div>
       </div>
-        LOQI
-        <Button size='sm' variant='outline' onClick={signIn}>
-            Continue With Google
-        </Button>
+      LOQI
+      <Button size='sm' variant='outline' onClick={signIn}>
+        Continue With Google
+      </Button>
       <div>
       </div>
     </main >

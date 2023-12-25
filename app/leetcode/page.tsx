@@ -24,7 +24,7 @@ const LeetCode = () => {
 
         return <div className="m-10">
             <h1>{name}</h1> - <a href={url}>{url}</a>
-            <p>This problem has been done by: {checked_by.map(p => <div>{p}</div>)}</p>
+            <p>This problem has been done by: {checked_by.map(p => <div key={crypto.randomUUID()}>{p}</div>)}</p>
             I have done this: <input type="text" ref={nameRef} className="bg-orange-500" placeholder="Put your name here :D"></input>
             <button className="bg-green-500" onClick={handleAck}>CLick ME TO ACKNOWLEDGE</button>
         </div>

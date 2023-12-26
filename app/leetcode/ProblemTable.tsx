@@ -23,12 +23,16 @@ interface PTR extends Problem {
 const ProblemTableRow = ({ id, name, date_added, url, difficulty, checked_by, setRefresh }: PTR) => {
     const [user, loading] = useAuthState(auth);
     const [checked, setChecked] = useState(false)
+    const [disabled, setDisabled] = useState(false)
 
-    useEffect(() => { setChecked(checked_by.filter(entry => entry.email == user?.email).length > 0) }, [checked, checked_by, user?.email])
+    useEffect(() => {
+        setDisabled(checked_by.filter(entry => entry.email == user?.email).length > 0)
+        setChecked(checked_by.filter(entry => entry.email == user?.email).length > 0)
+    }, [checked, checked_by, user?.email])
 
     const text_color = difficulty == "Easy" ? "text-success" : difficulty == "Medium" ? "text-warning" : "text-error"
+
     const handleAck = () => {
-        setChecked(prev => !prev)
         const payload = { id: id, who: user?.displayName, email: user?.email }
         const options = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
         fetch("https://ynlxun4uw0.execute-api.us-east-1.amazonaws.com/check", options).then(() => {
@@ -41,7 +45,7 @@ const ProblemTableRow = ({ id, name, date_added, url, difficulty, checked_by, se
         <td>{moment(date_added).format("MM/DD/YY")}</td>
         <td className={text_color}>{difficulty}</td>
         <td>{checked ? <>{moment((checked_by.filter(entry => entry.email == user?.email)[0]?.when)).fromNow()}</> : <>--</>}</td>
-        <td><input type="checkbox" onChange={handleAck} disabled={checked} checked={checked}></input></td>
+        <td><input type="checkbox" onChange={handleAck} disabled={disabled} checked={checked} onClick={() => setDisabled(true)}></input></td>
     </tr>
 
 

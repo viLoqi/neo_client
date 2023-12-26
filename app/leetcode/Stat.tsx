@@ -1,11 +1,13 @@
 import { Problem } from "./types";
-const Aux = ({ id, name, checked_by }: Problem) => {
+import Bar from "./Bar";
+
+
+const Aux = ({ name, number }: { name: string, number: number }) => {
     return <div className="stats shadow m-10">
         <div className="stat">
-            <div className="stat-title">{id}. {name}</div>
-            <div className="stat-value">{checked_by.length}</div>
-            <div className="stat-desc">Users has solved</div>
-            {checked_by.map(p => { return <span key={p.when}>{p.who}</span> })}
+            <div className="stat-title text-info">{name}</div>
+            <div className="stat-value text-warning">{number}</div>
+            <div className="stat-desc">problems solved</div>
         </div>
 
     </div>
@@ -17,9 +19,9 @@ const Stat = ({ problems }: { problems: Problem[] }) => {
     for (const element of problems) {
         element.checked_by.forEach(p => {
             if (!map.has(p.who)) {
-                map.set(p.who, 1)
+                map.set(p.who, [element])
             } else {
-                map.set(p.who, map.get(p.who) + 1)
+                map.get(p.who).push(element)
             }
         })
     }
@@ -27,9 +29,15 @@ const Stat = ({ problems }: { problems: Problem[] }) => {
     const array = Array.from(map, ([who, value]) => ({ label: who, data: value }));
 
 
+    array.sort(function (a, b) {
+        if (a.data.length < b.data.length) return 1;
+        if (a.data.length > b.data.length) return -1;
+        return 0;
+    })
+
     return (<>
-        {array.map(p => <p key={crypto.randomUUID()} className="m-4">{p.label} has solved {p.data}</p>)}
-        {problems.map((p: Problem) => <Aux key={p.id} {...p} />)}
+        {array.map(p => <Aux key={crypto.randomUUID()} name={p.label} number={p.data.length} />)}
+        <Bar data={array} />
     </>)
 }
 

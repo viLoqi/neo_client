@@ -28,10 +28,10 @@ const ProblemTableRow = ({ id, name, date_added, url, difficulty, checked_by, se
 
     const text_color = difficulty == "Easy" ? "text-success" : difficulty == "Medium" ? "text-warning" : "text-error"
     const handleAck = () => {
+        setChecked(prev => !prev)
         const payload = { id: id, who: user?.displayName, email: user?.email }
         const options = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
         fetch("https://ynlxun4uw0.execute-api.us-east-1.amazonaws.com/check", options).then(() => {
-            setChecked(prev => !prev)
             setRefresh(prev => !prev)
         })
     }

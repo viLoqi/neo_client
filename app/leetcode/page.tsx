@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase"
 import Stat from "./Stat";
 import AddProblem from "./AddProblem";
+import Link from "next/link";
 
 const LeetCode = () => {
     const [problems, setProblems] = useState([])
@@ -27,12 +28,15 @@ const LeetCode = () => {
 
 
     const [user, loading] = useAuthState(auth);
-    return <div>
-        You are logged in as {user?.displayName}
-        <AddProblem problems={problems} setRefresh={setRefresh} />
-        <ProblemTable problems={problems} />
-        <Stat problems={problems} />
-    </div>
+    if (user)
+        return <div>
+            <AddProblem problems={problems} setRefresh={setRefresh} />
+            <ProblemTable problems={problems} />
+            <Stat problems={problems} />
+        </div>
+    else {
+        return <Link href="/">Click here to login!!</Link>
+    }
 }
 
 export default LeetCode;

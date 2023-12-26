@@ -13,7 +13,6 @@ const LeetCode = () => {
     const [problems, setProblems] = useState([])
     const [refresh, setRefresh] = useState(false)
 
-
     useEffect(() => {
         fetch("https://ynlxun4uw0.execute-api.us-east-1.amazonaws.com/problems").then(async (r) => {
             const data = await r.json()
@@ -31,7 +30,7 @@ const LeetCode = () => {
     if (user)
         return <div>
             <AddProblem problems={problems} setRefresh={setRefresh} />
-            <ProblemTable problems={problems} />
+            <ProblemTable problems={problems} setRefresh={setRefresh} />
             <Stat problems={problems} />
         </div>
     else {

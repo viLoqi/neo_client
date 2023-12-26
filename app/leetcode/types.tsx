@@ -3,11 +3,12 @@ export interface Problem {
     name: string,
     url: string,
     difficulty: string,
+    date_added: Date
     checked_by: CheckObj[]
 }
 
 export interface CheckObj {
     who: string
-    when: number
+    when: Date
     email: string
 }

@@ -34,11 +34,13 @@ const Stat = ({ problems }: { problems: Problem[] }) => {
         if (a.data.length > b.data.length) return -1;
         return 0;
     })
+    if (array.length)
+        return (<>
+            {array.map(p => <Aux key={crypto.randomUUID()} name={p.label} number={p.data.length} />)}
+            <Bar data={array} />
+        </>)
 
-    return (<>
-        {array.map(p => <Aux key={crypto.randomUUID()} name={p.label} number={p.data.length} />)}
-        <Bar data={array} />
-    </>)
+    return null
 }
 
 export default Stat;

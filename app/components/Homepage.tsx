@@ -18,6 +18,10 @@ const HomePage = ({ user, auth }: HomePageProps) => {
         <Button>
             <Link href="/browseDeck">Dashboard</Link>
         </Button>
+        <br></br>    <br></br>
+        <Button>
+            <Link href="/leetcode">LEET CODE BABY</Link>
+        </Button>
 
 
         <h1>Welcome {user.displayName}!</h1>

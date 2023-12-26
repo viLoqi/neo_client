@@ -1,18 +1,16 @@
 "use client"
 import { Button } from './components/Button';
 import HomePage from './components/Homepage';
-import { initFirebase } from './firebase';
-import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
+import { auth } from './firebase';
+import { GoogleAuthProvider, signInWithPopup, } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function Home() {
-  initFirebase();
 
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({
     hd: "stonybrook.edu"
   })
-  const auth = getAuth();
   const [user, loading] = useAuthState(auth);
 
 

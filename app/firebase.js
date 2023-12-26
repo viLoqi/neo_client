@@ -13,6 +13,12 @@ const firebaseConfig = {
     measurementId: "G-HZDJC6PYH8"
   };
 
+  // For zb
+  // you see how u exported auth here
+  // u can just import it in the other files that need it 
+  // you dont need to init firebase again
+  // I usually call get on everything I did and export it
+
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const initFirebase = () => {

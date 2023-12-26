@@ -1,62 +1,37 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react";
-
-
-interface Problem {
-    id: number,
-    name: string,
-    url: string
-    checked_by: CheckObj[]
-}
-
-interface CheckObj {
-    who: string
-    when: number
-}
+import ProblemTable from "./ProblemTable";
+import { Problem } from "./types";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase"
+import Stat from "./Stat";
+import AddProblem from "./AddProblem";
 
 const LeetCode = () => {
     const [problems, setProblems] = useState([])
     const [refresh, setRefresh] = useState(false)
 
-    const Row = ({ id, name, url, checked_by }: Problem) => {
-        const nameRef = useRef<HTMLInputElement>(null)
-
-        const handleAck = () => {
-            fetch("https://ynlxun4uw0.execute-api.us-east-1.amazonaws.com/check", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, who: nameRef.current!.value }) }).then(() => { setRefresh(r => !r) }).catch(err => console.log(err))
-        }
-
-
-        return <div className="m-10">
-            <h1>{name}</h1> - <a href={url}>{url}</a>
-            <p>This problem has been done by: {checked_by.map((p: CheckObj) => <div key={crypto.randomUUID()}>{p.who} on {p.when}</div>)}</p>
-            I have done this: <input type="text" ref={nameRef} className="bg-orange-500" placeholder="Put your name here :D"></input>
-            <button className="bg-green-500" onClick={handleAck}>CLick ME TO ACKNOWLEDGE</button>
-        </div>
-    }
-
 
     useEffect(() => {
         fetch("https://ynlxun4uw0.execute-api.us-east-1.amazonaws.com/problems").then(async (r) => {
             const data = await r.json()
+            data["Items"].sort(function (a: Problem, b: Problem) {
+                if (a.id < b.id) return -1;
+                if (a.id > b.id) return 1;
+                return 0;
+            });
             setProblems(data["Items"])
         })
     }, [refresh])
 
-    const nameRef = useRef<HTMLInputElement>(null)
-    const urlRef = useRef<HTMLInputElement>(null)
 
-    const handleAdd = () => {
-        fetch("https://ynlxun4uw0.execute-api.us-east-1.amazonaws.com/add", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: problems.length + 1, name: nameRef.current!.value, url: urlRef.current!.value }) }).then(() => { setRefresh(r => !r) }).catch(err => console.log(err))
-    }
+    const [user, loading] = useAuthState(auth);
     return <div>
-        <p>ADD a problem</p>
-        <input className="bg-orange-500" ref={nameRef} placeholder="Name of problem"></input>
-        <br></br>
-        <input className="bg-orange-500" ref={urlRef} placeholder="URL of problem"></input>
-        <button onClick={handleAdd}>ADD</button>
-        {problems.map((p: Problem) => <Row key={p.url} {...p} />)}
-
+        You are logged in as {user?.displayName}
+        <AddProblem problems={problems} setRefresh={setRefresh} />
+        <ProblemTable problems={problems} />
+        <Stat problems={problems} />
     </div>
 }
 

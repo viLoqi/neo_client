@@ -14,14 +14,28 @@ const HomePage = ({ user, auth }: HomePageProps) => {
 
     return <div>
 
-        {/* Keep this button for now even though it's not in the figma */}
-        <Button>
-            <Link href="/browseDeck">Dashboard</Link>
-        </Button>
-        <br></br>    <br></br>
-        <Button>
-            <Link href="/leetcode">LEET CODE BABY</Link>
-        </Button>
+        <div className="flex flex-col gap-4">
+            {/* Keep this button for now even though it's not in the figma */}
+            <Button>
+                <Link href="/leetcode">LEET CODE BABY</Link>
+            </Button>
+            {/*  */}
+
+            <Button>
+                <Link href="/question">View Question Component</Link>
+            </Button>
+
+            <Button>
+                <Link href="/chatbox">View Chatbox Component</Link>
+            </Button>
+
+            <Button>
+                <Link href="/deck">View Deck Component</Link>
+            </Button>
+
+        </div>
+
+
 
 
         <h1>Welcome {user.displayName}!</h1>

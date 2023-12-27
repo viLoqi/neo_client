@@ -2,15 +2,24 @@ import { Problem } from "./types";
 import Bar from "./Bar";
 
 
-const Aux = ({ name, number }: { name: string, number: number }) => {
-    return <div className="stats shadow m-10">
+const Aux = ({ name, number, index }: { name: string, number: number, index: number }) => {
+
+    let text_color = ""
+
+    if (index == 0)
+        text_color = "text-yellow-300"
+    else if (index == 1)
+        text_color = "text-slate-50"
+    else if (index == 2)
+        text_color = "text-amber-700"
+
+    return <div className="stats shadow">
         <div className="stat">
             <div className="stat-title text-info">{name}</div>
-            <div className="stat-value text-warning">{number}</div>
+            <div className={`stat-value ${text_color}`}>{number}</div>
             <div className="stat-desc">problems solved</div>
         </div>
-
-    </div>
+    </div >
 }
 const Stat = ({ problems }: { problems: Problem[] }) => {
 
@@ -36,7 +45,9 @@ const Stat = ({ problems }: { problems: Problem[] }) => {
     })
     if (array.length)
         return (<>
-            {array.map(p => <Aux key={crypto.randomUUID()} name={p.label} number={p.data.length} />)}
+            <div className="grid grid-flow-col m-8 gap-4">
+                {array.map((p, i) => <Aux key={crypto.randomUUID()} name={p.label} number={p.data.length} index={i} />)}
+            </div>
             <Bar data={array} />
         </>)
 

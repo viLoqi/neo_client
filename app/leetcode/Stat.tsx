@@ -4,12 +4,12 @@ import Bar from "./Bar";
 
 const Aux = ({ name, number, index }: { name: string, number: number, index: number }) => {
 
-    let text_color = ""
+    let text_color = "text-content"
 
     if (index == 0)
         text_color = "text-yellow-300"
     else if (index == 1)
-        text_color = "text-slate-50"
+        text_color = "text-slate-200"
     else if (index == 2)
         text_color = "text-amber-700"
 

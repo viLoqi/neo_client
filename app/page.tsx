@@ -16,7 +16,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen flex-col items-center p-24">
+      <main className="flex justify-center p-24">
         <div>
           <h1>Loading...</h1>
         </div>

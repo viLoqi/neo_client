@@ -1,11 +1,14 @@
+"use client";
 import questions from "./questions";
 import ChoiceButton from "../components/ChoiceButton";
 import { CiCircleChevLeft } from "react-icons/ci";
 import UserCard from "../components/UserCard";
 import Link from "next/link";
+import { CountdownCircleTimer, type ColorFormat } from "react-countdown-circle-timer";
 
 const Question = () => {
     const question = questions[0];
+    const duration = 70;
 
     return (
         <div className="flex w-full h-screen ">
@@ -17,14 +20,26 @@ const Question = () => {
                 {/* main body */}
                 <div className="flex w-full ml-12">
                     {/* Left side */}
-                    <div className="flex flex-col mr-20">
+                    <div className="flex flex-col mr-8">
                         {/* Back button */}
                         <Link href="/">
                             <CiCircleChevLeft size="50" color="white" />
                         </Link>
                         {/* Dummy timer, will update soon */}
-                        <div className="flex mt-[30vh] items-center justify-center text-white w-32 h-32 justify-self-center border-white border-8 rounded-full ">
-                            Update this
+                        <div className="flex mt-[30vh] items-center justify-center text-white text-xl font-semibold size-36 justify-self-center">
+                            <CountdownCircleTimer
+                                isPlaying
+                                size={150}
+                                duration={duration}
+                                colors={["#ffffff", "#F7B801", "#A30000"]}
+                                colorsTime={[duration, duration/2, 0]}
+                            >
+                                {({ remainingTime }) => {
+                                    const minutes = Math.floor(remainingTime/60)
+                                    const seconds = (remainingTime % 60).toString().padStart(2, '0')
+                                    return `${minutes}:${seconds}`;
+                                }}
+                            </CountdownCircleTimer>
                         </div>
                     </div>
 
@@ -43,7 +58,16 @@ const Question = () => {
                         {/* Answer choices */}
                         <div className="grid grid-cols-2 gap-3 w-4/5">
                             {question.choices.map((choice, index) => {
-                                return <ChoiceButton key={choice} text={choice} isCorrect={question.correctChoiceIndex === index} />;
+                                return (
+                                    <ChoiceButton
+                                        key={choice}
+                                        text={choice}
+                                        isCorrect={
+                                            question.correctChoiceIndex ===
+                                            index
+                                        }
+                                    />
+                                );
                             })}
                         </div>
                     </div>

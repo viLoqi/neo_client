@@ -22,6 +22,9 @@ const UserCard = ({
                     }}
                 />
             </div>
+            <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-full bg-[#43b581] z-10">
+
+            </div>
             <div className="flex flex-col ml-3">
                 <p className="text-sm font-semibold text-white">{userName}</p>
                 <p className="text-sm text-[#8aa8a1] font-light">@{userHandle}</p>

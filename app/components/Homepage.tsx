@@ -12,7 +12,7 @@ const HomePage = ({ user, auth }: HomePageProps) => {
     const users = ["Jie", "Zb", "Wilson", "Benny"]
 
 
-    return <div>
+    return <div className="flex flex-col items-center">
 
         <div className="flex flex-col gap-4">
             {/* Keep this button for now even though it's not in the figma */}

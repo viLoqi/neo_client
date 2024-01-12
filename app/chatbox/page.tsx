@@ -3,6 +3,7 @@ import { useState } from "react";
 import CoursesCard from "../components/CoursesCard";
 import UserCard from "../components/UserCard";
 import Link from "next/link";
+import Input from "../components/Chatbox/Input";
 
 // Replace with courses from database
 const COURSES = [
@@ -27,9 +28,9 @@ const ChatBox = () => {
         <div className="flex w-full h-screen ">
             {/* Left side panel for courses */}
             <div className="carousel carousel-vertical flex-col bg-[#003825] w-[400px] pt-10 overflow-y-scroll whitespace-nowrap">
-                {COURSES.map((course, index) => {
+                {COURSES.map((course) => {
                     return (
-                        <div>
+                        <div key={course}>
                             <CoursesCard
                                 course={course}
                                 onClick={() => setActiveCourse(course)}
@@ -39,7 +40,7 @@ const ChatBox = () => {
                 })}
             </div>
             {/* middle component */}
-            <div className="flex flex-col items-center w-full bg-[#18593c]">
+            <div className="flex flex-col justify-between items-center w-full bg-[#18593c]">
                 <div className="flex w-full justify-between border-b-[1px] py-2 mb-1 border-black">
                     <h1 className="ml-6 text-white font-semibold  ">
                         {activeCourse}
@@ -51,7 +52,8 @@ const ChatBox = () => {
                     </Link>
                 </div>
                 {/* NEED TO IMPLEMENT MESSAGE LOG */}
-                {/* Message bar */}
+                {/* Input bar */}
+                <Input/>
             </div>
             {/* Users panel */}
             <div className="bg-[#003825] min-w-56">

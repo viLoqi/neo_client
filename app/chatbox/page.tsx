@@ -4,6 +4,7 @@ import CoursesCard from "../components/CoursesCard";
 import UserCard from "../components/UserCard";
 import Link from "next/link";
 import Input from "../components/Chatbox/Input";
+import Messages from "../components/Chatbox/Messages";
 
 // Replace with courses from database
 const COURSES = [
@@ -40,9 +41,9 @@ const ChatBox = () => {
                 })}
             </div>
             {/* middle component */}
-            <div className="flex flex-col justify-between items-center w-full bg-[#18593c]">
+            <div className="flex flex-col w-full bg-[#18593c]">
                 <div className="flex w-full justify-between border-b-[1px] py-2 mb-1 border-black">
-                    <h1 className="ml-6 text-white font-semibold  ">
+                    <h1 className="ml-6 text-white font-semibold">
                         {activeCourse}
                     </h1>
                     <Link href="/deck">
@@ -51,7 +52,8 @@ const ChatBox = () => {
                         </button>
                     </Link>
                 </div>
-                {/* NEED TO IMPLEMENT MESSAGE LOG */}
+                {/* Messages */}
+                <Messages/>
                 {/* Input bar */}
                 <Input/>
             </div>

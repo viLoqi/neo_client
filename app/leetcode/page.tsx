@@ -25,7 +25,6 @@ const LeetCode = () => {
         })
     }, [refresh])
 
-
     const [user, loading] = useAuthState(auth);
     if (user)
         return <div>

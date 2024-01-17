@@ -4,7 +4,7 @@ const CoursesCard = ({
     course,
     onClick,
 }: {
-    course: String;
+    course: string;
     onClick: MouseEventHandler<HTMLButtonElement>;
 }) => {
     return (

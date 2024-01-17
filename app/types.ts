@@ -5,6 +5,7 @@ export interface CardSchema {
     order: number;
 }
 
+// This is used by the actual deck instance
 export interface DeckSchema {
     _id: string,
     cards: CardSchema[]
@@ -15,6 +16,8 @@ export interface PostDeckResponse {
     deck_id: string,
     deck_name: string
 }
+
+// This is apart of the repository information
 export interface RepositoryDecksSchema {
     created: Date,
     deck_id: string,

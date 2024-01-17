@@ -46,16 +46,16 @@ const ChatBox = () => {
                     <h1 className="ml-6 text-white font-semibold">
                         {activeCourse}
                     </h1>
-                    <Link href="/deck">
+                    <Link href={`/deck/${activeCourse}`}>
                         <button className="text-[#18593c] px-4 mr-6 bg-[#c9dbd4] hover:bg-[#a3b2ac] rounded-full font-bold">
                             Open deck
                         </button>
                     </Link>
                 </div>
                 {/* Messages */}
-                <Messages/>
+                <Messages />
                 {/* Input bar */}
-                <Input/>
+                <Input />
             </div>
             {/* Users panel */}
             <div className="bg-[#003825] min-w-56">

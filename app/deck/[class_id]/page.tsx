@@ -27,7 +27,10 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
             <h3>{deck_name}</h3>
             <ul>
                 {cards.map(card => (
-                    <li key={card.id} className={card.completed ? 'completed' : 'not-completed'}>
+                    // <li key={card.id} className={card.completed ? 'completed' : 'not-completed'}>
+                    //     {card.question}
+                    // </li>
+                    <li key={crypto.randomUUID()}>
                         {card.question}
                     </li>
                 ))}

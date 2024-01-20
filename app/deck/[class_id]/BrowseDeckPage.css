@@ -14,22 +14,13 @@
 .search-bar {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.search-input {
-    padding: 10px;
-    background-image: url('./Search.png'); 
-    background-size: 16px 16px;
-    background-position: 10px center;
-    background-repeat: no-repeat;
-    border: none;
+    background: white;
+    padding:10px;
     border-radius: 20px;
-    margin-right: 10px;
     width: 500px;
-    height: 50px;
-  }
-  
+    height: 100%;
+}
+ 
 
 .add-deck-button-container{
     display: flex;
@@ -77,23 +68,4 @@
 
 .deck li.not-completed {
     color: red; /* style for not completed cards */
-}
-
-button {
-    background-color:  #37753a; /* blue background */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1em;
-    margin-top: 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #213f21; /* darker blue on hover */
 }

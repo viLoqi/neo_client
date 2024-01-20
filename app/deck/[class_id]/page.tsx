@@ -63,7 +63,7 @@ const BrowseDeckPage = () => {
     }, [refresh])
 
     const addNewDeck = () => {
-        const cards: CardSchema[] = [{ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }, { question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }]
+        const cards: CardSchema[] = Array(3).fill({ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 })
         fetch("/api/deck/deck", {
             method: "POST", headers: {
                 'Accept': 'application/json',
@@ -90,11 +90,11 @@ const BrowseDeckPage = () => {
                     {(class_id as string).replace("%20", " ")}
                 </h1>
                 {/* main body */}
-                <div className='flex flex-col w-full ml-12'>
+                <div className='flex flex-col w-full px-6'>
                     <Link href="/">
                         <CiCircleChevLeft size="50" color="white" />
                     </Link>
-                    <div className='flex justify-between items-center py-2 pr-[50px] h-[70px]'>
+                    <div className='flex justify-between items-center py-2 my-2 h-[70px]'>
                         <div className="search-bar">
                             <FaMagnifyingGlass />
                             <input type='text' placeholder='Search decks' className=' ml-2 focus:outline-none w-full' />
@@ -104,7 +104,7 @@ const BrowseDeckPage = () => {
                         </button>
                     </div>
                     <div>
-                        <div className="deck-list">
+                        <div className="grid grid-cols-2 gap-4">
                             {decks ? decks.map(deck => (
                                 <Deck key={deck.deck_id} {...deck} />
                             )) : <></>}

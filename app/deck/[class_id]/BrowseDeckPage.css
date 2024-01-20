@@ -29,23 +29,24 @@
 }
 
 .deck-list {
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
     gap: 20px; /* space between decks */
 }
 
 .deck {
     background-color: rgb(255, 255, 255);
-    border-radius: 8px;
+    border-radius: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
-    padding: 20px;
-    width: 250px; /* fixed width, adjust as needed */
+    padding: 10px 30px;
+    /* width: ; /* fixed width, adjust as needed */
 }
 
 .deck h3 {
-    margin-bottom: 15px;
+    font-weight: bold;
+    /* margin-bottom: 5px; */
     color: #333;
-    font-size: 1.2em;
+    font-size: 1.7rem;
 }
 
 .deck ul {
@@ -55,8 +56,8 @@
 }
 
 .deck li {
-    padding: 8px 0;
-    border-bottom: 1px solid #eee; /* subtle line under each card */
+    padding: 6px 0;
+    /* border-bottom: 1px solid #eee; subtle line under each card */
     display: flex;
     align-items: center;
     justify-content: space-between;

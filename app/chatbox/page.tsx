@@ -24,6 +24,7 @@ const COURSES = [
 
 const ChatBox = () => {
     const [activeCourse, setActiveCourse] = useState(COURSES[0]);
+    const [chatMessages, setChatMessages] = useState([""])
 
     return (
         <div className="flex w-full h-screen ">
@@ -53,9 +54,9 @@ const ChatBox = () => {
                     </Link>
                 </div>
                 {/* Messages */}
-                <Messages />
+                <Messages messages={chatMessages} />
                 {/* Input bar */}
-                <Input />
+                <Input setter={setChatMessages} />
             </div>
             {/* Users panel */}
             <div className="bg-[#003825] min-w-56">

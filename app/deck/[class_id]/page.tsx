@@ -23,7 +23,6 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
         })
     }, [deck_id])
 
-
     return (
         <div className="deck">
             <h3>{deck_name}</h3>
@@ -33,7 +32,7 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
                     //     {card.question}
                     // </li>
                     <li key={crypto.randomUUID()}>
-                        {card.question}
+                        <span>{card.question} | {card.answer}</span>
                     </li>
                 ))}
             </ul>

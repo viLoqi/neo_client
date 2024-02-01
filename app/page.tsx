@@ -27,12 +27,7 @@ export default function Home() {
     }
     if (user) {
         return (
-            <main className="flex min-h-screen flex-col items-center p-24">
-                <div>
-                    <HomePage user={user} auth={auth} />
-                    <ChatBox user={user} auth={auth} />
-                </div>
-            </main >
+            <ChatBox user={user} auth={auth} />
         )
     }
 
@@ -42,8 +37,6 @@ export default function Home() {
     }
 
     return (
-        <main className="">
-            <LoginPage onClickSignInWithGoogle={signInWithGoogle} />
-        </main >
+        <LoginPage onClickSignInWithGoogle={signInWithGoogle} />
     )
 }

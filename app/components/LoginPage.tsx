@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const LoginPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> }) => {
     return (
-        <div className='flex flex-col items-center p-24 
+        <div className='h-screen flex flex-col items-center p-24 
                         bg-gradient-to-b from-[#cfe7c4] to-white
         '>
             <h1 className='font-bold text-3xl p-10'>Hello, welcome to Loqi!</h1>
@@ -29,7 +29,7 @@ const LoginPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () =>
                     {/* Sign up, forgot password */}
                     <div className='flex items-center justify-between py-6 px-4 font-semibold text-xs text-blue-500'>
                         <button className='hover:text-blue-800'>
-                            <u>Don't have an account?</u>
+                            <u>Don&apos;t have an account?</u>
                         </button>
                         <a className='hover:text-blue-800' href='#'>
                             <u>
@@ -41,15 +41,15 @@ const LoginPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () =>
             </form>
             {/* Login with Google */}
             {/* <div className='border p-3 rounded-xl hover:bg-gray-200'> */}
-                <button className='flex border p-3 rounded-xl hover:bg-gray-200 items-center w-[210px] justify-between' onClick={onClickSignInWithGoogle}>
-                    <Image
-                        src={'/google-logo.png'}
-                        alt='google logo'
-                        width={20}
-                        height={20}
-                    />
-                    Sign in with Google
-                </button>
+            <button className='flex border p-3 rounded-xl hover:bg-gray-200 items-center w-[210px] justify-between' onClick={onClickSignInWithGoogle}>
+                <Image
+                    src={'/google-logo.png'}
+                    alt='google logo'
+                    width={20}
+                    height={20}
+                />
+                Sign in with Google
+            </button>
             {/* </div> */}
         </div>
     )

@@ -5,6 +5,7 @@ import './BrowseDeckPage.css';
 import Link from 'next/link';
 import { CiCircleChevLeft } from "react-icons/ci";
 import UserCard from "../../components/UserCard";
+import GenerateDeckModal from "../../components/GenerateDeckModal";
 import { useParams } from 'next/navigation';
 import { PostDeckResponse, CardSchema, DeckSchema, RepositorySchema, RepositoryDecksSchema } from '@/app/types';
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -48,6 +49,20 @@ const BrowseDeckPage = () => {
     const [cid, setCid] = useState(decodeURI(class_id as string))
 
     const [decks, setDecks] = useState<RepositoryDecksSchema[]>([]);
+
+    const [numQuestions, setNumQuestions] = useState('5');
+    
+    const [questionType, setQuestionType] = useState('');
+
+    const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
+
+
+    const handleGenerateDeck = (numQuestions: string, questionType: string) => {
+
+        console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
+        setIsGenerateDeckModalOpen(false);
+
+    }
 
     useEffect(() => {
         fetch(`/api/repository/get/${cid}`).then(async r => {
@@ -101,6 +116,17 @@ const BrowseDeckPage = () => {
                         <button onClick={addNewDeck} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
                             <p className='text-white font-bold text-lg'>Add new deck</p>
                         </button>
+                        <button onClick={setIsGenerateDeckModalOpen} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
+                            <p className='text-white font-bold text-lg'>Generate Deck</p>
+                        </button>
+                        {isGenerateDeckModalOpen && (
+                            <GenerateDeckModal
+                                isOpen={isGenerateDeckModalOpen}
+                                onClose={() => setIsGenerateDeckModalOpen(false)}
+                                onGenerate={handleGenerateDeck}
+                            />
+                        )}
+
                     </div>
                     <div>
                         <div className="grid grid-cols-2 gap-4">

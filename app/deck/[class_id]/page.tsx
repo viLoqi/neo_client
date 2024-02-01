@@ -51,7 +51,7 @@ const BrowseDeckPage = () => {
     const [decks, setDecks] = useState<RepositoryDecksSchema[]>([]);
 
     const [numQuestions, setNumQuestions] = useState('5');
-    
+
     const [questionType, setQuestionType] = useState('');
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
@@ -76,8 +76,7 @@ const BrowseDeckPage = () => {
         })
     }, [refresh])
 
-    const addNewDeck = () => {
-        const cards: CardSchema[] = Array(3).fill({ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 })
+    const addNewDeck = (cards: CardSchema[]) => {
         fetch("/api/deck/deck", {
             method: "POST", headers: {
                 'Accept': 'application/json',
@@ -113,10 +112,12 @@ const BrowseDeckPage = () => {
                             <FaMagnifyingGlass />
                             <input type='text' placeholder='Search decks' className=' ml-2 focus:outline-none w-full' />
                         </div>
-                        <button onClick={addNewDeck} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
+                        <button onClick={() => addNewDeck(Array(3).fill({ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
                             <p className='text-white font-bold text-lg'>Add new deck</p>
                         </button>
-                        <button onClick={setIsGenerateDeckModalOpen} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
+                        <button onClick={() => {
+                            setIsGenerateDeckModalOpen(true)
+                        }} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
                             <p className='text-white font-bold text-lg'>Generate Deck</p>
                         </button>
                         {isGenerateDeckModalOpen && (

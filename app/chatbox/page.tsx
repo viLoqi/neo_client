@@ -5,6 +5,13 @@ import UserCard from "../components/UserCard";
 import Link from "next/link";
 import Input from "../components/Chatbox/Input";
 import Messages from "../components/Chatbox/Messages";
+import { User, Auth } from "firebase/auth";
+import { Button } from "../components/Button";
+
+interface ChatBoxProps {
+    user: User,
+    auth: Auth
+}
 
 // Replace with courses from database
 const COURSES = [
@@ -22,7 +29,7 @@ const COURSES = [
     "Hello",
 ];
 
-const ChatBox = () => {
+const ChatBox = ({ user, auth }: ChatBoxProps) => {
     const [activeCourse, setActiveCourse] = useState(COURSES[0]);
     const [chatMessages, setChatMessages] = useState([""])
 
@@ -40,6 +47,10 @@ const ChatBox = () => {
                         </div>
                     );
                 })}
+                <h1>Welcome {user.displayName}!</h1>
+                <Button size='sm' variant='outline' onClick={() => auth.signOut()}>
+                    Sign Out
+                </Button>
             </div>
             {/* middle component */}
             <div className="flex flex-col w-full bg-[#18593c]">
@@ -86,6 +97,8 @@ const ChatBox = () => {
                     userProfilePicture="/dummy-user-pic.jpg"
                 />
             </div>
+
+
         </div>
     );
 };

@@ -1,4 +1,5 @@
 "use client"
+import ChatBox from './chatbox/page';
 import { Button } from './components/Button';
 import HomePage from './components/Homepage';
 import LoginPage from './components/LoginPage';
@@ -29,6 +30,7 @@ export default function Home() {
             <main className="flex min-h-screen flex-col items-center p-24">
                 <div>
                     <HomePage user={user} auth={auth} />
+                    <ChatBox user={user} auth={auth} />
                 </div>
             </main >
         )
@@ -41,7 +43,7 @@ export default function Home() {
 
     return (
         <main className="">
-            <LoginPage onClickSignInWithGoogle={signInWithGoogle}/>
+            <LoginPage onClickSignInWithGoogle={signInWithGoogle} />
         </main >
     )
 }

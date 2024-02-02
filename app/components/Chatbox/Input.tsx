@@ -16,10 +16,16 @@ const Input = ({ course }: Props) => {
     const payload = { collectionPath: `chats/${course}/messages`, content: message, "author": user?.displayName, "authorPhotoURL": user?.photoURL }
 
     const handleClick = () => {
-        fetch("/api/messaging", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(async (r) => {
-            const d = await r.json()
-            console.log(d)
+        fetch("/api/messaging", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(() => {
+            setMessage("")
         })
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        console.log(e.key)
+        if (e.key === "Enter") {
+            handleClick()
+        }
     }
 
     return (
@@ -30,6 +36,7 @@ const Input = ({ course }: Props) => {
                     id="prompt-textarea"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    onKeyUp={(e) => handleKeyDown(e)}
                     ref={inputRef}
                     placeholder="Message LoqiGPT..."
                     className="w-full resize-none focus:outline-none bg-transparent rounded-2xl py-[10px] placeholder-white/50 text-white pl-4 max-h-[200px] overflow-hidden"

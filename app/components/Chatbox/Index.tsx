@@ -31,7 +31,6 @@ const COURSES = [
 
 const ChatBox = ({ user, auth }: Props) => {
     const [activeCourse, setActiveCourse] = useState(COURSES[0]);
-    const [chatMessages, setChatMessages] = useState([""])
 
     return (
         <div className="flex w-full h-screen ">

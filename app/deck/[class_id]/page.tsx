@@ -85,7 +85,7 @@ const BrowseDeckPage = () => {
             else
                 setDecks([])
         })
-    }, [refresh])
+    }, [refresh, cid])
 
     const addNewDeck = (topic: string, cards: CardSchema[]) => {
         fetch("/api/deck/deck", {

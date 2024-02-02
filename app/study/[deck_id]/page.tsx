@@ -1,6 +1,6 @@
 "use client";
 
-import Question from "@/app/question/page";
+import Question from "@/app/components/Question";
 import { useParams } from "next/navigation";
 import { CardSchema } from "@/app/types";
 import { useEffect, useState } from "react";

@@ -1,5 +1,5 @@
 "use client"
-import ChatBox from './chatbox/page';
+import ChatBox from './components/Chatbox/Index';
 import { Button } from './components/Button';
 import HomePage from './components/Homepage';
 import LoginPage from './components/LoginPage';

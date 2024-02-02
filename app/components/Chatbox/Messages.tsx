@@ -6,10 +6,10 @@ import { getFirestore, doc, collection, query, orderBy, Timestamp } from 'fireba
 import { firestore } from '@/app/firebase'
 import { useState } from 'react'
 
-interface Prop {
+interface Props {
   course: string
 }
-const Messages = ({ course }: Prop) => {
+const Messages = ({ course }: Props) => {
   const [mcp, setMcp] = useState("chats/CSE 114/messages")
 
   useEffect(() => {

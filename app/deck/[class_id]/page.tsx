@@ -27,17 +27,19 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
     return (
         <div className="deck">
             <h3>{deck_name}</h3>
-            <ul>
+            <ol>
                 {cards.map(card => (
                     // <li key={card.id} className={card.completed ? 'completed' : 'not-completed'}>
                     //     {card.question}
                     // </li>
-                    <li key={crypto.randomUUID()}>
-                        <span>{card.question} | {card.answer}</span>
+                    <li className="flex flex-col gap-5 text-green-600" key={crypto.randomUUID()}>
+                        <div>Q: {card.question}</div>
+                        <div>A: {card.answer}</div>
                     </li>
                 ))}
-            </ul>
-        </div>
+            </ol>
+            <Link className={"btn"} href={`/study/${deck_id}`}>STUDY THIS</Link>
+        </div >
     );
 };
 
@@ -60,6 +62,15 @@ const BrowseDeckPage = () => {
     const handleGenerateDeck = (numQuestions: string, questionType: string) => {
 
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
+
+        const payload = { "question": `Give me ${numQuestions} question and answer about ${questionType} in JSON array format` }
+        fetch("https://nle646esfd.execute-api.us-east-1.amazonaws.com/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(async (r) => {
+            const d = await r.json()
+            const reply = JSON.parse(d["Answer"])
+            const deck = reply.map((r: any) => { return { question: r["Question"], answer: r["Answer"], hint: "", order: 0 } })
+            addNewDeck(questionType, deck)
+        }).catch(() => { addNewDeck(questionType, Array(1).fill({ question: "AWS Bedrock Timeout", answer: "AWS Bedrock Timeout", hint: "", order: 0 })) })
+
         setIsGenerateDeckModalOpen(false);
 
     }
@@ -76,13 +87,13 @@ const BrowseDeckPage = () => {
         })
     }, [refresh])
 
-    const addNewDeck = (cards: CardSchema[]) => {
+    const addNewDeck = (topic: string, cards: CardSchema[]) => {
         fetch("/api/deck/deck", {
             method: "POST", headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "cards": cards, "name": "Random Deck Name lol" })
+            body: JSON.stringify({ "cards": cards, "name": topic })
         }).then(async (r) => {
             let data: PostDeckResponse = await r.json();
             fetch("/api/repository/upload", {
@@ -90,6 +101,8 @@ const BrowseDeckPage = () => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+                // topic refers to class now
+                // NEED TO REWORK Existing API
                 body: JSON.stringify({ topic: cid, "deck_name": data.deck_name, "deck_id": data.deck_id, "description": `blah blah blah created at: ${new Date().toDateString()}` })
             }).then(() => { setRefresh((prev) => !prev) })
         })
@@ -112,7 +125,7 @@ const BrowseDeckPage = () => {
                             <FaMagnifyingGlass />
                             <input type='text' placeholder='Search decks' className=' ml-2 focus:outline-none w-full' />
                         </div>
-                        <button onClick={() => addNewDeck(Array(3).fill({ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
+                        <button onClick={() => addNewDeck("RANDOM", Array(3).fill({ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
                             <p className='text-white font-bold text-lg'>Add new deck</p>
                         </button>
                         <button onClick={() => {

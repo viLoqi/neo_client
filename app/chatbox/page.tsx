@@ -65,9 +65,9 @@ const ChatBox = ({ user, auth }: ChatBoxProps) => {
                     </Link>
                 </div>
                 {/* Messages */}
-                <Messages messages={chatMessages} />
+                <Messages course={activeCourse} />
                 {/* Input bar */}
-                <Input setter={setChatMessages} />
+                <Input course={activeCourse} />
             </div>
             {/* Users panel */}
             <div className="bg-[#003825] min-w-56">

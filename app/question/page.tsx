@@ -5,17 +5,35 @@ import { CiCircleChevLeft } from "react-icons/ci";
 import UserCard from "../components/UserCard";
 import Link from "next/link";
 import { CountdownCircleTimer, type ColorFormat } from "react-countdown-circle-timer";
+import { CardSchema } from "../types";
+import { Dispatch } from "react";
 
-const Question = () => {
-    const question = questions[0];
+interface Props {
+    card: CardSchema,
+    setNextCard: Dispatch<CardSchema>,
+    cards: CardSchema[]
+}
+const Question = ({ card, cards, setNextCard }: Props) => {
+
+    if (card === undefined)
+        return <>NO CARD</>
+
+
+    // const HandleCorrectAnswerClick = () => {
+    //     setNextCard()
+    // }
+
     const duration = 70;
+
+    const course = "TBD"
+    const deckName = "DECK NAME"
 
     return (
         <div className="flex w-full h-screen ">
             <div className="flex flex-col items-center w-full bg-[#18593c]">
                 {/* Course title */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
-                    {question.course}
+                    {course}
                 </h1>
                 {/* main body */}
                 <div className="flex w-full ml-12">
@@ -32,10 +50,10 @@ const Question = () => {
                                 size={150}
                                 duration={duration}
                                 colors={["#ffffff", "#F7B801", "#A30000"]}
-                                colorsTime={[duration, duration/2, 0]}
+                                colorsTime={[duration, duration / 2, 0]}
                             >
                                 {({ remainingTime }) => {
-                                    const minutes = Math.floor(remainingTime/60)
+                                    const minutes = Math.floor(remainingTime / 60)
                                     const seconds = (remainingTime % 60).toString().padStart(2, '0')
                                     return `${minutes}:${seconds}`;
                                 }}
@@ -47,28 +65,26 @@ const Question = () => {
                     <div className="flex flex-col w-[1000px] py-8 my-8 items-center justify-evenly rounded-[50px] bg-white">
                         {/* Deck title */}
                         <h1 className="font-bold text-3xl">
-                            {question.deckName}
+                            {deckName}
                         </h1>
                         {/* Question */}
                         <div className="w-4/5 mt-5">
                             <p className="whitespace-pre font-bold text-sm">
-                                {question.question}
+                                {card.question}
                             </p>
                         </div>
                         {/* Answer choices */}
                         <div className="grid grid-cols-2 gap-3 w-4/5">
-                            {question.choices.map((choice, index) => {
+                            {["WRONG", "WRONG", "WRONG", card.answer].map((choice) => {
                                 return (
                                     <ChoiceButton
                                         key={choice}
                                         text={choice}
-                                        isCorrect={
-                                            question.correctChoiceIndex ===
-                                            index
-                                        }
+                                        isCorrect={choice === card.answer}
                                     />
                                 );
                             })}
+
                         </div>
                     </div>
                 </div>

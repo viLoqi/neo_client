@@ -1,16 +1,24 @@
 import React, { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { FaArrowUp } from "react-icons/fa6";
+import { auth } from '../../firebase';
 
-const Input = ({ setter }: { setter: Dispatch<SetStateAction<string[]>> }) => {
+interface Props {
+    course: string
+}
+const Input = ({ course }: Props) => {
     const [message, setMessage] = useState("");
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
     useAutosizeTextArea(inputRef.current, message);
 
+    const [user, loading] = useAuthState(auth);
+    const payload = { collectionPath: `chats/${course}/messages`, content: message, "author": user?.displayName, "authorPhotoURL": user?.photoURL }
+
     const handleClick = () => {
-        fetch("https://nle646esfd.execute-api.us-east-1.amazonaws.com/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "question": message }) }).then(async (r) => {
+        fetch("/api/messaging", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(async (r) => {
             const d = await r.json()
-            setter(prev => [...prev, d["Answer"]])
+            console.log(d)
         })
     }
 

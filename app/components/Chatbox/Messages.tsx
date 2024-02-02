@@ -1,23 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Message from './Message'
+import { MessageSchema } from '@/app/types'
+import { useDocument, useCollection } from 'react-firebase-hooks/firestore'
+import { getFirestore, doc, collection, query, orderBy, Timestamp } from 'firebase/firestore'
+import { firestore } from '@/app/firebase'
+import { useState } from 'react'
 
-const Messages = ({ messages }: { messages: string[] }) => {
-  const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-  do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-  ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  Duis aute irure dolor in reprehenderit in voluptate velit
-  esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-  occaecat cupidatat non proident, sunt in culpa qui officia
-  deserunt mollit anim id est laborum.`
+interface Prop {
+  course: string
+}
+const Messages = ({ course }: Prop) => {
+  const [mcp, setMcp] = useState("chats/CSE 114/messages")
+
+  useEffect(() => {
+    setMcp(`chats/${course}/messages`)
+  }, [course])
+
+  const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firestore, mcp), orderBy('firstCreated', 'asc')))
+
   return (
     <div className='flex flex-col h-full px-20 py-10 overflow-auto no-scrollbar'>
-      <Message text={lorem} />
-      <Message text={lorem} />
-      <Message text={lorem} />
-      <Message text={lorem} />
-      <Message text={lorem} />
-      {messages.map((m) => m ? <Message key={crypto.randomUUID()} text={m} /> : <></>)}
+      {firebaseMessages?.docs.map(e => {
+        const currMsg = e.data() as MessageSchema
+        return <Message key={crypto.randomUUID()} {...currMsg} />
+      })}
     </div>
   )
 }

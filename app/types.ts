@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface CardSchema {
     question: string,
     answer: string,
@@ -30,4 +32,12 @@ export interface RepositoryDecksSchema {
 export interface RepositorySchema {
     _id: string
     decks: RepositoryDecksSchema[]
+}
+
+export interface MessageSchema {
+    author: string
+    authorPhotoURL: string
+    content: string
+    firstCreated: Timestamp
+    lastUpdated: Timestamp
 }

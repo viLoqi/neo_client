@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CountdownCircleTimer, type ColorFormat } from "react-countdown-circle-timer";
 import { CardSchema } from "../types";
 import { Dispatch } from "react";
+import UsersPanel from "./UsersPanel";
 
 interface Props {
     card: CardSchema,
@@ -86,33 +87,7 @@ const Question = ({ card, cards, setNextCard }: Props) => {
                 </div>
             </div>
             {/* Users panel */}
-            <div className="bg-[#003825] w-56">
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-            </div>
+            <UsersPanel/>
         </div>
     );
 };

@@ -9,6 +9,7 @@ import GenerateDeckModal from "../../components/GenerateDeckModal";
 import { useParams } from 'next/navigation';
 import { PostDeckResponse, CardSchema, DeckSchema, RepositorySchema, RepositoryDecksSchema } from '@/app/types';
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import UsersPanel from '@/app/components/UsersPanel';
 
 
 const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
@@ -152,33 +153,7 @@ const BrowseDeckPage = () => {
                 </div>
             </div>
 
-            <div className="bg-[#003825] w-56 order-last"> {/* Use "order-first" to move it to the right */}
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-            </div>
+            <UsersPanel/>
         </div>
     );
 };

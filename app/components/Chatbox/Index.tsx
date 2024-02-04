@@ -8,6 +8,7 @@ import { Button } from "../Button";
 import UserCard from "../UserCard";
 import Input from "./Input";
 import Messages from "./Messages";
+import UsersPanel from "../UsersPanel";
 interface Props {
     user: User,
     auth: Auth
@@ -69,35 +70,7 @@ const ChatBox = ({ user, auth }: Props) => {
                 <Input course={activeCourse} />
             </div>
             {/* Users panel */}
-            <div className="bg-[#003825] min-w-56">
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-                <UserCard
-                    userName="user"
-                    userHandle="user123"
-                    userProfilePicture="/dummy-user-pic.jpg"
-                />
-            </div>
-
-
+            <UsersPanel/>
         </div>
     );
 };

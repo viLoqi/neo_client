@@ -65,10 +65,11 @@ const BrowseDeckPage = () => {
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
 
         const payload = { "question": `Give me ${numQuestions} question and answer about ${questionType} in JSON array format` }
+
         fetch("https://nle646esfd.execute-api.us-east-1.amazonaws.com/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(async (r) => {
             const d = await r.json()
             const reply = JSON.parse(d["Answer"])
-            const deck = reply.map((r: any) => { return { question: r["Question"], answer: r["Answer"], hint: "", order: 0 } })
+            const deck = reply.map((r: any) => { return { question: r["Question"], answer: r["Answer"], hint: "", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3"] } })
             addNewDeck(questionType, deck)
         }).catch(() => { addNewDeck(questionType, Array(1).fill({ question: "AWS Bedrock Timeout", answer: "AWS Bedrock Timeout", hint: "", order: 0 })) })
 
@@ -126,7 +127,7 @@ const BrowseDeckPage = () => {
                             <FaMagnifyingGlass />
                             <input type='text' placeholder='Search decks' className=' ml-2 focus:outline-none w-full' />
                         </div>
-                        <button onClick={() => addNewDeck("RANDOM", Array(3).fill({ question: "What is 9+10?", answer: (Math.round(Math.random() * 21)).toString(), hint: "a dead meme :(", order: 0 }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
+                        <button onClick={() => addNewDeck("RANDOM", Array(3).fill({ question: "What is 9+10?", answer: "ANSWER", hint: "a dead meme :(", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3", "ANSWER"] }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
                             <p className='text-white font-bold text-lg'>Add new deck</p>
                         </button>
                         <button onClick={() => {
@@ -153,7 +154,7 @@ const BrowseDeckPage = () => {
                 </div>
             </div>
 
-            <UsersPanel/>
+            <UsersPanel />
         </div>
     );
 };

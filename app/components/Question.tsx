@@ -18,8 +18,6 @@ const Question = ({ card, cards, setNextCard }: Props) => {
     if (card === undefined)
         return <>NO CARD</>
 
-
-
     const duration = 70;
 
     const course = "TBD"
@@ -72,7 +70,7 @@ const Question = ({ card, cards, setNextCard }: Props) => {
                             </div>
                             {/* Answer choices */}
                             <div className="grid grid-cols-2 gap-3 w-4/5">
-                                {["WRONG", "WRONG", "WRONG", card.answer].map((choice) => {
+                                {card.choices.map((choice) => {
                                     return (
                                         <ChoiceButton
                                             key={choice}

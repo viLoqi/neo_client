@@ -3,6 +3,7 @@ import { Timestamp } from "firebase/firestore";
 export interface CardSchema {
     question: string,
     answer: string,
+    choices: string[],
     hint: string,
     order: number;
 }

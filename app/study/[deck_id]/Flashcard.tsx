@@ -1,14 +1,45 @@
 "use client";
 import ChoiceButton from "../../components/ChoiceButton";
 import { CardSchema } from "../../types";
+import { motion } from "framer-motion"
 
-const Flashcard = ({card}: {card:CardSchema}) => {
+const Flashcard = ({ card }: { card: CardSchema }) => {
+    const stackVariants = {
+        onTop: {
+            x: "0",
+            opacity: 1,
+            scale: 1,
+            transition: {
+                type: "spring",
+                delay: 0.1,
+                duration: 1,
+            },
+        },
+        onBottom: {
+            scale: 0.8,
+        },
+        exit: {
+            x: "-50%",
+            opacity: "25%",
+            rotate: -200,
+            scale: 0.5,
+            transition: {
+                duration: 0.5,
+            }
+        }
+    }
+
 
     if (card === undefined)
         return <>NO CARD</>
 
     return (
-        <div className="flex flex-col w-full h-4/5 py-8 items-center justify-evenly rounded-[50px] bg-white">
+        <motion.div className="absolute flex flex-col w-full h-4/5 py-8 items-center justify-evenly rounded-[50px] bg-white"
+            initial={"onBottom"}
+            animate={"onTop"}
+            exit={"exit"}
+            variants={stackVariants}
+        >
             {/* Deck title */}
             <h1 className="font-bold text-3xl">
                 deckName
@@ -31,7 +62,7 @@ const Flashcard = ({card}: {card:CardSchema}) => {
                     );
                 })}
             </div>
-        </div>
+        </motion.div>
     );
 };
 

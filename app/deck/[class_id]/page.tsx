@@ -64,14 +64,13 @@ const BrowseDeckPage = () => {
 
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
 
-        const payload = { "question": `Give me ${numQuestions} question and answer about ${questionType} in JSON array format; ` }
+        const payload = { "question": `Give me ${numQuestions} question and answer about ${questionType}. The response should be in a JSON array format that can be parsed with the JSON.parse() function ` }
 
         fetch("https://nle646esfd.execute-api.us-east-1.amazonaws.com/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(async (r) => {
             const d = await r.json()
-            // const reply = JSON.parse(d["Answer"].match(/\{*\}/gm)[0])
-            // console.log("RESPONSE IS: " + reply)
-            // const deck = reply.map((r: any) => { return { question: r["Question"], answer: r["Answer"], hint: "", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3"] } })
-            addNewDeck(questionType, [{ question: d["Answer"], answer: "WILL PARSE LATER", hint: "", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3"] }])
+            const reply = JSON.parse(d["Answer"].match(/^\{[^`]+\}$/gms)[0])["rows"]
+            const deck = reply.map((r: any) => { return { question: r["Question"], answer: r["Answer"], hint: "", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3", r["Answer"]] } })
+            addNewDeck(questionType, deck)
         }).catch((err) => {
             console.log(err)
             addNewDeck(questionType, Array(1).fill({ question: "Request Failed", answer: err, hint: "", order: 0 }))
@@ -86,7 +85,7 @@ const BrowseDeckPage = () => {
         fetch(`/api/repository/get/${cid}`).then(async r => {
             const data = await r.json() as RepositorySchema
             if (Array.isArray(data) && data.length) {
-                console.log(data)
+                console.table("REPO: ", data)
                 setDecks(data[0].decks)
             }
             else

@@ -10,6 +10,7 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
+import LandingPage from './components/LandingPage';
 
 export default function Home() {
 
@@ -42,11 +43,11 @@ export default function Home() {
 
     return (
         <div className='h-screen p-24
-                        bg-gradient-to-b from-[#cfe7c4] to-white
-        '>
+                 bg-gradient-to-b from-[#cfe7c4] to-white'>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<LoginPage onClickSignInWithGoogle={signInWithGoogle} />} />
+                    <Route path='/' element={<LandingPage/>}/>
+                    <Route path='/login' element={<LoginPage onClickSignInWithGoogle={signInWithGoogle} />} />
                     <Route path='/signup' element={<SignUpPage onClickSignInWithGoogle={signInWithGoogle}/>} />
                     {/* // <LoginPage onClickSignInWithGoogle={signInWithGoogle} /> */}
                 </Routes>

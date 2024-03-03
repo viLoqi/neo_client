@@ -5,11 +5,9 @@ import SignUpPage from './components/SignUpPage';
 import { auth } from './firebase';
 import { GoogleAuthProvider, signInWithPopup,} from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
 
 export default function Home() {
 

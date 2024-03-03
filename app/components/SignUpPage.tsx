@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from "next/image";
-import {Link} from 'react-router-dom';
 
 const SignUpPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> }) => {
   return (

@@ -11,6 +11,14 @@ import { PostDeckResponse, CardSchema, DeckSchema, RepositorySchema, RepositoryD
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import UsersPanel from '@/app/components/UsersPanel';
 
+function parseToCardSchema(generatedQuestions: string): CardSchema[] {
+    const questionsObj = JSON.parse(generatedQuestions);
+    return Object.keys(questionsObj).map((key, index) => {
+      const { question, answer, choices, hint } = questionsObj[key];
+      return { question, answer, choices, hint, order: index };
+    });
+  }
+
 
 const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
     const [cards, setCards] = useState<CardSchema[]>([])
@@ -60,27 +68,43 @@ const BrowseDeckPage = () => {
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
 
-    const handleGenerateDeck = (numQuestions: string, questionType: string) => {
-
+    const handleGenerateDeck = async (numQuestions: string, questionType: string) => {
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
+      
+        const payload = { numQuestions, questionType };
+        console.log("type of: ", typeof payload);
+      
+        try {
+          const response = await fetch('/api/ai/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+      
+          const generatedQuestions = await response.json();
+          console.log("type of2: ", typeof generatedQuestions);
 
-        const payload = { "question": `Give me ${numQuestions} question and answer about ${questionType} in JSON array format; ` }
+        console.log("generatedQuestions:", generatedQuestions);
+          const cardSchemas = parseToCardSchema(generatedQuestions);
 
-        fetch("https://nle646esfd.execute-api.us-east-1.amazonaws.com/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(async (r) => {
-            const d = await r.json()
-            // const reply = JSON.parse(d["Answer"].match(/\{*\}/gm)[0])
-            // console.log("RESPONSE IS: " + reply)
-            // const deck = reply.map((r: any) => { return { question: r["Question"], answer: r["Answer"], hint: "", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3"] } })
-            addNewDeck(questionType, [{ question: d["Answer"], answer: "WILL PARSE LATER", hint: "", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3"] }])
-        }).catch((err) => {
-            console.log(err)
-            addNewDeck(questionType, Array(1).fill({ question: "Request Failed", answer: err, hint: "", order: 0 }))
+          console.log('Generated Questions:', generatedQuestions);
+          if (cardSchemas.length > 0) {
+            console.log('First Generated CardSchema:', cardSchemas[0]);
+          }
 
-        })
-
+          addNewDeck(questionType, cardSchemas);
+      
+        } catch (error) {
+          console.error('Error generating questions:', error);
+        }
+      
         setIsGenerateDeckModalOpen(false);
-
-    }
+      };
+      
 
     useEffect(() => {
         fetch(`/api/repository/get/${cid}`).then(async r => {

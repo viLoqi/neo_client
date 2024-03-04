@@ -11,10 +11,14 @@ import UsersPanel from "../../components/UsersPanel";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import Flashcard from "./Flashcard";
-import { motion, AnimatePresence } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
+
+import { useRouter } from "next/navigation";
 
 // Carolsuole
 const StudyPage = () => {
+    const router = useRouter();
+
     const [cards, setCards] = useState<CardSchema[]>([])
     const [activeCardIndex, setActiveCardIndex] = useState(0)
     const { deck_id } = useParams()
@@ -90,9 +94,9 @@ const StudyPage = () => {
                     {/* Left side */}
                     <div className="flex flex-col">
                         {/* Back button */}
-                        <Link href="/">
-                            <CiCircleChevLeft size="50" color="white" />
-                        </Link>
+                        {/* <Link href='/'> */}
+                            <CiCircleChevLeft size="50" color="white" onClick={() => router.back()}/>
+                        {/* </Link> */}
                         <div className="flex mt-[30vh] items-center justify-center text-white text-xl font-semibold size-36 justify-self-center">
                             <CountdownCircleTimer
                                 isPlaying
@@ -117,7 +121,6 @@ const StudyPage = () => {
                         <button className={`${activeCardIndex == 0 ? "invisible w-[3rem]" : "btn"}`} onClick={getPrevCard}><FaChevronLeft /></button>
                         {/* card */}
                         <div className="flex w-4/5 h-full mx-10 items-center justify-center relative" >
-                            {/* <Flashcard card={cards[activeCardIndex]}/> */}
                             <AnimatePresence>
                                 {
                                     cards.map((card, index) => {

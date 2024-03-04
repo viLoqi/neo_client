@@ -13,7 +13,10 @@ import UsersPanel from '@/app/components/UsersPanel';
 
 
 const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
+
     const [cards, setCards] = useState<CardSchema[]>([])
+
+    const placeholderDifficulty = 'high'
 
     useEffect(() => {
         fetch(`/api/deck/deck/${deck_id}`).then(async r => {
@@ -27,18 +30,17 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
 
     return (
         <div className="deck">
-            <h3>{deck_name}</h3>
-            <ol>
+            <div className='flex items-center'>
+                <p className={`inline-block mr-2 px-4 py-1 font-bold text-[17px] rounded-xl ${placeholderDifficulty == 'high' ? 'bg-[#f3a4a4] text-[#f62020]' : ''}`}>{placeholderDifficulty}</p>
+                <h3 className='inline-block'>{deck_name}</h3>
+            </div>
+            <ul>
                 {cards.map(card => (
-                    // <li key={card.id} className={card.completed ? 'completed' : 'not-completed'}>
-                    //     {card.question}
-                    // </li>
-                    <li className="flex flex-col gap-5 text-green-600" key={crypto.randomUUID()}>
-                        <div>Q: {card.question}</div>
-                        <div>A: {card.answer}</div>
+                    <li className="ml-20 gap-5 text-gray-500 font-semibold" key={crypto.randomUUID()}>
+                        <div>{card.question}</div>
                     </li>
                 ))}
-            </ol>
+            </ul>
             <Link className={"btn"} href={`/study/${deck_id}`}>STUDY THIS</Link>
         </div >
     );
@@ -116,13 +118,13 @@ const BrowseDeckPage = () => {
 
     return (
         <div className="flex w-full h-screen bg-[#18593c]">
-            <div className='flex flex-col items-center w-full'>
+            <div className='flex flex-col items-center w-full h-full'>
                 {/* course name */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
                     {(class_id as string).replace("%20", " ")}
                 </h1>
                 {/* main body */}
-                <div className='flex flex-col w-full px-6'>
+                <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
                     <Link href="/">
                         <CiCircleChevLeft size="50" color="white" />
                     </Link>
@@ -148,12 +150,10 @@ const BrowseDeckPage = () => {
                         )}
 
                     </div>
-                    <div>
-                        <div className="grid grid-cols-2 gap-4">
-                            {decks ? decks.map(deck => (
-                                <Deck key={deck.deck_id} {...deck} />
-                            )) : <></>}
-                        </div>
+                    <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
+                        {decks ? decks.map(deck => (
+                            <Deck key={deck.deck_id} {...deck} />
+                        )) : <></>}
                     </div>
                 </div>
             </div>

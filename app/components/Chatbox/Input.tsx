@@ -9,7 +9,6 @@ interface Props {
 
 var isShiftPressed = false;
 var isEnterPressed = false;
-var sendMessage = false;
 
 const Input = ({ course }: Props) => {
     const [message, setMessage] = useState("");
@@ -17,11 +16,9 @@ const Input = ({ course }: Props) => {
     const inputRef = useRef<HTMLTextAreaElement>(null);
     useAutosizeTextArea(inputRef.current, message);
 
+    const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
+
     const handleTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        if(sendMessage) {
-            e.target.value = ''
-            sendMessage = false;
-        }
 
         if (isEnterPressed && isShiftPressed) {
             console.log("shift + enter");
@@ -38,10 +35,12 @@ const Input = ({ course }: Props) => {
             isShiftPressed = true;
         } else if (e.key === 'Enter') {
             isEnterPressed = true;
-            if (!isShiftPressed) {
+            if (!isShiftPressed && !isWhitespaceString(message)) {
                 console.log("only enter");
                 handleClick()
-                sendMessage = true;
+            }
+            else{
+                e.preventDefault();
             }
         }
     }
@@ -58,7 +57,8 @@ const Input = ({ course }: Props) => {
 
     const handleClick = () => {
         fetch("/api/messaging", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(() => {
-            setMessage("")
+            setMessage("");
+            (document.getElementById('prompt-textarea')! as HTMLTextAreaElement).value = "";
         })
     }
 
@@ -76,7 +76,11 @@ const Input = ({ course }: Props) => {
                     rows={1}
                     className="w-full  resize-none focus:outline-none bg-transparent placeholder-white/50 text-white pl-4 pr-16 overflow-hidden max-h-[200px]"
                 />
-                <button className="flex items-center justify-center absolute bg-green-900 hover:bg-transparent border-[1px] border-gray-500 bottom-3 right-3 text-gray-400 rounded-lg size-8 transition-colors" onClick={handleClick}>
+                <button className="flex items-center justify-center absolute bg-green-900 hover:bg-transparent border-[1px] border-gray-500 bottom-3 right-3 text-gray-400 rounded-lg size-8 transition-colors" onClick={(e) => {
+                    if (!isWhitespaceString(message)) {
+                        handleClick();
+                    }
+                }}>
                     <FaArrowUp />
                 </button>
                 {/* </form> */}

@@ -110,7 +110,7 @@ const BrowseDeckPage = () => {
         fetch(`/api/repository/get/${cid}`).then(async r => {
             const data = await r.json() as RepositorySchema
             if (Array.isArray(data) && data.length) {
-                console.log(data)
+                console.table("REPO: ", data)
                 setDecks(data[0].decks)
             }
             else

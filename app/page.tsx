@@ -11,6 +11,7 @@ import {
     Route,
 } from "react-router-dom";
 import LandingPage from './components/LandingPage';
+import { Navbar } from './components/Navbar';
 
 export default function Home() {
 
@@ -45,6 +46,10 @@ export default function Home() {
         <div className='h-screen p-24
                  bg-gradient-to-b from-[#cfe7c4] to-white'>
             <BrowserRouter>
+            
+            <div className="z-20 absolute top-0 left-0 w-full ">
+            <Navbar />
+            </div>
                 <Routes>
                     <Route path='/' element={<LandingPage/>}/>
                     <Route path='/login' element={<LoginPage onClickSignInWithGoogle={signInWithGoogle} />} />

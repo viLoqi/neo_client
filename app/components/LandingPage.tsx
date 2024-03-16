@@ -1,6 +1,7 @@
 import React from "react";
 import Head from 'next/head';
 import Feature from '../components/Feature';
+import { Navbar } from "./Navbar";
 
 
 const LandingPage = () => {
@@ -25,10 +26,13 @@ const LandingPage = () => {
 
   return (
     
+    
     <div className="min-h-screen text-white flex flex-col items-center justify-center">
-     
-      {/* Main content block */}
-      
+
+    <div className="z-20 absolute top-0 left-0 w-full ">
+    <Navbar />
+     </div>
+      {/* Main content block */}      
       <div className="text-center mb-20 z-10">
       <div className="absolute left-0 right-0 top-0 mx-0 w-full h-96 bg-[url('/background-block.png')] bg-no-repeat bg-cover bg-center -z-10 rounded-b-[40px]" />
         <div className="mb-32">

@@ -46,7 +46,7 @@ export default function Home() {
                  bg-gradient-to-b from-[#cfe7c4] to-white'>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<LandingPage/>}/>
+                    <Route path='/' element={<LoginPage onClickSignInWithGoogle={signInWithGoogle}/>}/>
                     <Route path='/login' element={<LoginPage onClickSignInWithGoogle={signInWithGoogle} />} />
                     <Route path='/signup' element={<SignUpPage onClickSignInWithGoogle={signInWithGoogle}/>} />
                     {/* // <LoginPage onClickSignInWithGoogle={signInWithGoogle} /> */}

@@ -14,15 +14,30 @@ export const Navbar = () => {
             height={70}
         />
     </Link>
-    <ul className='flex gap-7 m-auto font-bold text-2xl	'>
-        <li className='hover:text-[#D3D3D3]'>
-            <Link to="/Blogs">Blogs</Link>
+    <ul className='flex gap-7 m-auto font-bold text-2xl'>
+        <li className='group relative'>
+            <Link to="/" className='inline-block relative'>
+                Home
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-transparent group-hover:bg-current transition-all duration-300"></span>
+            </Link>
         </li>
-        <li className='hover:text-[#D3D3D3]'>
-            <Link to="/News">News</Link>
+        <li className='group relative'>
+            <Link to="/Blogs" className='inline-block relative'>
+                Blogs
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-transparent group-hover:bg-current transition-all duration-300"></span>
+            </Link>
         </li>
-        <li className='hover:text-[#D3D3D3]'>
-            <Link to="/Dev">Dev</Link>
+        <li className='group relative'>
+            <Link to="/News" className='inline-block relative'>
+                News
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-transparent group-hover:bg-current transition-all duration-300"></span>
+            </Link>
+        </li>
+        <li className='group relative'>
+            <Link to="/Dev" className='inline-block relative'>
+                Dev
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-transparent group-hover:bg-current transition-all duration-300"></span>
+            </Link>
         </li>
     </ul>
     <Link to="/login">

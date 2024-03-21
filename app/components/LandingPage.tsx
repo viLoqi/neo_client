@@ -25,8 +25,6 @@ const LandingPage = () => {
   ];
 
   return (
-    
-    
     <div className="min-h-screen text-white flex flex-col items-center justify-center">
 
     <div className="z-20 absolute top-0 left-0 w-full ">
@@ -42,11 +40,10 @@ const LandingPage = () => {
           <p className="mt-3 text-5xl font-semibold mb-10">
               AI-powered collaborative and personalized learning.
           </p>
-          <button className="mt-6 py-2 px-4 bg-[#FFFFFF] opacity-75 rounded-xl text-[#00704A] font-semibold">
-              Join waitlist
+          <button className="text-xl mt-6 py-4 px-8 bg-[#FFFFFF] opacity-75 rounded-2xl text-[#00704A] font-semibold transition-transform duration-200 hover:scale-105 hover:bg-opacity-100">
+            Join waitlist
           </button>
         </div>
-
         {/* Background block */}
         
       </div>

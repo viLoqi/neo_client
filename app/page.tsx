@@ -44,7 +44,7 @@ export default function Home() {
 
     return (
         <div className='h-screen p-24
-                 bg-gradient-to-b from-[#cfe7c4] to-white'>
+                 bg-gradient-to-b from-[#cfe7c4] to-white overflow-hidden'>
             <BrowserRouter>
             <div className="z-20 absolute top-0 left-0 w-full ">
             <Navbar />
@@ -53,7 +53,6 @@ export default function Home() {
                     <Route path='/' element={<LandingPage/>}/>
                     <Route path='/login' element={<LoginPage onClickSignInWithGoogle={signInWithGoogle} />} />
                     <Route path='/signup' element={<SignUpPage onClickSignInWithGoogle={signInWithGoogle}/>} />
-                    {/* // <LoginPage onClickSignInWithGoogle={signInWithGoogle} /> */}
                 </Routes>
             </BrowserRouter>
         </div>

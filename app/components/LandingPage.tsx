@@ -2,7 +2,7 @@ import React from "react";
 import Head from 'next/head';
 import Feature from '../components/Feature';
 import { Navbar } from "./Navbar";
-
+import Link from 'next/link'
 
 const LandingPage = () => {
     let features = [
@@ -24,6 +24,7 @@ const LandingPage = () => {
         },
     ];
 
+
     return (
         <div className="min-h-screen text-white flex flex-col items-center justify-center">
 
@@ -39,9 +40,9 @@ const LandingPage = () => {
                 <p className="mt-3 text-5xl font-semibold mb-10">
                     AI-powered collaborative and personalized learning.
                 </p>
-                <button className="text-xl mt-6 py-4 px-8 bg-[#FFFFFF] opacity-75 rounded-2xl text-[#00704A] font-semibold transition-transform duration-200 hover:scale-105 hover:bg-opacity-100">
+                <Link href="/waitlist_form" className="text-xl mt-6 py-4 px-8 bg-[#FFFFFF] opacity-75 rounded-2xl text-[#00704A] font-semibold transition-transform duration-200 hover:scale-105 hover:bg-opacity-100" >
                     Join waitlist
-                </button>
+                </Link>
             </div>
             {/* <div className="text-center mb-20 z-10">
                 <div className="absolute left-0 right-0 top-0 mx-0 w-screen h-96 bg-[url('/background-block.webp')] bg-no-repeat bg-cover bg-center -z-10 rounded-b-[40px]"

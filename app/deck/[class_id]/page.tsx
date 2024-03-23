@@ -11,9 +11,20 @@ import { PostDeckResponse, CardSchema, DeckSchema, RepositorySchema, RepositoryD
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import UsersPanel from '@/app/components/UsersPanel';
 
+function parseToCardSchema(generatedQuestions: string): CardSchema[] {
+    const questionsObj = JSON.parse(generatedQuestions);
+    return Object.keys(questionsObj).map((key, index) => {
+      const { question, answer, choices, hint } = questionsObj[key];
+      return { question, answer, choices, hint, order: index };
+    });
+  }
+
 
 const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
+
     const [cards, setCards] = useState<CardSchema[]>([])
+
+    const placeholderDifficulty = 'high'
 
     useEffect(() => {
         fetch(`/api/deck/deck/${deck_id}`).then(async r => {
@@ -27,18 +38,17 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
 
     return (
         <div className="deck">
-            <h3>{deck_name}</h3>
-            <ol>
+            <div className='flex items-center'>
+                <p className={`inline-block mr-2 px-4 py-1 font-bold text-[17px] rounded-xl ${placeholderDifficulty == 'high' ? 'bg-[#f3a4a4] text-[#f62020]' : ''}`}>{placeholderDifficulty}</p>
+                <h3 className='inline-block'>{deck_name}</h3>
+            </div>
+            <ul>
                 {cards.map(card => (
-                    // <li key={card.id} className={card.completed ? 'completed' : 'not-completed'}>
-                    //     {card.question}
-                    // </li>
-                    <li className="flex flex-col gap-5 text-green-600" key={crypto.randomUUID()}>
-                        <div>Q: {card.question}</div>
-                        <div>A: {card.answer}</div>
+                    <li className="ml-20 gap-5 text-gray-500 font-semibold" key={crypto.randomUUID()}>
+                        <div>{card.question}</div>
                     </li>
                 ))}
-            </ol>
+            </ul>
             <Link className={"btn"} href={`/study/${deck_id}`}>STUDY THIS</Link>
         </div >
     );
@@ -60,26 +70,43 @@ const BrowseDeckPage = () => {
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
 
-    const handleGenerateDeck = (numQuestions: string, questionType: string) => {
-
+    const handleGenerateDeck = async (numQuestions: string, questionType: string) => {
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
+      
+        const payload = { numQuestions, questionType };
+        console.log("type of: ", typeof payload);
+      
+        try {
+          const response = await fetch('/api/ai/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+      
+          const generatedQuestions = await response.json();
+          console.log("type of2: ", typeof generatedQuestions);
 
-        const payload = { "question": `Give me ${numQuestions} question and answer about ${questionType}. The response should be in a JSON array format that can be parsed with the JSON.parse() function ` }
+        console.log("generatedQuestions:", generatedQuestions);
+          const cardSchemas = parseToCardSchema(generatedQuestions);
 
-        fetch("https://nle646esfd.execute-api.us-east-1.amazonaws.com/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(async (r) => {
-            const d = await r.json()
-            const reply = JSON.parse(d["Answer"].match(/^\{[^`]+\}$/gms)[0])["rows"]
-            const deck = reply.map((r: any) => { return { question: r["Question"], answer: r["Answer"], hint: "", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3", r["Answer"]] } })
-            addNewDeck(questionType, deck)
-        }).catch((err) => {
-            console.log(err)
-            addNewDeck(questionType, Array(1).fill({ question: "Request Failed", answer: err, hint: "", order: 0 }))
+          console.log('Generated Questions:', generatedQuestions);
+          if (cardSchemas.length > 0) {
+            console.log('First Generated CardSchema:', cardSchemas[0]);
+          }
 
-        })
-
+          addNewDeck(questionType, cardSchemas);
+      
+        } catch (error) {
+          console.error('Error generating questions:', error);
+        }
+      
         setIsGenerateDeckModalOpen(false);
-
-    }
+      };
+      
 
     useEffect(() => {
         fetch(`/api/repository/get/${cid}`).then(async r => {
@@ -116,13 +143,13 @@ const BrowseDeckPage = () => {
 
     return (
         <div className="flex w-full h-screen bg-[#18593c]">
-            <div className='flex flex-col items-center w-full'>
+            <div className='flex flex-col items-center w-full h-full'>
                 {/* course name */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
                     {(class_id as string).replace("%20", " ")}
                 </h1>
                 {/* main body */}
-                <div className='flex flex-col w-full px-6'>
+                <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
                     <Link href="/">
                         <CiCircleChevLeft size="50" color="white" />
                     </Link>
@@ -148,12 +175,10 @@ const BrowseDeckPage = () => {
                         )}
 
                     </div>
-                    <div>
-                        <div className="grid grid-cols-2 gap-4">
-                            {decks ? decks.map(deck => (
-                                <Deck key={deck.deck_id} {...deck} />
-                            )) : <></>}
-                        </div>
+                    <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
+                        {decks ? decks.map(deck => (
+                            <Deck key={deck.deck_id} {...deck} />
+                        )) : <></>}
                     </div>
                 </div>
             </div>

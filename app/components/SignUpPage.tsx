@@ -1,10 +1,9 @@
 import React from 'react'
 import Image from "next/image";
-import {Link} from 'react-router-dom';
 
 const SignUpPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> }) => {
-  return (
-    <div className='flex flex-col items-center'>
+    return (
+        <div className='flex flex-col items-center'>
             <h1 className='font-bold text-3xl p-10'>Hello, welcome to Loqi!</h1>
             {/* Login box */}
             <form className='mb-3 bg-white shadow-lg'>
@@ -38,9 +37,9 @@ const SignUpPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () =
                     </div>
                     {/* Sign up, forgot password */}
                     <div className='flex items-center mx-auto py-6 px-4 font-semibold text-xs text-blue-500'>
-                        <Link to={'/'} className='hover:text-blue-800'>
+                        {/* <Link to={'/'} className='hover:text-blue-800'>
                             <u>Already have an account?</u>
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </form>
@@ -57,7 +56,7 @@ const SignUpPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () =
             </button>
             {/* </div> */}
         </div>
-  )
+    )
 }
 
 export default SignUpPage

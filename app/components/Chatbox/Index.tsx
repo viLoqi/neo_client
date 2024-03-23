@@ -37,6 +37,11 @@ const ChatBox = ({ user, auth }: Props) => {
         <div className="flex w-full h-screen ">
             {/* Left side panel for courses */}
             <div className="carousel carousel-vertical flex-col bg-[#003825] w-[400px] pt-10 overflow-y-scroll whitespace-nowrap">
+
+                <div className="text-center">
+                    <Link className="p-2 bg-lime-400 rounded-lg text-black text-xl" href="/pricing">Pricing</Link>
+                </div>
+
                 {COURSES.map((course) => {
                     return (
                         <div key={course}>
@@ -70,7 +75,7 @@ const ChatBox = ({ user, auth }: Props) => {
                 <Input course={activeCourse} />
             </div>
             {/* Users panel */}
-            <UsersPanel/>
+            <UsersPanel />
         </div>
     );
 };

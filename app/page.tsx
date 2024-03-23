@@ -5,6 +5,7 @@ import SignUpPage from './components/SignUpPage';
 import { auth } from './firebase';
 import { GoogleAuthProvider, signInWithPopup, } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
+
 import {
     BrowserRouter,
     Routes,

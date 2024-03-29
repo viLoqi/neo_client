@@ -46,9 +46,9 @@ export default function Home() {
         <div className='h-screen
                  bg-gradient-to-b from-[#cfe7c4] to-white overflow-auto no-scrollbar'>
             <BrowserRouter>
-                {/* <div className="z-20 absolute top-0 left-0 w-full ">
+                <div className="z-20 absolute top-0 left-0 w-full ">
                     <Navbar />
-                </div> */}
+                </div>
                 <Routes>
                     <Route path='/' element={<LandingPage />} />
                     <Route path='/login' element={<LoginPage onClickSignInWithGoogle={signInWithGoogle} />} />

@@ -27,9 +27,9 @@ const LandingPage = () => {
     return (
         <div className="min-h-screen text-white flex flex-col items-center justify-center">
 
-            <div className="z-20 absolute top-0 left-0 w-screen">
+            {/* <div className="z-20 absolute top-0 left-0 w-screen">
                 <Navbar />
-            </div>
+            </div> */}
             {/* Main content block */}
             <div className="w-full bg-[url('/background-block.webp')] bg-no-repeat bg-cover bg-center z-10 rounded-b-[40px] flex flex-col justify-center items-center py-24 px-12 mb-24"
                 style={{ backgroundPosition: 'center 20%' }} >

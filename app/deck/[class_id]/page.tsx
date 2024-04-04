@@ -14,10 +14,10 @@ import UsersPanel from '@/app/components/UsersPanel';
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
     return Object.keys(questionsObj).map((key, index) => {
-      const { question, answer, choices, hint } = questionsObj[key];
-      return { question, answer, choices, hint, order: index };
+        const { question, answer, choices, hint } = questionsObj[key];
+        return { question, answer, choices, hint, order: index };
     });
-  }
+}
 
 
 const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
@@ -27,7 +27,7 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
     const placeholderDifficulty = 'high'
 
     useEffect(() => {
-        fetch(`/api/deck/deck/${deck_id}`).then(async r => {
+        fetch(`/api/deck/${deck_id}`).then(async r => {
             const data = await r.json() as CardSchema
             if (Array.isArray(data) && data.length)
                 setCards(data)
@@ -72,41 +72,41 @@ const BrowseDeckPage = () => {
 
     const handleGenerateDeck = async (numQuestions: string, questionType: string) => {
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
-      
+
         const payload = { numQuestions, questionType };
         console.log("type of: ", typeof payload);
-      
+
         try {
-          const response = await fetch('/api/ai/generate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-      
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-      
-          const generatedQuestions = await response.json();
-          console.log("type of2: ", typeof generatedQuestions);
+            const response = await fetch('/api/ai/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
 
-        console.log("generatedQuestions:", generatedQuestions);
-          const cardSchemas = parseToCardSchema(generatedQuestions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-          console.log('Generated Questions:', generatedQuestions);
-          if (cardSchemas.length > 0) {
-            console.log('First Generated CardSchema:', cardSchemas[0]);
-          }
+            const generatedQuestions = await response.json();
+            console.log("type of2: ", typeof generatedQuestions);
 
-          addNewDeck(questionType, cardSchemas);
-      
+            console.log("generatedQuestions:", generatedQuestions);
+            const cardSchemas = parseToCardSchema(generatedQuestions);
+
+            console.log('Generated Questions:', generatedQuestions);
+            if (cardSchemas.length > 0) {
+                console.log('First Generated CardSchema:', cardSchemas[0]);
+            }
+
+            addNewDeck(questionType, cardSchemas);
+
         } catch (error) {
-          console.error('Error generating questions:', error);
+            console.error('Error generating questions:', error);
         }
-      
+
         setIsGenerateDeckModalOpen(false);
-      };
-      
+    };
+
 
     useEffect(() => {
         fetch(`/api/repository/get/${cid}`).then(async r => {
@@ -121,13 +121,15 @@ const BrowseDeckPage = () => {
     }, [refresh, cid])
 
     const addNewDeck = (topic: string, cards: CardSchema[]) => {
-        fetch("/api/deck/deck", {
+        // first upload to deck
+        fetch("/api/deck/", {
             method: "POST", headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "cards": cards, "name": topic })
+            body: JSON.stringify({ "cards": cards, "name": topic, class: cid })
         }).then(async (r) => {
+            // then upload to repository
             let data: PostDeckResponse = await r.json();
             fetch("/api/repository/upload", {
                 method: "POST", headers: {

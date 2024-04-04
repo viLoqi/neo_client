@@ -11,6 +11,8 @@ export interface CardSchema {
 // This is used by the actual deck instance
 export interface DeckSchema {
     _id: string,
+    name: string,
+    class: string,
     cards: CardSchema[]
 }
 

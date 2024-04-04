@@ -39,7 +39,7 @@ const StudyPage = () => {
     }
 
     useEffect(() => {
-        fetch(`/api/deck/deck/${deck_id}`).then(async r => {
+        fetch(`/api/deck/${deck_id}`).then(async r => {
             const data = await r.json() as CardSchema
             if (Array.isArray(data) && data.length) {
                 setCards(data)
@@ -95,7 +95,7 @@ const StudyPage = () => {
                     <div className="flex flex-col">
                         {/* Back button */}
                         {/* <Link href='/'> */}
-                            <CiCircleChevLeft size="50" color="white" onClick={() => router.back()}/>
+                        <CiCircleChevLeft size="50" color="white" onClick={() => router.back()} />
                         {/* </Link> */}
                         <div className="flex mt-[30vh] items-center justify-center text-white text-xl font-semibold size-36 justify-self-center">
                             <CountdownCircleTimer

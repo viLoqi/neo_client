@@ -44,3 +44,9 @@ export interface MessageSchema {
     firstCreated: Timestamp
     lastUpdated: Timestamp
 }
+
+export interface PomodoroConfigSchema {
+    length: number,
+    break: number,
+    rounds: number,
+}

@@ -49,7 +49,7 @@ const Deck = ({ deck_name, deck_id }: RepositoryDecksSchema) => {
                     </li>
                 ))}
             </ul>
-            <Link className={"btn"} href={`/study/${deck_id}`}>STUDY THIS</Link>
+            <Link className={"btn"} href={`/study/${deck_id}/select`}>STUDY THIS</Link>
         </div >
     );
 };

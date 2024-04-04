@@ -1,22 +1,19 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { CardSchema } from "@/app/types";
 import { useEffect, useState } from "react";
 
 import { CiCircleChevLeft } from "react-icons/ci";
 import Link from "next/link";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import UsersPanel from "../../components/UsersPanel";
-import { FaChevronLeft } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
+import UsersPanel from "@/app/components/UsersPanel";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Flashcard from "./Flashcard";
 import { AnimatePresence } from "framer-motion"
 
-import { useRouter } from "next/navigation";
-
 // Carolsuole
-const StudyPage = () => {
+const FreeMode = () => {
     const router = useRouter();
 
     const [cards, setCards] = useState<CardSchema[]>([])
@@ -145,4 +142,4 @@ const StudyPage = () => {
     );
 }
 
-export default StudyPage;
+export default FreeMode;

@@ -1,6 +1,6 @@
 "use client";
-import ChoiceButton from "../../components/ChoiceButton";
-import { CardSchema } from "../../types";
+import ChoiceButton from "@/app/components/ChoiceButton";
+import { CardSchema } from "@/app/types";
 import { motion } from "framer-motion"
 
 const Flashcard = ({ card }: { card: CardSchema }) => {

@@ -3,7 +3,7 @@ import UserCard from './UserCard'
 
 const UsersPanel = () => {
   return (
-    <div className="bg-[#003825] min-w-56">
+        <div className="bg-green-900 min-w-[14rem] p-4 m-2 border border-green-700 rounded-lg shadow-lg">
                 <UserCard
                     userName="user"
                     userHandle="user123"

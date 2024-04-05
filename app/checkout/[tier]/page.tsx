@@ -1,10 +1,10 @@
 "use client"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from 'next/navigation';
 import Link from "next/link";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase"
+import { auth } from "@/app/firebase"
 
 import { loadStripe } from '@stripe/stripe-js';
 import {
@@ -15,7 +15,7 @@ import {
 // This is your test public API key.
 const stripePromise = loadStripe("pk_test_51Og0zkHuYFk3KBjS4oyz1GwCxTO1MuCVAA7TN3lPtiRus703fNvKgpIBlZaiC8KjwNXoGkAaH7tQC5mbhzuFBJKW00ScJ4whgG");
 
-const Checkout = () => {
+const CheckoutPage = () => {
     // from the url: /checkout/:tier
     const { tier } = useParams();
     const { push } = useRouter();

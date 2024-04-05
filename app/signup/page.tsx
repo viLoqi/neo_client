@@ -1,7 +1,26 @@
+"use client"
 import React from 'react'
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
-const SignUpPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> }) => {
+import { auth } from '@/app/firebase';
+import { GoogleAuthProvider, signInWithPopup, } from 'firebase/auth';
+
+const SignUpPage = (/* { onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> } */) => {
+    const { push } = useRouter();
+
+    const googleProvider = new GoogleAuthProvider();
+    googleProvider.setCustomParameters({
+        hd: "stonybrook.edu"
+    })
+
+    const signInWithGoogle = async () => {
+        const result = await signInWithPopup(auth, googleProvider);
+        console.log(result.user.email);
+
+        push("/app")
+    }
+
     return (
         <div className='flex flex-col items-center'>
             <h1 className='font-bold text-3xl p-10'>Hello, welcome to Loqi!</h1>
@@ -45,7 +64,7 @@ const SignUpPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () =
             </form>
             {/* Login with Google */}
             {/* <div className='border p-3 rounded-xl hover:bg-gray-200'> */}
-            <button className='flex border p-3 rounded-xl bg-white hover:bg-gray-200 items-center w-[210px] justify-between' onClick={onClickSignInWithGoogle}>
+            <button className='flex border p-3 rounded-xl bg-white hover:bg-gray-200 items-center w-[210px] justify-between' onClick={signInWithGoogle}>
                 <Image
                     src={'/google-logo.png'}
                     alt='google logo'

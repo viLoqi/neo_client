@@ -1,9 +1,29 @@
+"use client"
 import React from 'react'
 import Image from "next/image";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { auth } from '@/app/firebase';
+import { GoogleAuthProvider, signInWithPopup, } from 'firebase/auth';
 
 
-const LoginPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> }) => {
+const LoginPage = (/* { onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> } */) => {
+    const { push } = useRouter();
+
+    const googleProvider = new GoogleAuthProvider();
+    googleProvider.setCustomParameters({
+        hd: "stonybrook.edu"
+    })
+
+    const signInWithGoogle = async () => {
+        const result = await signInWithPopup(auth, googleProvider);
+        console.log(result.user.email);
+
+        push("/app")
+    }
+
     return (
         <div className='flex flex-col items-center'>
             <h1 className='font-bold text-3xl p-10'>Hello, welcome to Loqi!</h1>
@@ -28,7 +48,10 @@ const LoginPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () =>
                     </div>
                     {/* Sign up, forgot password */}
                     <div className='flex items-center justify-between py-6 px-4 font-semibold text-xs text-blue-500'>
-                        <Link to={'/signup'} className='hover:text-blue-800'>
+                        {/* <Link to={'/signup'} className='hover:text-blue-800'>
+                            <u>Don&apos;t have an account?</u>
+                        </Link> */}
+                        <Link href={'/signup'} className='hover:text-blue-800'>
                             <u>Don&apos;t have an account?</u>
                         </Link>
                         <a className='hover:text-blue-800' href='#'>
@@ -41,7 +64,7 @@ const LoginPage = ({ onClickSignInWithGoogle }: { onClickSignInWithGoogle: () =>
             </form>
             {/* Login with Google */}
             {/* <div className='border p-3 rounded-xl hover:bg-gray-200'> */}
-            <button className='flex border p-3 rounded-xl bg-white hover:bg-gray-200 items-center w-[210px] justify-between' onClick={onClickSignInWithGoogle}>
+            <button className='flex border p-3 rounded-xl bg-white hover:bg-gray-200 items-center w-[210px] justify-between' onClick={signInWithGoogle}>
                 <Image
                     src={'/google-logo.png'}
                     alt='google logo'

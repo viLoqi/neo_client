@@ -1,14 +1,19 @@
 "use client";
 import { useState } from "react";
-import CoursesCard from "../CoursesCard";
 import Link from "next/link";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/app/firebase"
 import { User, Auth } from "firebase/auth";
+
+
 import { Button } from "../Button";
+import CoursesCard from "../CoursesCard";
 import UserCard from "../UserCard";
 import Input from "./Input";
 import Messages from "./Messages";
 import UsersPanel from "../UsersPanel";
+
 interface Props {
     user: User,
     auth: Auth
@@ -30,7 +35,9 @@ const COURSES = [
     "Hello",
 ];
 
-const ChatBox = ({ user, auth }: Props) => {
+const ChatBox = (/* { user, auth }: Props */) => {
+    const [user, loading] = useAuthState(auth);
+
     const [activeCourse, setActiveCourse] = useState(COURSES[0]);
 
     return (

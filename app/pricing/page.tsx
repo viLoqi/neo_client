@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase"
 
-const Pricing = () => {
+const PricingPage = () => {
     const [user, loading] = useAuthState(auth);
     const [tier, setTier] = useState("Free");
 
@@ -56,4 +56,4 @@ const Pricing = () => {
 
 }
 
-export default Pricing;
+export default PricingPage;

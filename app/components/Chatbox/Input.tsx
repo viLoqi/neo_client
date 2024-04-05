@@ -7,9 +7,6 @@ interface Props {
     course: string
 }
 
-var isShiftPressed = false;
-var isEnterPressed = false;
-
 const Input = ({ course }: Props) => {
     const [message, setMessage] = useState("");
 
@@ -19,38 +16,18 @@ const Input = ({ course }: Props) => {
     const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
 
     const handleTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-
-        if (isEnterPressed && isShiftPressed) {
-            console.log("shift + enter");
-        }
-        if (isEnterPressed && !isShiftPressed) {
-            e.preventDefault()
-            return;
-        } else {
-            setMessage(e.target.value);
-        }
+        setMessage(e.target.value);
     }
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Shift') {
-            isShiftPressed = true;
-        } else if (e.key === 'Enter') {
-            isEnterPressed = true;
-            if (!isShiftPressed && !isWhitespaceString(message)) {
-                console.log("only enter");
-                handleClick()
-            }
-            else{
-                e.preventDefault();
+        if(e.key === 'Enter' && !e.shiftKey){
+            e.preventDefault();
+
+            if (!isWhitespaceString(message)){
+                handleClick();
             }
         }
     }
-    const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Shift') {
-            isShiftPressed = false;
-        } else if (e.key === 'Enter') {
-            isEnterPressed = false;
-        }
-    }
+
 
     const [user, loading] = useAuthState(auth);
     const payload = { collectionPath: `chats/${course}/messages`, content: message, "author": user?.displayName, "authorPhotoURL": user?.photoURL }
@@ -72,7 +49,6 @@ const Input = ({ course }: Props) => {
                     ref={inputRef}
                     onChange={handleTyping}
                     onKeyDown={e => handleKeyDown(e)}
-                    onKeyUp={e => handleKeyUp(e)}
                     rows={1}
                     className="w-full  resize-none focus:outline-none bg-transparent placeholder-white/50 text-white pl-4 pr-16 overflow-hidden max-h-[200px]"
                 />
@@ -83,7 +59,6 @@ const Input = ({ course }: Props) => {
                 }}>
                     <FaArrowUp />
                 </button>
-                {/* </form> */}
             </div>
         </div>
     );

@@ -11,6 +11,8 @@ export interface CardSchema {
 // This is used by the actual deck instance
 export interface DeckSchema {
     _id: string,
+    name: string,
+    class: string,
     cards: CardSchema[]
 }
 
@@ -41,4 +43,10 @@ export interface MessageSchema {
     content: string
     firstCreated: Timestamp
     lastUpdated: Timestamp
+}
+
+export interface PomodoroConfigSchema {
+    length: number,
+    break: number,
+    rounds: number,
 }

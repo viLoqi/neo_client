@@ -12,6 +12,8 @@ import UsersPanel from "@/app/_components/UsersPanel";
 import CoursesCard from "./components/CoursesCard";
 import Input from "./components/Input";
 import Messages from "./components/Messages";
+import { UserContext } from '@/app/_components/Providers';
+import { useContext } from 'react';
 
 // Replace with courses from database
 const COURSES = [
@@ -33,9 +35,13 @@ export default function App() {
     const [user, loading] = useAuthState(auth);
     const { push } = useRouter();
 
+    // const userC = useContext(UserContext);
+    // console.log("IM IN APP", userC.value)
+
     const [activeCourse, setActiveCourse] = useState(COURSES[0]);
 
-
+    // temporary 
+    // const loading = false
     // if user is not logged in, send user to login page
     useEffect(() => { if (!loading && !user) push("/login"); })
 

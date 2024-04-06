@@ -27,8 +27,8 @@ export default function Index() {
     ];
 
 
-    const user = useContext(UserContext);
-    console.log("IM IN HOME", user)
+    // const user = useContext(UserContext);
+    // console.log("IM IN HOME", user.value)
 
     return (
         <div className='h-screen bg-gradient-to-b from-[#cfe7c4] to-white overflow-auto no-scrollbar'>

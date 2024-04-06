@@ -1,0 +1,78 @@
+/* BrowseDeckPage.css */
+
+.browse-deck-page {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #39433a;
+    color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.backButton {
+    height: 50px;
+    margin-left: 20px;
+  }
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding:10px;
+    border-radius: 20px;
+    width: 500px;
+    height: 100%;
+}
+
+
+.add-deck-button-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.deck-list {
+    display: grid;
+    flex-wrap: wrap;
+    gap: 20px; /* space between decks */
+}
+
+.deck {
+    background-color: rgb(255, 255, 255);
+    border-radius: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    padding: 10px 30px;
+    /* width: ; /* fixed width, adjust as needed */
+}
+
+.deck h3 {
+    font-weight: bold;
+    /* margin-bottom: 5px; */
+    color: #333;
+    font-size: 1.7rem;
+}
+
+.deck ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.deck li {
+    padding: 6px 0;
+    /* border-bottom: 1px solid #eee; subtle line under each card */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deck li.completed {
+    color: green; /* style for completed cards */
+}
+
+.deck li.not-completed {
+    color: red; /* style for not completed cards */
+}

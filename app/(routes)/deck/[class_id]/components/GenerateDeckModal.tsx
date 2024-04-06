@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from 'react';
 
 // Define a type for your component's props

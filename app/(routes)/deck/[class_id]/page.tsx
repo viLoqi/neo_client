@@ -120,7 +120,7 @@ export default function BrowseDeckPage() {
                 </h1>
                 {/* main body */}
                 <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
-                    <Link href="/">
+                    <Link href="/app">
                         <CiCircleChevLeft size="50" color="white" />
                     </Link>
                     <div className='flex justify-between items-center py-2 my-2 h-[70px]'>

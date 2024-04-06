@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { auth } from '@/app/_modules/firebase';
-import { GoogleAuthProvider, signInWithPopup, } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 
-const LoginPage = (/* { onClickSignInWithGoogle }: { onClickSignInWithGoogle: () => Promise<void> } */) => {
+const LoginPage = () => {
     const { push } = useRouter();
 
     const googleProvider = new GoogleAuthProvider();

@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import { auth } from '@/app/_modules/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-
-
+import { useContext } from "react";
+import { UserContext } from "@/app/_components/Providers";
 const LoginPage = () => {
     const { push } = useRouter();
 
@@ -21,6 +21,9 @@ const LoginPage = () => {
 
         push("/app")
     }
+
+    const user = useContext(UserContext);
+    console.log("IM IN SIGNIN", user)
 
     return (
         <div className='flex flex-col items-center'>

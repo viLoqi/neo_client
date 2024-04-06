@@ -112,7 +112,7 @@ export default function BrowseDeckPage() {
     }
 
     return (
-        <div className="flex w-full h-screen bg-[#18593c]">
+        <div className="flex w-full h-screen bg-slate-800 p-6 overflow-hidden">
             <div className='flex flex-col items-center w-full h-full'>
                 {/* course name */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">

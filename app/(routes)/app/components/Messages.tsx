@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore'
 import { getFirestore, doc, collection, query, orderBy, Timestamp } from 'firebase/firestore'
-import { firestore } from '@/app/firebase'
+import { firestore } from '@/app/_modules/firebase'
 
 import Message from './Message'
 import { MessageSchema } from '@/app/_types/main'

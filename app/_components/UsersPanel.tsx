@@ -1,37 +1,18 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 import UserCard from './UserCard'
 
-const UsersPanel = () => {
+export default function UsersPanel() {
+    const sampleCard = (<UserCard
+        userName="user"
+        userHandle="user123"
+        userProfilePicture="/dummy-user-pic.jpg"
+    />);
+
     return (
         <div className="bg-[#003825] min-w-56">
-            <UserCard
-                userName="user"
-                userHandle="user123"
-                userProfilePicture="/dummy-user-pic.jpg"
-            />
-            <UserCard
-                userName="user"
-                userHandle="user123"
-                userProfilePicture="/dummy-user-pic.jpg"
-            />
-            <UserCard
-                userName="user"
-                userHandle="user123"
-                userProfilePicture="/dummy-user-pic.jpg"
-            />
-            <UserCard
-                userName="user"
-                userHandle="user123"
-                userProfilePicture="/dummy-user-pic.jpg"
-            />
-            <UserCard
-                userName="user"
-                userHandle="user123"
-                userProfilePicture="/dummy-user-pic.jpg"
-            />
+            {/* Creates 4 user cards */}
+            {([...Array(4)].map(() => sampleCard))}
         </div>
     )
 }
-
-export default UsersPanel

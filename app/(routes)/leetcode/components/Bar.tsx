@@ -9,8 +9,6 @@ type Series = {
 }
 
 export default function Bar({ data }: Readonly<{ data: Series[] }>) {
-
-
     const primaryAxis = React.useMemo(
         (): AxisOptions<Problem> => ({
             getValue: datum => datum.name,

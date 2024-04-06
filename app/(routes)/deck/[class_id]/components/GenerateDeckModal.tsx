@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import { useState } from 'react';
 
 // Define a type for your component's props
 type GenerateDeckModalProps = {
@@ -7,7 +7,7 @@ type GenerateDeckModalProps = {
   onGenerate: (numQuestions: string, questionType: string) => void;
 };
 
-const GenerateDeckModal: FC<GenerateDeckModalProps> = ({ isOpen, onClose, onGenerate }) => {
+export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: GenerateDeckModalProps) {
   const [numQuestions, setNumQuestions] = useState<string>('1');
   const [questionType, setQuestionType] = useState<string>('');
 
@@ -60,5 +60,3 @@ const GenerateDeckModal: FC<GenerateDeckModalProps> = ({ isOpen, onClose, onGene
     </div>
   );
 };
-
-export default GenerateDeckModal;

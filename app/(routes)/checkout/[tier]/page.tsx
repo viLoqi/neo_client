@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from 'next/navigation';
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase"
+import { auth } from "@/app/_modules/firebase"
 
 import { loadStripe } from '@stripe/stripe-js';
 import {

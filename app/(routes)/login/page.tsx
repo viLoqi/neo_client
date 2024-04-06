@@ -1,10 +1,9 @@
 "use client"
-import React from 'react'
 import Image from "next/image";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { auth } from '@/app/firebase';
+import { auth } from '@/app/_modules/firebase';
 import { GoogleAuthProvider, signInWithPopup, } from 'firebase/auth';
 
 
@@ -47,9 +46,6 @@ const LoginPage = (/* { onClickSignInWithGoogle }: { onClickSignInWithGoogle: ()
                     </div>
                     {/* Sign up, forgot password */}
                     <div className='flex items-center justify-between py-6 px-4 font-semibold text-xs text-blue-500'>
-                        {/* <Link to={'/signup'} className='hover:text-blue-800'>
-                            <u>Don&apos;t have an account?</u>
-                        </Link> */}
                         <Link href={'/signup'} className='hover:text-blue-800'>
                             <u>Don&apos;t have an account?</u>
                         </Link>

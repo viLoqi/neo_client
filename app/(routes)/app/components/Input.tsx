@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaArrowUp } from "react-icons/fa6";
 
-import { auth } from '@/app/firebase';
+import { auth } from '@/app/_modules/firebase';
 
 interface Props {
     course: string

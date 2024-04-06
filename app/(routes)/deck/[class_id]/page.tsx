@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 
 import './BrowseDeckPage.css';
 import UserCard from "../../../_components/UserCard";
-import GenerateDeckModal from "./_components/GenerateDeckModal";
+import GenerateDeckModal from "./components/GenerateDeckModal";
 import UsersPanel from '@/app/_components/UsersPanel';
 import { PostDeckResponse, CardSchema, DeckSchema, RepositorySchema, RepositoryDecksSchema } from '@/app/_types/main';
 

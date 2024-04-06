@@ -3,7 +3,7 @@ import moment from "moment";
 
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from '@/app/firebase';
+import { auth } from '@/app/_modules/firebase';
 
 import { CheckObj, Problem } from "@/app/_types/leetcode";
 

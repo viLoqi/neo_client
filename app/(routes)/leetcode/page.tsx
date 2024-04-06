@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase"
+import { auth } from "@/app/_modules/firebase"
 
 import { Problem } from "@/app/_types/leetcode";
 import ProblemTable from "./components/ProblemTable";

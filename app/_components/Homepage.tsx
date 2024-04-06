@@ -9,7 +9,7 @@ interface HomePageProps {
     auth: Auth
 }
 
-const HomePage = ({ user, auth }: HomePageProps) => {
+export default function HomePage({ user, auth }: HomePageProps) {
     // use temp data for the client rn
     const classes = ["CSE 114", "CSE 214", "CSE 215", "CSE 216"]
     const users = ["Jie", "Zb", "Wilson", "Benny"]
@@ -39,13 +39,9 @@ const HomePage = ({ user, auth }: HomePageProps) => {
         </div>
 
 
-
-
         <h1>Welcome {user.displayName}!</h1>
         <Button size='sm' variant='outline' onClick={() => auth.signOut()}>
             Sign Out
         </Button>
     </div>;
 }
-
-export default HomePage;

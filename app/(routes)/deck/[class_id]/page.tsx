@@ -88,14 +88,15 @@ export default function BrowseDeckPage() {
         })
     }, [refresh, cid])
 
-    const addNewDeck = (topic: string, cards: CardSchema[]) => {
+    const addNewDeck = (deck_name: string, cards: CardSchema[]) => {
+
         // first upload to deck
         fetch("/api/deck/", {
             method: "POST", headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "cards": cards, "name": topic, class: cid })
+            body: JSON.stringify({ "cards": cards, "name": deck_name, class: cid })
         }).then(async (r) => {
             // then upload to repository
             let data: PostDeckResponse = await r.json();

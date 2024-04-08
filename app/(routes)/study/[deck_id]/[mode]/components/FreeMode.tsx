@@ -47,31 +47,6 @@ const FreeMode = () => {
         })
     }, [deck_id])
 
-
-    // Flashcard Carousel functionalities
-    // const stackVariants = {
-    //     onTop: {
-    //         x: "0",
-    //         opacity: 1,
-    //         transition: {
-    //             duration: 1,
-    //         },
-    //     },
-    //     onBottom: {
-    //         x: "0",
-    //         scale: 0.8,
-    //         transition: {
-    //             duration: 1,
-    //         },
-    //     },
-    //     exit: {
-    //         x: "-100%",
-    //         transition: {
-    //             duration: 0.5,
-    //         }
-    //     }
-    // }
-
     const duration = 70;
     const course = "TBD"
     const deckLength = cards.length
@@ -80,7 +55,7 @@ const FreeMode = () => {
 
     console.log("current card index: " + activeCardIndex);
     return (
-        <div className="flex h-screen">
+        <div className="flex h-screen bg-slate-800">
             <div className="flex flex-col w-full h-full bg-[#18593c]">
                 {/* Course title */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">

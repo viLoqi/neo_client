@@ -38,7 +38,7 @@ const SelectMode = () => {
                 ⏲️ Pomodoro Mode
             </button>
             <Link href={(modeToPath as any)[mode]} className="w-3/5">
-                <button className="w-full flex p-3 rounded-xl bg-blue-500 items-center justify-center font-bold text-lg">
+                <button className="w-full flex p-3 rounded-xl bg-blue-500 hover:bg-blue-700 items-center justify-center font-bold text-lg">
                     Start Studying
                 </button>
             </Link>

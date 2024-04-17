@@ -10,7 +10,7 @@ const PomodoroMode = () => {
     const isConfigEmpty = Object.keys(config).length === 0;
 
 
-    return isConfigEmpty ? <PomodoroConfig setConfig={setConfig} /> : <PomodoroStart />;
+    return isConfigEmpty ? <PomodoroConfig setConfig={setConfig} /> : <PomodoroStart config={config}/>;
 }
 
 export default PomodoroMode;

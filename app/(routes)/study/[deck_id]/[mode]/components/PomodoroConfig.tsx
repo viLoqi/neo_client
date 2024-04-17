@@ -29,9 +29,13 @@ const PomodoroConfig = ({ setConfig }: Props) => {
     }
 
     const handleSubmit = () => {
-        // console.log(pomodoroConfig["studyLength"] > 30 ? 30 : pomodoroConfig["studyLength"])
-        // console.log(pomodoroConfig["breakLength"] > 10 ? 10 : pomodoroConfig["breakLength"])
-        // console.log(pomodoroConfig["numSessions"] > 5 ? 5 : pomodoroConfig["numSessions"])
+        if (pomodoroConfig["studyLength"] === 0 || 
+            pomodoroConfig["breakLength"] === 0 || 
+            pomodoroConfig["numSessions"] === 0) return
+
+        console.log(pomodoroConfig["studyLength"] > 30 ? 30 : pomodoroConfig["studyLength"])
+        console.log(pomodoroConfig["breakLength"] > 10 ? 10 : pomodoroConfig["breakLength"])
+        console.log(pomodoroConfig["numSessions"] > 5 ? 5 : pomodoroConfig["numSessions"])
         setConfig(
             {
                 length: pomodoroConfig["studyLength"] > 30 ? 30 : pomodoroConfig["studyLength"],

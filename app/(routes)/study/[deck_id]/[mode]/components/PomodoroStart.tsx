@@ -10,8 +10,9 @@ interface Props {
 const PomodoroStart = ({config}: Props) => {
 
     const [timeLeft, setTimeLeft] = useState("length" in config ? config.length : 30)
+    const [breakLeft, setBreakLeft] = useState("break" in config ? config.break : 10)
 
-    return timeLeft ? <PomodoroGame timeLeft={timeLeft} setTimeLeft={setTimeLeft} /> : <PomodoroBreak timeLeft={timeLeft} setTimeLeft={setTimeLeft} />;
+    return timeLeft ? <PomodoroGame timeLeft={timeLeft} setTimeLeft={setTimeLeft} /> : <PomodoroBreak breakLeft={breakLeft} setBreakLeft={setBreakLeft} />;
 }
 
 export default PomodoroStart;

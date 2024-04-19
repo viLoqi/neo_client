@@ -27,7 +27,7 @@ const SelectMode = () => {
 
     return <div className="relative bg-slate-800 w-full h-screen justify-center items-center flex flex-col">
         <CiCircleChevLeft className="absolute top-[4.25rem] left-12 cursor-pointer" size="50" color="white" onClick={() => router.back()} />
-        <div className="flex flex-col rounded-2xl border-gray-500 border-[1px] justify-center items-center w-1/3 h-2/3 overflow-y-scroll no-scrollbar bg-[#45495e]">
+        <div className="flex flex-col rounded-2xl border-gray-500 border-[1px] justify-center items-center max-w-[80%] w-[40rem] h-2/3 overflow-y-scroll no-scrollbar bg-[#45495e]">
             <button className={`${mode == 1 ? "shadow-lg shadow-white" : ""} w-3/5 py-10 mb-5 text-black font-bold text-2xl
             bg-white rounded-3xl items-center justify-center flex`} onClick={() => handleSelectMode(1)}>
                 📚 Free Mode

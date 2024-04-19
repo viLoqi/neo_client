@@ -4,7 +4,11 @@ import Link from 'next/link';
 
 import { usePathname } from 'next/navigation';
 
-export const Navbar = () => {
+interface NavBarProps {
+    color?: string;
+}
+
+export const Navbar = ({ color }: NavBarProps) => {
     const currPath = usePathname();
 
     const navItem = (name: string, route: string, key: number) => {
@@ -29,7 +33,7 @@ export const Navbar = () => {
                     height={70}
                 />
             </Link>
-            <ul className='flex gap-7 m-auto font-bold text-2xl'>
+            <ul className={`flex gap-7 m-auto font-bold text-2xl text-app-secondary`}>
                 {links.map(([name, route], i) => navItem(name, route, i))}
             </ul>
             <Link href="/login">

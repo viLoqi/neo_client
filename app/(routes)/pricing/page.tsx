@@ -101,7 +101,7 @@ const PricingPage = () => {
         return (
             <div className={`flex ${isFacingRight ? "flex-row-reverse" : "flex-row"} justify-start gap-6`}>
                 {/* Profile Picture */}
-                <div className="w-[8rem] h-[8rem] relative flex-none bg-red-300 rounded-full border-app-accent border-4">
+                <div className="w-[8rem] h-[8rem] relative flex-none rounded-full border-app-accent border-4">
                     <Image
                         src={image_url}
                         alt="User Testimonial Picture"

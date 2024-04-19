@@ -1,18 +1,17 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import { CardSchema } from "@/app/_types/main";
 import { useEffect, useState } from "react";
-
+import { useParams, useRouter } from "next/navigation";
 import { CiCircleChevLeft } from "react-icons/ci";
-import Link from "next/link";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import UsersPanel from "@/app/_components/UsersPanel";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import Flashcard from "./Flashcard";
+
 import { AnimatePresence } from "framer-motion"
 
-// Carolsuole
+import UsersPanel from "@/app/_components/UsersPanel";
+import { CardSchema } from "@/app/_types/main";
+import FlashCardCarousel from "./FlashCardCarousel";
+
 const FreeMode = () => {
     const router = useRouter();
 
@@ -48,10 +47,8 @@ const FreeMode = () => {
     }, [deck_id])
 
     const duration = 70;
-    const course = "TBD"
+    const course = "Course TBD"
     const deckLength = cards.length
-
-
 
     console.log("current card index: " + activeCardIndex);
     return (
@@ -61,14 +58,13 @@ const FreeMode = () => {
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
                     {course}
                 </h1>
-                {/* main body */}
                 <div className="flex h-full pl-12">
                     {/* Left side */}
                     <div className="flex flex-col">
-                        {/* Back button */}
-                        {/* <Link href='/'> */}
+                        {/* Back Button */}
                         <CiCircleChevLeft size="50" color="white" onClick={() => router.back()} />
-                        {/* </Link> */}
+
+                        {/* Timer */}
                         <div className="flex mt-[30vh] items-center justify-center text-white text-xl font-semibold size-36 justify-self-center">
                             <CountdownCircleTimer
                                 isPlaying
@@ -87,28 +83,7 @@ const FreeMode = () => {
                         </div>
                     </div>
 
-                    {/* Carousel */}
-                    <div className="flex w-full mx-20 items-center justify-between">
-                        {/* prev button */}
-                        <button className={`${activeCardIndex == 0 ? "invisible w-[3rem]" : "btn"}`} onClick={getPrevCard}><FaChevronLeft /></button>
-                        {/* card */}
-                        <div className="flex w-4/5 h-full mx-10 items-center justify-center relative" >
-                            <AnimatePresence>
-                                {
-                                    cards.map((card, index) => {
-                                        return (activeCardIndex == index &&
-                                            <Flashcard key={index} card={card} />
-                                        )
-                                    })
-                                }
-                            </AnimatePresence>
-                            <div className="flex absolute bottom-[4%] h-10 w-16 bg-white justify-center items-center rounded-full">
-                                <p>{activeCardIndex + 1}/{deckLength}</p>
-                            </div>
-                        </div>
-                        {/* next button */}
-                        <button className={`${activeCardIndex == deckLength - 1 ? "invisible w-[3rem]" : "btn"}`} onClick={getNextCard}><FaChevronRight /></button>
-                    </div>
+                    <FlashCardCarousel cards={cards} />
                 </div>
             </div>
             {/* Users panel */}

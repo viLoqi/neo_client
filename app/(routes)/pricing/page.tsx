@@ -3,20 +3,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import resolveConfig from "tailwindcss/resolveConfig";
+import config from "@/tailwind.config";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/_modules/firebase"
 
 import { Navbar } from "@/app/_components/Navbar";
-
-interface tierCard {
-    tier: string;
-    text: string;
-    cost: number;
-    requests: number;
-    grad_bg_color: string; // gradiant color (starts at the top)
-    accent_bg_color: string; // the bg-color of the top bar and (optionally) the get started button
-    isMostPopular: boolean;
-}
+import { Tier } from "@/app/_types/main";
 
 interface testimonialCard {
     image_url: string;
@@ -26,33 +20,54 @@ interface testimonialCard {
 }
 
 const PricingPage = () => {
+    const tailwindConfig = resolveConfig(config);
+
     const [user, loading] = useAuthState(auth);
     const [userTier, setUserTier] = useState("");
 
+    const [tiers_NEW, setTiers_NEW] = useState<string[]>([]);
+    const [tierData, setTierData] = useState<Record<string, Tier>>({});
+
+    useEffect(() => {
+        fetch("/api/payment/tiers")
+            .then(res => res.json())
+            .then(data => { setTiers_NEW(data.tiers); setTierData(data.tierData) })
+            .catch(e => console.log(`Failed to fetch all tiers: ${e}`));
+    }, [])
+
+
     useEffect(() => {
         if (!loading)
-            fetch(`/api/payment/user?email=${user?.email}`).then((res) => res.json())
-                .then((userData) => setUserTier(userData.tier)).catch((e) => console.log("User not found!"));
+            fetch(`/api/payment/user?email=${user?.email}`)
+                .then(res => res.json())
+                .then(userData => setUserTier(userData.tier))
+                .catch(e => console.log(`User not found" ${e}`));
     }, [loading, user?.email])
 
 
-    const tierCard = ({ tier, text, cost, requests, grad_bg_color, accent_bg_color, isMostPopular }: tierCard) => {
+    const tierCard = (tier: string, { description, price, requests, gradient_bg_color, accent_bg_color, isMostPopular }: Tier) => {
         const isCurrentTier: boolean = tier === userTier;
         const displayTopBar: boolean = isCurrentTier || isMostPopular;
 
         return (
-            <div className="text-left max-w-[17rem]">
+            <div className="text-left max-w-[17rem]" key={tier}>
                 {/* (Optional) Most Popular / Your Current Tier */}
-                <div className={`p-1 rounded-t-3xl border-app-black border-[1px] ${displayTopBar ? '' : 'opacity-0'} ${accent_bg_color}`}>
+                <div
+                    className={`p-1 rounded-t-3xl border-app-black border-[1px] ${displayTopBar ? '' : 'opacity-0'}`}
+                    style={{ backgroundColor: accent_bg_color }}
+                >
                     <h1 className="text-xl font-bold text-center">{isCurrentTier ? "YOUR CURRENT TIER" : "Most Popular"}</h1>
                 </div>
 
-                <div className={`py-6 px-8 ${displayTopBar ? "rounded-b-3xl" : "rounded-3xl"} flex flex-col gap-y-7 bg-gradient-to-b ${grad_bg_color} to-app-white`}>
+                <div
+                    className={`py-6 px-8 ${displayTopBar ? "rounded-b-3xl" : "rounded-3xl"} flex flex-col gap-y-7`}
+                    style={{ backgroundImage: `linear-gradient(to bottom, ${gradient_bg_color}, ${tailwindConfig.theme.colors["app-white"]}` }}
+                >
                     <h1 className="block text-4xl font-bold">{tier}</h1>
-                    <h2 className="">{text}</h2>
+                    <h2 className="">{description}</h2>
 
                     <div className="flex justify-between items-center font-bold">
-                        <h1 className="text-4xl">${cost}</h1>
+                        <h1 className="text-4xl">${price}</h1>
                         <p className="text-sm text-right">per month</p>
                     </div>
 
@@ -66,36 +81,6 @@ const PricingPage = () => {
             </div>
         );
     }
-
-    const tiers: tierCard[] = [
-        {
-            tier: "Free",
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            cost: 0,
-            requests: 300,
-            grad_bg_color: "from-purple-300",
-            accent_bg_color: "bg-purple-400",
-            isMostPopular: false,
-        },
-        {
-            tier: "Basic",
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            cost: 5,
-            requests: 1000,
-            grad_bg_color: "from-yellow-200",
-            accent_bg_color: "bg-yellow-300",
-            isMostPopular: true,
-        },
-        {
-            tier: "Premium",
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            cost: 10,
-            requests: 5000,
-            grad_bg_color: "from-green-300",
-            accent_bg_color: "bg-green-400",
-            isMostPopular: false,
-        },
-    ]
 
     const testimonialCard = ({ image_url, text, text_bubble_color, isFacingRight = true }: testimonialCard) => {
         return (
@@ -156,7 +141,7 @@ const PricingPage = () => {
 
                     {/* Displays all current tiers */}
                     <div className="w-[80%] py-8 px-10 bg-app-gray rounded-[4rem] flex gap-10 justify-center">
-                        {tiers.map(t => tierCard(t))}
+                        {tiers_NEW.map(t => tierCard(t, tierData[t]))}
                     </div>
 
                     <h1 className="mt-2 text-5xl font-bold text-app-white">Testimonials</h1>

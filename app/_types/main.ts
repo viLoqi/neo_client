@@ -50,3 +50,15 @@ export interface PomodoroConfigSchema {
     break: number,
     rounds: number,
 }
+
+export interface Tier {
+    priceID: string | null,
+    price: number,
+    requests: number,
+    description: string,
+    // metadata
+    gradient_bg_color: string,
+    accent_bg_color: string,
+    isMostPopular: boolean,
+    lastModified: Date,
+}

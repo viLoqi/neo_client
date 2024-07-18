@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react'
 
-import { useDocument, useCollection } from 'react-firebase-hooks/firestore'
-import { getFirestore, doc, collection, query, orderBy, Timestamp } from 'firebase/firestore'
-import { firestore } from '@/app/_modules/firebase'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 import Message from './Message'
 import { MessageSchema } from '@/app/_types/main'
+import useFirestore from '@/hooks/useFirestore'
 
 interface Props {
   course: string
 }
 const Messages = ({ course }: Props) => {
-  const [mcp, setMcp] = useState("chats/CSE 114/messages")
+  const [collectionPath, setCollectionPath] = useState("chats/CSE 114/messages")
 
   useEffect(() => {
-    setMcp(`chats/${course}/messages`)
+    setCollectionPath(`chats/${course}/messages`)
   }, [course])
 
-  const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firestore, mcp), orderBy('firstCreated', 'asc')))
+  // const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firestore, mcp), orderBy('firstCreated', 'asc')))
+
+  const [firebaseMessages] = useFirestore({ collectionPath })
 
   return (
     <div className='flex flex-col h-full px-20 py-10 overflow-auto no-scrollbar'>

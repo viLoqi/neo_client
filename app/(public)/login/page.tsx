@@ -4,26 +4,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { auth } from '@/app/_modules/firebase';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useContext } from "react";
-import { UserContext } from "@/app/_components/Providers";
+import { signInWithPopup } from 'firebase/auth';
+import useGoogleProvider from "@/hooks/useGoogleProvider";
+
 const LoginPage = () => {
     const { push } = useRouter();
 
-    // const user = useContext(UserContext);
-    // console.log("IM IN SIGNIN", user.value)
-
-    const googleProvider = new GoogleAuthProvider();
-    googleProvider.setCustomParameters({
-        hd: "stonybrook.edu"
-    })
+    const googleProvider = useGoogleProvider();
 
     const signInWithGoogle = async () => {
         const result = await signInWithPopup(auth, googleProvider);
-        console.log(result.user.email);
+        console.log(`${result.user} has logged in, redirecting to /app`);
         push("/app")
     }
-
 
     return (
         <div className='flex flex-col items-center'>

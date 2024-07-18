@@ -1,9 +1,7 @@
 "use client"
 import Link from "next/link";
-import { useContext } from "react";
 import Feature from '@/app/_components/Feature';
 import { Navbar } from "@/app/_components/Navbar";
-import { UserContext } from "@/app/_components/Providers";
 
 // aka landing page
 export default function Index() {
@@ -25,10 +23,6 @@ export default function Index() {
             title: 'Generative AI-powered',
         },
     ];
-
-
-    // const user = useContext(UserContext);
-    // console.log("IM IN HOME", user.value)
 
     return (
         <div className='h-screen bg-gradient-to-b from-[#cfe7c4] to-white overflow-auto no-scrollbar'>

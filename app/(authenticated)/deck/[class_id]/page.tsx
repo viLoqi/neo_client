@@ -11,7 +11,8 @@ import UserCard from "@/app/_components/UserCard";
 import UsersPanel from '@/app/_components/UsersPanel';
 import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
-import { PostDeckResponse, CardSchema, DeckSchema, RepositorySchema, RepositoryDecksSchema } from '@/app/_types/main';
+import { RepositorySchema, RepositoryDecksSchema } from '@/app/_types/repo';
+import { CardSchema, PostDeckResponse } from '@/app/_types/deck';
 
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {

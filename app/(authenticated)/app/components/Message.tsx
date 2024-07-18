@@ -5,9 +5,6 @@ import { MessageSchema } from "@/app/_types/main";
 
 export default function Message({ author, content, authorPhotoURL, lastUpdated }: MessageSchema) {
     return (
-
-        // ...
-
         <div className="flex mb-10">
             {/* Avatar */}
             <div>

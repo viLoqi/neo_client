@@ -1,19 +1,14 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from "next/link";
-
 import { auth } from '@/app/_modules/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { Button } from "@/app/_components/Button";
-import UserCard from "@/app/_components/UserCard";
 import UsersPanel from "@/app/_components/UsersPanel";
 import CoursesCard from "./components/CoursesCard";
 import Input from "./components/Input";
 import Messages from "./components/Messages";
-import { UserContext } from '@/app/_components/Providers';
-import { useContext } from 'react';
+import useUser from '@/hooks/useUser';
 
 // Replace with courses from database
 const COURSES = [
@@ -28,12 +23,10 @@ const COURSES = [
     "ATS 201",
     "CSE 101",
     "CSE 214",
-    "Hello",
 ];
 
 export default function App() {
-    const [user, loading] = useAuthState(auth);
-    const { push } = useRouter();
+    const [user, loading] = useUser()
 
     // const userC = useContext(UserContext);
     // console.log("IM IN APP", userC.value)
@@ -42,8 +35,7 @@ export default function App() {
 
     // temporary 
     // const loading = false
-    // if user is not logged in, send user to login page
-    useEffect(() => { if (!loading && !user) push("/login"); })
+
 
     if (loading) return (
         <main className="flex justify-center p-24">

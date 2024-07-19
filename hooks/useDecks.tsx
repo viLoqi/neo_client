@@ -1,24 +1,58 @@
 import { useEffect, useState } from "react";
 import useSchool from "./useSchool";
+import { PostDeckRequest, DeckSchema } from "@/app/_types/deck";
+import useUser from "./useUser";
 
 interface useDecksInput {
-    repo: string
+    deck_id: string
 }
-
-const useDecks = ({ repo }: useDecksInput) => {
-    const [decks, setDecks] = useState()
-    const [refresh, setRefresh] = useState(false)
+//@ Dont use this hook yet, this will be for public repos which is not implemented yet
+const useDecks = ({ deck_id }: useDecksInput) => {
+    const [decks, setDecks] = useState<DeckSchema[]>([])
+    const [reload, setReload] = useState(false)
     const school = useSchool()
+    const [user] = useUser()
 
-    const reload = () => {
-        setRefresh(prev => !prev)
+    const baseURL = `https://us-east1-loqi-loqi.cloudfunctions.net/deck?university=${school}`
+    const baseHeaders = { "Content-Type": "application/json" }
+
+    const addNewDeck = ({ deckContent }: { deckContent: PostDeckRequest }) => {
+        user?.getIdToken().then(token => {
+            fetch(baseURL, {
+                method: "POST",
+                body: JSON.stringify(deckContent),
+                headers: {
+                    ...baseHeaders,
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+        }
+        )
+        setReload((prev) => !prev)
     }
 
-    useEffect(() => {
-        fetch(`https://loqi-7xzpbr8t.ue.gateway.dev/decks?university${school}=&uid=${repo}`).then()
-    }, [refresh])
+    const updateDeck = () => {
+        setReload((prev) => !prev)
+    }
 
-    return [decks, reload];
+    const deleteDeck = () => {
+        setReload((prev) => !prev)
+    }
+
+
+    useEffect(() => {
+        user?.getIdToken().then(token => {
+            fetch(baseURL, {
+                headers: {
+                    ...baseHeaders,
+                    "Authorization": `Bearer ${token}`
+                }
+            }).then(r => r.json().then(d => setDecks(d)))
+        }
+        )
+    }, [deck_id, user, reload, baseURL, baseHeaders])
+
+    return { decks, addNewDeck, updateDeck, deleteDeck };
 }
 
 export default useDecks;

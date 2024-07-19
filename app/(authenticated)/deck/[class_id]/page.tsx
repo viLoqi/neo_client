@@ -11,8 +11,10 @@ import UserCard from "@/app/_components/UserCard";
 import UsersPanel from '@/app/_components/UsersPanel';
 import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
-import { RepositorySchema, RepositoryDecksSchema } from '@/app/_types/repo';
 import { CardSchema, PostDeckResponse } from '@/app/_types/deck';
+import useDecks from '@/hooks/useDecks';
+import useUser from '@/hooks/useUser';
+import usePrivateRepo from '@/hooks/usePrivateRepo';
 
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
@@ -25,12 +27,17 @@ function parseToCardSchema(generatedQuestions: string): CardSchema[] {
 
 export default function BrowseDeckPage() {
     const { class_id } = useParams()
+    const [user] = useUser()
 
     const [refresh, setRefresh] = useState(false)
 
+    const { repo, addDeckToPrivateRepo } = usePrivateRepo({ repo_id: user?.email! })
+
+    console.log(repo?.decks)
+
     const [cid, setCid] = useState(decodeURI(class_id as string))
 
-    const [decks, setDecks] = useState<RepositoryDecksSchema[]>([]);
+    // const [decks, setDecks] = useState<GetRepoResponse[]>([]);
 
     const [numQuestions, setNumQuestions] = useState('5');
 
@@ -67,7 +74,9 @@ export default function BrowseDeckPage() {
                 console.log('First Generated CardSchema:', cardSchemas[0]);
             }
 
-            addNewDeck(questionType, cardSchemas);
+            console.log(questionType, cardSchemas)
+
+            addDeckToPrivateRepo({ deckContent: { name: questionType, cards: cardSchemas } });
 
         } catch (error) {
             console.error('Error generating questions:', error);
@@ -77,41 +86,40 @@ export default function BrowseDeckPage() {
     };
 
 
-    useEffect(() => {
-        fetch(`/api/repository/get/${cid}`).then(async r => {
-            const data = await r.json() as RepositorySchema
-            if (Array.isArray(data) && data.length) {
-                console.table("REPO: ", data)
-                setDecks(data[0].decks)
-            }
-            else
-                setDecks([])
-        })
-    }, [refresh, cid])
+    // useEffect(() => {
+    //     fetch(`/api/repository/get/${cid}`).then(async r => {
+    //         const data = await r.json() as RepositorySchema
+    //         if (Array.isArray(data) && data.length) {
+    //             console.table("REPO: ", data)
+    //             // setDecks(data[0].decks)
+    //         }
+    //         // else
+    //         // setDecks([])
+    //     })
+    // }, [refresh, cid])
 
-    const addNewDeck = (deck_name: string, cards: CardSchema[]) => {
-
-        // first upload to deck
-        fetch("/api/deck/", {
-            method: "POST", headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "cards": cards, "name": deck_name, class: cid })
-        }).then(async (r) => {
-            // then upload to repository
-            let data: PostDeckResponse = await r.json();
-            fetch("/api/repository/upload", {
-                method: "POST", headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                // topic refers to class now
-                // NEED TO REWORK Existing API
-                body: JSON.stringify({ topic: cid, "deck_name": data.deck_name, "deck_id": data.deck_id, "description": `blah blah blah created at: ${new Date().toDateString()}` })
-            }).then(() => { setRefresh((prev) => !prev) })
-        })
-    }
+    // const addNewDeck = (deck_name: string, cards: CardSchema[]) => {
+    //     // first upload to deck
+    //     fetch("/api/deck/", {
+    //         method: "POST", headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ "cards": cards, "name": deck_name, class: cid })
+    //     }).then(async (r) => {
+    //         // then upload to repository
+    //         let data: PostDeckResponse = await r.json();
+    //         fetch("/api/repository/upload", {
+    //             method: "POST", headers: {
+    //                 'Accept': 'application/json',
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             // topic refers to class now
+    //             // NEED TO REWORK Existing API
+    //             body: JSON.stringify({ topic: cid, "deck_name": data.deck_name, "deck_id": data.deck_id, "description": `blah blah blah created at: ${new Date().toDateString()}` })
+    //         }).then(() => { setRefresh((prev) => !prev) })
+    //     })
+    // }
 
     return (
         <div className="flex w-full h-screen bg-slate-800 p-6 overflow-hidden">
@@ -130,9 +138,9 @@ export default function BrowseDeckPage() {
                             <FaMagnifyingGlass />
                             <input type='text' placeholder='Search decks' className=' ml-2 focus:outline-none w-full' />
                         </div>
-                        <button onClick={() => addNewDeck("RANDOM", Array(3).fill({ question: "What is 9+10?", answer: "ANSWER", hint: "a dead meme :(", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3", "ANSWER"] }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
+                        {/* <button onClick={() => addNewDeck("RANDOM", Array(3).fill({ question: "What is 9+10?", answer: "ANSWER", hint: "a dead meme :(", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3", "ANSWER"] }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
                             <p className='text-white font-bold text-lg'>Add new deck</p>
-                        </button>
+                        </button> */}
                         <button onClick={() => {
                             setIsGenerateDeckModalOpen(true)
                         }} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
@@ -145,11 +153,10 @@ export default function BrowseDeckPage() {
                                 onGenerate={handleGenerateDeck}
                             />
                         )}
-
                     </div>
                     <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
-                        {decks ? decks.map(deck => (
-                            <Deck key={deck.deck_id} {...deck} />
+                        {repo ? repo.decks.map(deck => (
+                            <Deck key={deck.name} deck={deck} />
                         )) : <></>}
                     </div>
                 </div>

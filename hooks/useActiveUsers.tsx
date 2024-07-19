@@ -1,12 +1,19 @@
-//TODO: read from RTDB
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useRTDB from "./useRTDB";
+import { UserSchema } from "@/app/_types/main";
 
-interface ActiveUsersInput {
-    collectionPath: string
-}
 
-const useActiveUsers = ({ collectionPath }: ActiveUsersInput) => {
-    const [users, setUsers] = useState([])
+
+const useActiveUsers = () => {
+    const [users, setUsers] = useState<UserSchema[]>([])
+    const [snapshots, loading, error] = useRTDB({ dbCollectionPath: "/users" })
+
+    useEffect(() => {
+        const res = snapshots?.filter((v) => v.online) as UserSchema[]
+        setUsers(res)
+    }, [snapshots])
+
+    console.log(users)
     return users;
 }
 

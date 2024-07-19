@@ -8,6 +8,13 @@ export interface MessageSchema {
     lastUpdated: Timestamp
 }
 
+export interface UserSchema {
+    name: string
+    online: boolean
+    handle: string
+    photoURL: string
+}
+
 export interface PomodoroConfigSchema {
     length: number,
     break: number,

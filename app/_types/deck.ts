@@ -14,6 +14,12 @@ export interface DeckSchema {
     cards: CardSchema[]
 }
 
+// This is sent by POST call to decks
+export interface PostDeckRequest {
+    name: string,
+    cards: CardSchema[]
+}
+
 // This is returned by POST call to decks
 export interface PostDeckResponse {
     deck_id: string,

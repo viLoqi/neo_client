@@ -14,7 +14,7 @@ const LoginPage = () => {
 
     const signInWithGoogle = async () => {
         const result = await signInWithPopup(auth, googleProvider);
-        console.log(`${result.user} has logged in, redirecting to /app`);
+        console.log(`${result.user.email} has logged in, redirecting to /app`);
         push("/app")
     }
 

@@ -1,4 +1,6 @@
-export interface RepositoryDecksSchema {
+import { CardSchema } from "./deck"
+
+export interface PublicRepositoryDecksSchema {
     created: Date,
     deck_id: string,
     deck_name: string,
@@ -8,8 +10,18 @@ export interface RepositoryDecksSchema {
     downvotes: number
 }
 
-// This is returned by the API call to repos
-export interface RepositorySchema {
+// This is returned by the GET call to repos
+export interface GetPublicRepoResponse {
     _id: string
-    decks: RepositoryDecksSchema[]
+    decks: PublicRepositoryDecksSchema[]
+}
+
+export interface PrivateDeck {
+    name: string
+    cards: CardSchema[]
+}
+
+export interface GetPrivateRepoResponse {
+    _id: string
+    decks: PrivateDeck[]
 }

@@ -71,7 +71,7 @@ export default function App() {
                 </h1>
                 <Link href={`/deck/${activeCourse}`}>
                     <button className="text-[#18593c] px-4 mr-6 bg-[#c9dbd4] hover:bg-[#a3b2ac] rounded-full font-bold">
-                        Open deck
+                        View My Decks
                     </button>
                 </Link>
             </div>

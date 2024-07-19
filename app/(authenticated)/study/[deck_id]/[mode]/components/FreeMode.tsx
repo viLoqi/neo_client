@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { CardSchema } from "@/app/_types/main";
+import { CardSchema } from "@/app/_types/deck";
 import { useEffect, useState } from "react";
 
 import { CiCircleChevLeft } from "react-icons/ci";

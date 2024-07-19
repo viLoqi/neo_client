@@ -2,7 +2,7 @@
 import { motion } from "framer-motion"
 
 import ChoiceButton from "@/app/_components/ChoiceButton";
-import { CardSchema } from "@/app/_types/main";
+import { CardSchema } from "@/app/_types/deck";
 
 const Flashcard = ({ card }: { card: CardSchema }) => {
     const stackVariants = {

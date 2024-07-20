@@ -7,15 +7,12 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import './BrowseDeckPage.css';
-import UserCard from "@/app/_components/UserCard";
 import UsersPanel from '@/app/_components/UsersPanel';
 import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
 import { CardSchema, PostDeckResponse } from '@/app/_types/deck';
-import useDecks from '@/hooks/useDecks';
 import useUser from '@/hooks/useUser';
-import usePrivateRepo from '@/hooks/usePrivateRepo';
-
+import useRepo from '@/hooks/useRepo';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
@@ -31,13 +28,11 @@ export default function BrowseDeckPage() {
 
     const [refresh, setRefresh] = useState(false)
 
-    const { repo, addDeckToPrivateRepo } = usePrivateRepo({ repo_id: user?.email! })
+    // a repo is a container for decks
+    const { repo, addDeckToPrivateRepo } = useRepo({ repo_id: user?.email! })
 
-    console.log(repo?.decks)
 
     const [cid, setCid] = useState(decodeURI(class_id as string))
-
-    // const [decks, setDecks] = useState<GetRepoResponse[]>([]);
 
     const [numQuestions, setNumQuestions] = useState('5');
 
@@ -53,7 +48,7 @@ export default function BrowseDeckPage() {
         console.log("type of: ", typeof payload);
 
         try {
-            const response = await fetch('/api/ai/generate', {
+            const response = await fetch('https://us-east1-loqi-loqi.cloudfunctions.net/ai', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
@@ -156,7 +151,7 @@ export default function BrowseDeckPage() {
                     </div>
                     <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
                         {repo ? repo.decks.map(deck => (
-                            <Deck key={deck.name} deck={deck} />
+                            <Deck key={crypto.randomUUID()} deck={deck} />
                         )) : <></>}
                     </div>
                 </div>

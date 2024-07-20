@@ -8,7 +8,7 @@ interface UseRepoInput {
     repo_id: string
 }
 
-// A repo is a container for decks
+// A repo is a container for decks; this is usually the user's email
 
 const useRepo = ({ repo_id }: UseRepoInput) => {
     const [repo, setRepo] = useState<GetPrivateRepoResponse>()

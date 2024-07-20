@@ -3,6 +3,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { FaArrowUp } from "react-icons/fa6";
 
 import { auth } from '@/app/_modules/firebase';
+import useChat from "@/hooks/useChat";
+import useUser from "@/hooks/useUser";
 
 interface Props {
     course: string
@@ -29,12 +31,15 @@ const Input = ({ course }: Props) => {
         }
     }
 
+    const { addChatMessage } = useChat({ room: course })
 
-    const [user, loading] = useAuthState(auth);
-    const payload = { collectionPath: `chats/${course}/messages`, content: message, "author": user?.displayName, "authorPhotoURL": user?.photoURL }
+
+    const [user] = useUser()
+    const payload = { content: message, "author": user!.displayName!, "authorPhotoURL": user!.photoURL! }
+
 
     const handleClick = () => {
-        fetch("/api/messaging", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).then(() => {
+        addChatMessage({ body: payload }).then(() => {
             setMessage("");
             (document.getElementById('prompt-textarea')! as HTMLTextAreaElement).value = "";
         })

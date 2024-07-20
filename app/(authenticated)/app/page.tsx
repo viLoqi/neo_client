@@ -15,7 +15,7 @@ const COURSES = [
     "CSE 114",
     "CSE 301",
     "CSE 320",
-    "CSE 312",
+    "CSE 356",
     "CSE 310",
     "AMS 310",
     "AMS 301",

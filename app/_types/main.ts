@@ -8,6 +8,12 @@ export interface MessageSchema {
     lastUpdated: Timestamp
 }
 
+export interface PostChatMessageRequest {
+    content: string
+    author: string
+    authorPhotoURL: string
+}
+
 export interface UserSchema {
     name: string
     online: boolean

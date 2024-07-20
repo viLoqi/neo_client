@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import useSchool from "./useSchool";
 import { PostDeckRequest, DeckSchema } from "@/app/_types/deck";
 import useUser from "./useUser";
@@ -14,7 +14,7 @@ const useDecks = ({ deck_id }: useDecksInput) => {
     const [user] = useUser()
 
     const baseURL = `https://us-east1-loqi-loqi.cloudfunctions.net/deck?university=${school}`
-    const baseHeaders = { "Content-Type": "application/json" }
+    const baseHeaders = useMemo(() => { return { "Content-Type": "application/json" } }, [])
 
     const addNewDeck = ({ deckContent }: { deckContent: PostDeckRequest }) => {
         user?.getIdToken().then(token => {

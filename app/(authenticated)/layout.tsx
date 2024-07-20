@@ -17,10 +17,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         const presenceRef = ref(database, `users/${user.uid}/online`);
 
         onValue(presenceRef, (snapshot) => {
-            if (!snapshot.val()) {
+            if (snapshot.val() != null) {
                 set(presenceRef, true)
             } else {
-                set(userRef, { name: user.displayName, handle: user.displayName, online: true, photoURL: user.photoURL })
+                // Note: Arrays dont "exist" in RTDB, they need to be formatted like such: courses: { 0: "CSE320-01" }
+                set(userRef, { name: user.displayName, handle: user.displayName, online: true, photoURL: user.photoURL, tier: "FREE", courses: {} })
             }
             onDisconnect(presenceRef).set(false);
         });

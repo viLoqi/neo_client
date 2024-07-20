@@ -14,11 +14,14 @@ export interface PostChatMessageRequest {
     authorPhotoURL: string
 }
 
-export interface UserSchema {
+// This is the user stored in RTDB
+export interface UserProfileSchema {
     name: string
     online: boolean
     handle: string
     photoURL: string
+    tier: "FREE" | "BASIC" | "PREMIUM"
+    courses: string[]
 }
 
 export interface PomodoroConfigSchema {

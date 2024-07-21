@@ -21,7 +21,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 set(presenceRef, true)
             } else {
                 // Note: Arrays dont "exist" in RTDB, they need to be formatted like such: courses: { 0: "CSE320-01" }
-                set(userRef, { name: user.displayName, handle: user.displayName, online: true, photoURL: user.photoURL, tier: "FREE", courses: {} })
+                set(userRef, { name: user.displayName, handle: user.displayName, online: true, photoURL: user.photoURL, tier: "FREE", courses: {}, quota: 0 })
             }
             onDisconnect(presenceRef).set(false);
         });

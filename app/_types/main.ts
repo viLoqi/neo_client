@@ -22,6 +22,7 @@ export interface UserProfileSchema {
     photoURL: string
     tier: "FREE" | "BASIC" | "PREMIUM"
     courses: string[]
+    quota: number
 }
 
 export interface PomodoroConfigSchema {

@@ -11,14 +11,17 @@ import UsersPanel from "@/app/_components/UsersPanel";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Flashcard from "./Flashcard";
 import { AnimatePresence } from "framer-motion"
-
+import useDeck from "@/hooks/useDeck";
 // Carolsuole
 const FreeMode = () => {
     const router = useRouter();
 
     const [cards, setCards] = useState<CardSchema[]>([])
     const [activeCardIndex, setActiveCardIndex] = useState(0)
-    const { deck_id } = useParams()
+
+    const { deck_id = 0 } = useParams()
+
+    const { decks } = useDeck()
 
     // for the countdown timer
     const [timerKey, setTimerKey] = useState(0);
@@ -36,16 +39,14 @@ const FreeMode = () => {
     }
 
     useEffect(() => {
-        fetch(`/api/deck/${deck_id}`).then(async r => {
-            const data = await r.json() as CardSchema
-            if (Array.isArray(data) && data.length) {
-                setCards(data)
-                setActiveCardIndex(0)
-            }
-            else
-                setCards([])
-        })
-    }, [deck_id])
+
+        if (Array.isArray(decks) && decks.length) {
+            setCards(decks[deck_id as number].cards)
+            setActiveCardIndex(0)
+        }
+        else
+            setCards([])
+    }, [deck_id, decks])
 
 
     // Flashcard Carousel functionalities

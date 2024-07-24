@@ -1,9 +1,11 @@
 import { PrivateDeck } from "@/app/_types/repo"
+import Link from "next/link"
 
 interface Input {
     deck: PrivateDeck
+    idx: number
 }
-export default function Deck({ deck }: Input) {
+export default function Deck({ deck, idx }: Input) {
 
     const placeholderDifficulty = 'high'
 
@@ -20,7 +22,7 @@ export default function Deck({ deck }: Input) {
                     </li>
                 ))}
             </ul>
-            {/* <Link className={"btn"} href={`/study/${deck_id}/select`}>STUDY THIS</Link> */}
+            <Link className={"btn"} href={`/study/${idx}/select`}>STUDY THIS</Link>
         </div >
     );
 };

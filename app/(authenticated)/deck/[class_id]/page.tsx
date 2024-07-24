@@ -24,19 +24,12 @@ function parseToCardSchema(generatedQuestions: string): CardSchema[] {
 
 export default function BrowseDeckPage() {
     const { class_id } = useParams()
-    const [user] = useUser()
+    const [cid, _] = useState(decodeURI(class_id as string))
 
-    const [refresh, setRefresh] = useState(false)
+    const [user] = useUser()
 
     // a repo is a container for decks
     const { repo, addDeckToPrivateRepo } = useRepo({ repo_id: user?.email! })
-
-
-    const [cid, setCid] = useState(decodeURI(class_id as string))
-
-    const [numQuestions, setNumQuestions] = useState('5');
-
-    const [questionType, setQuestionType] = useState('');
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
@@ -81,6 +74,12 @@ export default function BrowseDeckPage() {
     };
 
 
+    // const [refresh, setRefresh] = useState(false)
+
+    // const [numQuestions, setNumQuestions] = useState('5');
+
+    // const [questionType, setQuestionType] = useState('');
+
     // useEffect(() => {
     //     fetch(`/api/repository/get/${cid}`).then(async r => {
     //         const data = await r.json() as RepositorySchema
@@ -121,7 +120,7 @@ export default function BrowseDeckPage() {
             <div className='flex flex-col items-center w-full h-full'>
                 {/* course name */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
-                    {(class_id as string).replace("%20", " ")}
+                    {cid}
                 </h1>
                 {/* main body */}
                 <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>

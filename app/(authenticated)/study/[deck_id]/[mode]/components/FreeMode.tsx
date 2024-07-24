@@ -97,7 +97,7 @@ const FreeMode = () => {
                                 {
                                     cards.map((card, index) => {
                                         return (activeCardIndex == index &&
-                                            <Flashcard key={index} card={card} />
+                                            <Flashcard key={index} card={card} deckname={deckname}/>
                                         )
                                     })
                                 }

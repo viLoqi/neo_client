@@ -45,7 +45,7 @@ export default function App() {
         </main >
     )
 
-    else if (user) return (<div className="bg-slate-800 flex w-full h-screen ">
+    else if (user) return (<div className="flex w-full h-screen ">
         {/* Left side panel for courses */}
         <div className="carousel carousel-vertical flex-col bg-[#003825] w-[400px] pt-10 overflow-y-scroll whitespace-nowrap">
             {COURSES.map((course) => {

@@ -5,7 +5,7 @@ import { PostDeckRequest } from "@/app/_types/deck";
 import useAuthToken from "./useAuthToken";
 import useUser from "./useUser";
 
-const useDeck = () => {
+const useDecks = () => {
     const [user] = useUser()
 
     const [repo, setRepo] = useState<GetPrivateRepoResponse>()
@@ -45,4 +45,4 @@ const useDeck = () => {
     return { decks: repo?.decks, addDeckToPrivateRepo, delDeckfromPrivateRepo };
 }
 
-export default useDeck;
+export default useDecks;

@@ -11,7 +11,7 @@ import UsersPanel from "@/app/_components/UsersPanel";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Flashcard from "./Flashcard";
 import { AnimatePresence } from "framer-motion"
-import useDeck from "@/hooks/useDeck";
+import useDecks from "@/hooks/useDecks";
 // Carolsuole
 const FreeMode = () => {
     const router = useRouter();
@@ -21,7 +21,7 @@ const FreeMode = () => {
 
     const { deck_id = 0 } = useParams()
 
-    const { decks } = useDeck()
+    const { decks } = useDecks()
 
     // for the countdown timer
     const [timerKey, setTimerKey] = useState(0);

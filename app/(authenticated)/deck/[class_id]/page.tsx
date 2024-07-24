@@ -12,7 +12,7 @@ import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
 import { CardSchema, PostDeckResponse } from '@/app/_types/deck';
 import useUser from '@/hooks/useUser';
-import useDeck from '@/hooks/useDeck';
+import useDecks from '@/hooks/useDecks';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
@@ -28,7 +28,7 @@ export default function BrowseDeckPage() {
     const [refresh, setRefresh] = useState(false)
 
     // a repo is a container for decks
-    const { decks, addDeckToPrivateRepo } = useDeck()
+    const { decks, addDeckToPrivateRepo } = useDecks()
 
 
     const [cid, setCid] = useState(decodeURI(class_id as string))

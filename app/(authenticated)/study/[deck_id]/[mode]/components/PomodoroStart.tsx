@@ -8,16 +8,18 @@ interface Props {
     config: PomodoroConfigSchema | {}
 }
 
-const PomodoroStart = ({config}: Props) => {
+const PomodoroStart = ({ config }: Props) => {
 
     const [timeLeft, setTimeLeft] = useState("length" in config ? config.length : 30)
     const [breakLeft, setBreakLeft] = useState("break" in config ? config.break : 10)
     const [roundsLeft, setroundsLeft] = useState("rounds" in config ? config.rounds : 1)
-    
+
     const handleFinishRound = () => {
-        console.log("rounds left:",roundsLeft)
+        console.log("rounds left:", roundsLeft)
         console.log("Decrementing round count")
-        setroundsLeft((prev: number) => prev - 1)
+        setroundsLeft(prev => {
+            return prev - 1
+        })
     }
 
     const handleResetRound = () => {
@@ -25,11 +27,17 @@ const PomodoroStart = ({config}: Props) => {
         setTimeLeft("length" in config ? config.length : 30)
     }
 
-    if (roundsLeft === 0) {
-        return <PomodoroFinish/>
+    if (roundsLeft <= 0) {
+        return <PomodoroFinish />
     }
 
-    return timeLeft ? <PomodoroGame timeLeft={timeLeft} setTimeLeft={setTimeLeft} handleFinishRound={handleFinishRound}/> : <PomodoroBreak handleResetRound={handleResetRound} breakLeft={breakLeft} setBreakLeft={setBreakLeft} />;
+    if (timeLeft) {
+        return (
+            <PomodoroGame initialTime={timeLeft} setTimeLeft={setTimeLeft} handleFinishRound={handleFinishRound} />
+        )
+    }
+
+    return <PomodoroBreak initialTime={breakLeft} setBreakLeft={setBreakLeft} handleResetRound={handleResetRound} />;
 }
 
 export default PomodoroStart;

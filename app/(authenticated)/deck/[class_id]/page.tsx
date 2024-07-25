@@ -12,7 +12,7 @@ import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
 import { CardSchema, PostDeckResponse } from '@/app/_types/deck';
 import useUser from '@/hooks/useUser';
-import useRepo from '@/hooks/useRepo';
+import useDecks from '@/hooks/useDecks';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
@@ -26,10 +26,8 @@ export default function BrowseDeckPage() {
     const { class_id } = useParams()
     const [cid, _] = useState(decodeURI(class_id as string))
 
-    const [user] = useUser()
-
     // a repo is a container for decks
-    const { repo, addDeckToPrivateRepo } = useRepo({ repo_id: user?.email! })
+    const { decks, addDeckToPrivateRepo } = useDecks()
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
@@ -149,8 +147,8 @@ export default function BrowseDeckPage() {
                         )}
                     </div>
                     <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
-                        {repo ? repo.decks.map(deck => (
-                            <Deck key={crypto.randomUUID()} deck={deck} />
+                        {decks ? decks.map((deck, idx) => (
+                            <Deck key={crypto.randomUUID()} deck={deck} idx={idx} />
                         )) : <></>}
                     </div>
                 </div>

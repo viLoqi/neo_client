@@ -27,14 +27,7 @@ const COURSES = [
 
 export default function App() {
     const [user, loading] = useUser()
-
-    // const userC = useContext(UserContext);
-    // console.log("IM IN APP", userC.value)
-
     const [activeCourse, setActiveCourse] = useState(COURSES[0]);
-
-    // temporary 
-    // const loading = false
 
 
     if (loading) return (

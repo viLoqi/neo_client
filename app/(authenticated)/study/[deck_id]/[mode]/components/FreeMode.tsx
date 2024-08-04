@@ -81,7 +81,7 @@ const FreeMode = () => {
 
     console.log("current card index: " + activeCardIndex);
     return (
-        <div className="flex h-screen">
+        <div className="flex w-full h-screen">
             <div className="flex flex-col w-full h-full bg-[#18593c]">
                 {/* Course title */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
@@ -137,8 +137,6 @@ const FreeMode = () => {
                     </div>
                 </div>
             </div>
-            {/* Users panel */}
-            <UsersPanel />
         </div>
     );
 }

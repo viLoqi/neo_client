@@ -8,7 +8,7 @@ interface Props {
 
 const UserCard = ({ userName, userHandle, userProfilePicture }: Props) => {
     return (
-        <div className="flex items-center w-full h-14 rounded-lg shadow-md border-t-2 border-b-2  pl-6">
+        <div className="flex items-center w-full h-14 rounded-lg">
             <Avatar name={userName} src={userProfilePicture}>
                 <AvatarBadge borderColor='papayawhip' bg='green.500' boxSize='1em' />
             </Avatar>

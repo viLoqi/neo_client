@@ -4,7 +4,6 @@
     font-family: Arial, sans-serif;
     min-height: 100vh;
     padding: 20px;
-    background-color: #39433a;
     color: #f5f5f5;
     display: flex;
     flex-direction: column;
@@ -16,19 +15,20 @@
 .backButton {
     height: 50px;
     margin-left: 20px;
-  }
+}
+
 .search-bar {
     display: flex;
     align-items: center;
     background: white;
-    padding:10px;
+    padding: 10px;
     border-radius: 20px;
     width: 500px;
     height: 100%;
 }
 
 
-.add-deck-button-container{
+.add-deck-button-container {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
@@ -37,13 +37,15 @@
 .deck-list {
     display: grid;
     flex-wrap: wrap;
-    gap: 20px; /* space between decks */
+    gap: 20px;
+    /* space between decks */
 }
 
 .deck {
     background-color: rgb(255, 255, 255);
     border-radius: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* subtle shadow */
     padding: 10px 30px;
     /* width: ; /* fixed width, adjust as needed */
 }
@@ -70,9 +72,11 @@
 }
 
 .deck li.completed {
-    color: green; /* style for completed cards */
+    color: green;
+    /* style for completed cards */
 }
 
 .deck li.not-completed {
-    color: red; /* style for not completed cards */
+    color: red;
+    /* style for not completed cards */
 }

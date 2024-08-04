@@ -1,17 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CiCircleChevLeft } from "react-icons/ci";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-
 import './BrowseDeckPage.css';
 import UsersPanel from '@/components/UsersPanel';
 import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
-import { CardSchema, PostDeckResponse } from '@/app/_types/deck';
-import useUser from '@/hooks/useUser';
+import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
@@ -28,8 +25,6 @@ export default function BrowseDeckPage() {
 
     // a repo is a container for decks
     const { decks, addDeckToPrivateRepo } = useDecks()
-
-
 
     const [numQuestions, setNumQuestions] = useState('5');
 
@@ -78,53 +73,18 @@ export default function BrowseDeckPage() {
     };
 
 
-    // useEffect(() => {
-    //     fetch(`/api/repository/get/${cid}`).then(async r => {
-    //         const data = await r.json() as RepositorySchema
-    //         if (Array.isArray(data) && data.length) {
-    //             console.table("REPO: ", data)
-    //             // setDecks(data[0].decks)
-    //         }
-    //         // else
-    //         // setDecks([])
-    //     })
-    // }, [refresh, cid])
-
-    // const addNewDeck = (deck_name: string, cards: CardSchema[]) => {
-    //     // first upload to deck
-    //     fetch("/api/deck/", {
-    //         method: "POST", headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ "cards": cards, "name": deck_name, class: cid })
-    //     }).then(async (r) => {
-    //         // then upload to repository
-    //         let data: PostDeckResponse = await r.json();
-    //         fetch("/api/repository/upload", {
-    //             method: "POST", headers: {
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             // topic refers to class now
-    //             // NEED TO REWORK Existing API
-    //             body: JSON.stringify({ topic: cid, "deck_name": data.deck_name, "deck_id": data.deck_id, "description": `blah blah blah created at: ${new Date().toDateString()}` })
-    //         }).then(() => { setRefresh((prev) => !prev) })
-    //     })
-    // }
-
     return (
-        <div className="flex w-full h-screen bg-slate-800 p-6 overflow-hidden">
+        <div className="flex w-full h-screen p-6 overflow-hidden">
             <div className='flex flex-col items-center w-full h-full'>
                 {/* course name */}
-                <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
+                <h1 className="flex w-full justify-center  font-semibold border-b-[1px] py-2 mb-1 border-black">
                     {/* {(class_id as string).replace("%20", " ")} */}
-                    Former Class Name
+                    Search Your Decks
                 </h1>
                 {/* main body */}
                 <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
                     <Link href="/app">
-                        <CiCircleChevLeft size="50" color="white" />
+                        <CiCircleChevLeft size="50" />
                     </Link>
                     <div className='flex justify-between items-center py-2 my-2 h-[70px]'>
                         <div className="search-bar">

@@ -1,3 +1,4 @@
+import { Heading } from '@chakra-ui/react';
 import UserCard from './UserCard'
 import useActiveUsers from '@/hooks/useActiveUsers';
 
@@ -7,8 +8,8 @@ export default function UsersPanel() {
 
     if (activeUsers)
         return (
-            <div className="min-w-[14rem] p-4 m-2 border rounded-lg shadow-lg">
-                {/* Creates 4 user cards */}
+            <div className="min-w-[14rem] p-4 m-2">
+                <Heading size="sm" py={2}>Active Students</Heading>
                 {activeUsers.map(user => <UserCard
                     key={user.photoURL}
                     userName={user.name}

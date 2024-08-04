@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import React from "react";
 import { database } from '@/app/_modules/firebase'
 import { ref, onValue, onDisconnect, set } from "firebase/database";
+import SideBar from '@/components/Sidebar'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [user, loading] = useUser()
@@ -27,7 +28,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         });
     }
 
-    return children
+    return <div className="flex w-full h-screen">
+        <SideBar />
+        {children}
+    </div>
 };
 
 export default Layout

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import './BrowseDeckPage.css';
-import UsersPanel from '@/app/_components/UsersPanel';
+import UsersPanel from '@/components/UsersPanel';
 import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
 import { CardSchema, PostDeckResponse } from '@/app/_types/deck';
@@ -23,7 +23,6 @@ function parseToCardSchema(generatedQuestions: string): CardSchema[] {
 }
 
 export default function BrowseDeckPage() {
-    const { class_id } = useParams()
 
     const [refresh, setRefresh] = useState(false)
 
@@ -31,7 +30,6 @@ export default function BrowseDeckPage() {
     const { decks, addDeckToPrivateRepo } = useDecks()
 
 
-    const [cid, setCid] = useState(decodeURI(class_id as string))
 
     const [numQuestions, setNumQuestions] = useState('5');
 
@@ -120,7 +118,8 @@ export default function BrowseDeckPage() {
             <div className='flex flex-col items-center w-full h-full'>
                 {/* course name */}
                 <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
-                    {(class_id as string).replace("%20", " ")}
+                    {/* {(class_id as string).replace("%20", " ")} */}
+                    Former Class Name
                 </h1>
                 {/* main body */}
                 <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>

@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
-import Feature from '@/app/_components/Feature';
-import { Navbar } from "@/app/_components/Navbar";
+import Feature from '@/components/Feature';
+import { Navbar } from "@/components/Navbar";
 
 // aka landing page
 export default function Index() {

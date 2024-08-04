@@ -1,3 +1,4 @@
+import { Avatar } from "@chakra-ui/react";
 import { MouseEventHandler } from "react";
 
 const CoursesCard = ({
@@ -8,9 +9,7 @@ const CoursesCard = ({
     onClick: MouseEventHandler<HTMLButtonElement>;
 }) => {
     return (
-        <button onClick={onClick} className="flex w-full h-[72px] items-center bg-[#206f4c] rounded-xl border-t-[1px] border-b-[1px] border-[#003825] font-bold text-lg text-white">
-            {/* Course avatar */}
-            <div className="size-10 bg-gray-200 rounded-full mx-5" />
+        <button onClick={onClick} className="flex w-full items-center rounded-xl  py-2 pr-2">
             {course}
         </button>
     );

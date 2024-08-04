@@ -6,6 +6,7 @@ import useChat from '@/hooks/useChat'
 interface Props {
   course: string
 }
+// This is chat messages 4.
 const Messages = ({ course }: Props) => {
 
   // const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firestore, mcp), orderBy('firstCreated', 'asc')))

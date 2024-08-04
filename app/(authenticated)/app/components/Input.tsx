@@ -10,6 +10,7 @@ interface Props {
     course: string
 }
 
+// This is the chat message bar
 const Input = ({ course }: Props) => {
     const [message, setMessage] = useState("");
 

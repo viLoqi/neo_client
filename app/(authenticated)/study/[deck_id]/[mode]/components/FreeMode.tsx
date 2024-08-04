@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { CiCircleChevLeft } from "react-icons/ci";
 import Link from "next/link";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import UsersPanel from "@/app/_components/UsersPanel";
+import UsersPanel from "@/components/UsersPanel";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Flashcard from "./Flashcard";
 import { AnimatePresence } from "framer-motion"

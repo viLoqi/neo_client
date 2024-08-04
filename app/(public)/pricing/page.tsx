@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/_modules/firebase"
 
-import { Navbar } from "@/app/_components/Navbar";
+import { Navbar } from "@/components/Navbar";
 
 const PricingPage = () => {
     const [user, loading] = useAuthState(auth);

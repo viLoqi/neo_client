@@ -2,7 +2,7 @@
 
 import { PrivateDeck } from "@/app/_types/repo";
 import useDecks from "@/hooks/useDecks";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading } from "@chakra-ui/react";
 import { CaretRight, Cpu } from "@phosphor-icons/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -29,9 +29,9 @@ const DeckEditPage = () => {
                         <BreadcrumbLink href={`/deck/${idx}`}>{selectedDeck.name}</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
-                <div className="flex items-center gap-4">
-                    <Cpu size={40} /> {selectedDeck.name}
-                </div>
+                <Heading size="xl" className="flex items-center gap-4 mt-4">
+                    <Cpu size={32} /> {selectedDeck.name}
+                </Heading>
             </div>
             <div className="row-span-9">
                 {selectedDeck.cards.map((card => <DeckCard key={crypto.randomUUID()} card={card} />))}

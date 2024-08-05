@@ -3,10 +3,13 @@ import { useState } from 'react';
 import { auth } from '@/app/_modules/firebase';
 import CoursesCard from '@/app/(authenticated)/app/components/CoursesCard';
 import useUser from '@/hooks/useUser';
-import { Avatar, Link, Button, Divider, Heading } from '@chakra-ui/react';
+import { Avatar, Button, Divider, Heading } from '@chakra-ui/react';
 import Logo from '@/components/Logo';
 import { BookOpenText, ChartLineUp, Chat, Club, House } from "@phosphor-icons/react";
+import { usePathname } from 'next/navigation'
+import { Link } from '@chakra-ui/next-js'
 
+// TODO: pull live data
 const COURSES = [
     { cid: 'CSE114', name: 'Introduction to Object Orientated Programming' },
     { cid: 'CSE215', name: 'Foundations of Computer Science' },
@@ -15,7 +18,7 @@ const COURSES = [
 const NavItems = [
     { dest: "/app", title: "Home", icon: <House /> },
     { dest: "/forum", title: "Forum", icon: <BookOpenText /> },
-    { dest: "/dashboard", title: "Dashboard", icon: <ChartLineUp /> },
+    // { dest: "/dashboard", title: "Dashboard", icon: <ChartLineUp /> },
     { dest: "/deck", title: "Flashcards", icon: <Club /> },
     { dest: "/chat", title: "Chat Rooms", icon: <Chat /> }
 ]
@@ -23,16 +26,17 @@ const NavItems = [
 const SideBar = () => {
     const [user, loading] = useUser()
     const [activeCourse, setActiveCourse] = useState(COURSES[0]);
+    const pathname = usePathname()
 
     if (user)
         return (
-            <div className="carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
+            <div className="bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
                 {/* Logo */}
                 <Logo />
                 {/* Nav Items */}
                 {NavItems.map(item =>
-                    <Link key={item.title} href={item.dest} className='py-2 pr-2' >
-                        <span className='flex items-center gap-2 text-xl'>
+                    <Link key={item.title} href={item.dest} className={`py-2 pr-2 ${pathname === item.dest ? "border-r-4 border-r-light-primary" : ""}`} >
+                        <span className={`flex items-center gap-2 text-xl ${pathname === item.dest ? "text-light-primary-text" : ""}`}>
                             {item.icon} {item.title}
                         </span>
                     </Link>)}

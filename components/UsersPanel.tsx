@@ -8,7 +8,7 @@ export default function UsersPanel() {
 
     if (activeUsers)
         return (
-            <div className="min-w-[14rem] p-4 m-2">
+            <div className="min-w-[14rem] p-4 m-2 bg-light-bg-subtle">
                 <Heading size="sm" py={2}>Active Students</Heading>
                 {activeUsers.map(user => <UserCard
                     key={user.photoURL}

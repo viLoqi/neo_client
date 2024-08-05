@@ -2,13 +2,12 @@ import { Card, Stack, Text, Heading, CardBody, CardFooter, Button, Center, Simpl
 import { BookBookmark, Student, Timer } from "@phosphor-icons/react";
 
 const SemesterCard = () => {
-    return <div>
+    return (
         <Card
             overflow='hidden'
             variant='outline'
         >
-            <Center>
-
+            <Center className="bg-light-bg-subtle">
 
                 <BookBookmark size={80} />
 
@@ -34,8 +33,7 @@ const SemesterCard = () => {
                 </CardFooter>
             </Center>
 
-        </Card>
-    </div>;
+        </Card>)
 }
 
 export default SemesterCard;

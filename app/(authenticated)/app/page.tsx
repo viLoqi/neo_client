@@ -14,18 +14,11 @@ const COURSES = [
 export default function App() {
     const [user, loading] = useUser()
 
-    // if (loading) return (
-    //     <main className="flex justify-center p-24">
-    //         <div>
-    //             <h1>Loading...</h1>
-    //         </div>
-    //     </main >
-    // )
 
     if (user) return (
-        <div className="flex w-full h-screen">
+        <div className="flex w-full h-screen ">
             {/* middle component */}
-            <div className="flex flex-col w-full ">
+            <div className="flex flex-col w-full p-4">
                 <div className="flex w-full border-b-[1px] py-2 mb-1 border-black">
                     <h1 className="font-semibold">
                         {moment().format('MMMM Do YYYY, h:mm:ss a')}

@@ -42,7 +42,7 @@ const useDecks = () => {
             }).then(r => r.json().then(d => setRepo(d[0])))
     }, [reload, baseURL, baseHeaders, token, user])
 
-    return { decks: repo?.decks, addDeckToPrivateRepo, delDeckfromPrivateRepo };
+    return { decks: repo?.decks ?? [], addDeckToPrivateRepo, delDeckfromPrivateRepo };
 }
 
 export default useDecks;

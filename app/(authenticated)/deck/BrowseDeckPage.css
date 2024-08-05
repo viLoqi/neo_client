@@ -1,6 +1,4 @@
-/* BrowseDeckPage.css */
-
-.browse-deck-page {
+BrowseDeckPage.css .browse-deck-page {
     font-family: Arial, sans-serif;
     min-height: 100vh;
     padding: 20px;
@@ -20,7 +18,7 @@
 .search-bar {
     display: flex;
     align-items: center;
-    background: white;
+    background: inherit;
     padding: 10px;
     border-radius: 20px;
     width: 500px;

@@ -1,15 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { CiCircleChevLeft } from "react-icons/ci";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import Link from 'next/link';
-import './BrowseDeckPage.css';
-import UsersPanel from '@/components/UsersPanel';
+import { useEffect, useState } from 'react';
 import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
 import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
+import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
@@ -25,6 +21,17 @@ export default function BrowseDeckPage() {
 
     // a repo is a container for decks
     const { decks, addDeckToPrivateRepo } = useDecks()
+
+    const [filteredDecks, setFilteredDecks] = useState(decks)
+    const [filter, setFilter] = useState("")
+
+    useEffect(() => {
+        if (filter) {
+            setFilteredDecks(decks.filter(d => d.name.toLowerCase().includes(filter.toLowerCase())))
+        } else {
+            setFilteredDecks(decks)
+        }
+    }, [decks, filter])
 
     const [numQuestions, setNumQuestions] = useState('5');
 
@@ -72,49 +79,41 @@ export default function BrowseDeckPage() {
         setIsGenerateDeckModalOpen(false);
     };
 
-
-    return (
-        <div className="flex w-full h-screen p-6 overflow-hidden">
-            <div className='flex flex-col items-center w-full h-full'>
-                {/* course name */}
-                <h1 className="flex w-full justify-center  font-semibold border-b-[1px] py-2 mb-1 border-black">
-                    {/* {(class_id as string).replace("%20", " ")} */}
-                    Search Your Decks
-                </h1>
-                {/* main body */}
-                <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
-                    <Link href="/app">
-                        <CiCircleChevLeft size="50" />
-                    </Link>
-                    <div className='flex justify-between items-center py-2 my-2 h-[70px]'>
-                        <div className="search-bar">
-                            <FaMagnifyingGlass />
-                            <input type='text' placeholder='Search decks' className=' ml-2 focus:outline-none w-full' />
+    if (decks)
+        return (
+            <div className="flex w-full h-screen p-6 overflow-hidden">
+                <div className='flex flex-col items-center w-full h-full'>
+                    {/* course name */}
+                    <h1 className="flex w-full justify-center  font-semibold border-b-[1px] py-2 mb-1 border-black">
+                        Search Your Decks
+                    </h1>
+                    {/* main body */}
+                    <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
+                        <div className='flex justify-between items-center py-2 my-2 h-14 rounded-lg bg-light-bg-subtle'>
+                            <div className="search-bar flex items-center w-full p-4">
+                                <MagnifyingGlass />
+                                <input type='text' placeholder='Search by Subject or Keyword' className='ml-2 focus:outline-none w-full bg-inherit' onChange={(e) => { setFilter(e.target.value) }} />
+                            </div>
+                            <button onClick={() => {
+                                setIsGenerateDeckModalOpen(true)
+                            }} className="flex items-center justify-center w-[200px] h-full bg-light-primary hover:bg-[#2860F3] rounded-xl">
+                                <div className='flex items-center gap-2 text-white font-bold text-lg'> <MagicWand /> <span>Generate Deck</span></div>
+                            </button>
+                            {isGenerateDeckModalOpen && (
+                                <GenerateDeckModal
+                                    isOpen={isGenerateDeckModalOpen}
+                                    onClose={() => setIsGenerateDeckModalOpen(false)}
+                                    onGenerate={handleGenerateDeck}
+                                />
+                            )}
                         </div>
-                        {/* <button onClick={() => addNewDeck("RANDOM", Array(3).fill({ question: "What is 9+10?", answer: "ANSWER", hint: "a dead meme :(", order: 0, choices: ["WRONG1", "WRONG2", "WRONG3", "ANSWER"] }))} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
-                            <p className='text-white font-bold text-lg'>Add new deck</p>
-                        </button> */}
-                        <button onClick={() => {
-                            setIsGenerateDeckModalOpen(true)
-                        }} className="flex items-center justify-center w-[200px] h-full bg-[#237451] hover:bg-[#1f6848] rounded-xl">
-                            <p className='text-white font-bold text-lg'>Generate Deck</p>
-                        </button>
-                        {isGenerateDeckModalOpen && (
-                            <GenerateDeckModal
-                                isOpen={isGenerateDeckModalOpen}
-                                onClose={() => setIsGenerateDeckModalOpen(false)}
-                                onGenerate={handleGenerateDeck}
-                            />
-                        )}
-                    </div>
-                    <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
-                        {decks ? decks.map((deck, idx) => (
-                            <Deck key={crypto.randomUUID()} deck={deck} idx={idx} />
-                        )) : <></>}
+                        <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
+                            {filteredDecks.map((deck, idx) => (
+                                <Deck key={crypto.randomUUID()} deck={deck} idx={idx} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-            <UsersPanel />
-        </div>
-    );
+        );
 };

@@ -1,13 +1,16 @@
 import { PrivateDeck } from "@/app/_types/repo"
-import { Card, Text, Heading, CardBody, CardFooter, Button, Center } from "@chakra-ui/react";
-import { Cpu, DotsThreeOutlineVertical, Question, SealQuestion, Student, Timer } from "@phosphor-icons/react";
-import { Menu, IconButton, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { Card, Text, Heading, CardBody, Button, Center, Menu, IconButton, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { Cpu, DotsThreeOutlineVertical, SealQuestion, Timer } from "@phosphor-icons/react";
+import { Link } from "@chakra-ui/next-js";
 
 interface Input {
     deck: PrivateDeck
     idx: number
+    delDeckfromPrivateRepo: (idx: number) => void
 }
-export default function Deck({ deck, idx }: Input) {
+
+export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
+
     return (
         <Card
             overflow='hidden'
@@ -28,10 +31,10 @@ export default function Deck({ deck, idx }: Input) {
                                 variant='outline'
                             />
                             <MenuList>
-                                <MenuItem>
+                                <MenuItem as={Link} href={`/deck/${idx}`}>
                                     Edit
                                 </MenuItem>
-                                <MenuItem >
+                                <MenuItem onClick={() => delDeckfromPrivateRepo(idx)}>
                                     Delete
                                 </MenuItem>
                             </MenuList>

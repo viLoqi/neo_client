@@ -17,28 +17,19 @@ function parseToCardSchema(generatedQuestions: string): CardSchema[] {
 
 export default function BrowseDeckPage() {
 
-    const [refresh, setRefresh] = useState(false)
-
-    // a repo is a container for decks
-    const { decks, addDeckToPrivateRepo } = useDecks()
-
+    const { decks, reload, addDeckToPrivateRepo, delDeckfromPrivateRepo } = useDecks()
     const [filteredDecks, setFilteredDecks] = useState(decks)
     const [filter, setFilter] = useState("")
 
     useEffect(() => {
-        if (filter) {
+        if (filter && decks) {
             setFilteredDecks(decks.filter(d => d.name.toLowerCase().includes(filter.toLowerCase())))
         } else {
             setFilteredDecks(decks)
         }
-    }, [decks, filter])
-
-    const [numQuestions, setNumQuestions] = useState('5');
-
-    const [questionType, setQuestionType] = useState('');
+    }, [decks, filter, reload])
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
-
 
     const handleGenerateDeck = async (numQuestions: string, questionType: string) => {
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
@@ -76,10 +67,9 @@ export default function BrowseDeckPage() {
             console.error('Error generating questions:', error);
         }
 
-        setIsGenerateDeckModalOpen(false);
     };
 
-    if (decks)
+    if (filteredDecks)
         return (
             <div className="flex w-full h-screen p-6 overflow-hidden">
                 <div className='flex flex-col items-center w-full h-full'>
@@ -109,7 +99,7 @@ export default function BrowseDeckPage() {
                         </div>
                         <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
                             {filteredDecks.map((deck, idx) => (
-                                <Deck key={crypto.randomUUID()} deck={deck} idx={idx} />
+                                <Deck key={crypto.randomUUID()} deck={deck} idx={idx} delDeckfromPrivateRepo={delDeckfromPrivateRepo} />
                             ))}
                         </div>
                     </div>

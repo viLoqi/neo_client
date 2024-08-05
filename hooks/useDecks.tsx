@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import useSchool from "./useSchool";
-import { GetPrivateRepoResponse } from "@/app/_types/repo";
+import { PrivateDeck } from "@/app/_types/repo";
 import { PostDeckRequest } from "@/app/_types/deck";
 import useAuthToken from "./useAuthToken";
 import useUser from "./useUser";
@@ -8,7 +8,7 @@ import useUser from "./useUser";
 const useDecks = () => {
     const [user] = useUser()
 
-    const [repo, setRepo] = useState<GetPrivateRepoResponse>()
+    const [decks, setDecks] = useState<PrivateDeck[]>([])
     const [reload, setReload] = useState(false)
     const school = useSchool()
     const token = useAuthToken()
@@ -28,8 +28,15 @@ const useDecks = () => {
             }).then(() => setReload((prev) => !prev))
     }
 
-    const delDeckfromPrivateRepo = () => {
-        setReload((prev) => !prev)
+    const delDeckfromPrivateRepo = (idx: number) => {
+        if (user)
+            fetch(`${baseURL}&uid=${user.email}&idx=${idx}`, {
+                method: "DELETE",
+                headers: {
+                    ...baseHeaders,
+                    "Authorization": `Bearer ${token}`,
+                }
+            }).then(() => setReload((prev) => !prev))
     }
 
     useEffect(() => {
@@ -39,10 +46,13 @@ const useDecks = () => {
                     ...baseHeaders,
                     "Authorization": `Bearer ${token}`,
                 }
-            }).then(r => r.json().then(d => setRepo(d[0])))
+            }).then(r => r.json().then(d => {
+                setDecks(d[0]?.decks ?? [])
+            }))
     }, [reload, baseURL, baseHeaders, token, user])
 
-    return { decks: repo?.decks ?? [], addDeckToPrivateRepo, delDeckfromPrivateRepo };
+    console.table(decks)
+    return { decks, reload, addDeckToPrivateRepo, delDeckfromPrivateRepo };
 }
 
 export default useDecks;

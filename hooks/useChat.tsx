@@ -6,7 +6,13 @@ import { query, collection, orderBy } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 const useChat = ({ uid, tuid }: { uid: string, tuid: string }) => {
-    const collectionPath = `chats/${uid}/contacts/${tuid}/messages`
+
+    let hash = uid + tuid
+
+    if (uid > tuid)
+        hash = tuid + uid
+
+    const collectionPath = `chats/${hash}/messages`
     const [chatMessages] = useCollectionData(query(collection(firestore, collectionPath), orderBy("firstCreated", "asc")))
     const baseURL = `https://us-east1-loqi-loqi.cloudfunctions.net/chat?uid=${uid}&tuid=${tuid}`
     const token = useAuthToken()

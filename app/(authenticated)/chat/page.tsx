@@ -23,7 +23,7 @@ const ChatPage = () => {
     return <div className="grid grid-cols-10 w-full h-screen ">
 
         <div className="col-span-2 bg-light-bg-subtle border-light-bg-active border-x-2 ">
-            <ContactList contacts={contacts} />
+            <ContactList contacts={contacts} selectedContact={selectedContact} setSelectedContact={setSelectedContact} />
         </div>
 
         <div className="col-span-8 ">

@@ -59,7 +59,7 @@ export default function BrowseDeckPage() {
 
             console.log(questionType, cardSchemas)
 
-            addDeckToPrivateRepo({ deckContent: { name: questionType, cards: cardSchemas });
+            addDeckToPrivateRepo({ deckContent: { name: questionType, cards: cardSchemas } });
 
         } catch (error) {
             console.error('Error generating questions:', error);

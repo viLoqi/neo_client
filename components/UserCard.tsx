@@ -13,7 +13,6 @@ const UserCard = ({ userName, userHandle, userProfilePicture }: Props) => {
                 <AvatarBadge borderColor='papayawhip' bg='green.500' boxSize='1em' />
             </Avatar>
             <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-fullz-10">
-
             </div>
             <div className="flex flex-col ml-3">
                 <p className="text-sm font-semibold">{userName}</p>

@@ -8,7 +8,7 @@ interface UseFirestoreInput {
 
 // https://github.com/CSFrequency/react-firebase-hooks/blob/master/firestore/README.md
 const useFirestore = ({ collectionPath }: UseFirestoreInput) => {
-    return useCollectionData(query(collection(firestore, collectionPath), orderBy('firstCreated', 'asc')));
+    return useCollectionData(query(collection(firestore, collectionPath)));
 }
 
 export default useFirestore;

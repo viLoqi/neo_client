@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import GenerateDeckModal from "./components/GenerateDeckModal";
 import Deck from './components/Deck';
 import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
 import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
+import { Input } from '@chakra-ui/react';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     // TODO: @Benny, remove hardcoded difficulty.
@@ -17,18 +18,14 @@ function parseToCardSchema(generatedQuestions: string): CardSchema[] {
 }
 
 export default function BrowseDeckPage() {
+    const { decks, addDeckToPrivateRepo, delDeckfromPrivateRepo } = useDecks()
 
-    const { decks, reload, addDeckToPrivateRepo, delDeckfromPrivateRepo } = useDecks()
-    const [filteredDecks, setFilteredDecks] = useState(decks)
     const [filter, setFilter] = useState("")
 
-    useEffect(() => {
-        if (filter && decks) {
-            setFilteredDecks(decks.filter(d => d.name.toLowerCase().includes(filter.toLowerCase())))
-        } else {
-            setFilteredDecks(decks)
-        }
-    }, [decks, filter, reload])
+    const filteredDecks = useMemo(
+        () => decks.filter(d => d.name.toLowerCase().includes(filter.toLowerCase())),
+        [decks, filter]
+    );
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
@@ -83,7 +80,7 @@ export default function BrowseDeckPage() {
                         <div className='flex justify-between items-center py-2 my-2 h-14 rounded-lg bg-light-bg-subtle'>
                             <div className="search-bar flex items-center w-full p-4">
                                 <MagnifyingGlass />
-                                <input type='text' placeholder='Search by Subject or Keyword' className='ml-2 focus:outline-none w-full bg-inherit' onChange={(e) => { setFilter(e.target.value) }} />
+                                <Input placeholder='Search by Subject or Keyword' className='ml-2 focus:outline-none w-full bg-inherit' onChange={(e) => { setFilter(e.target.value) }} variant='unstyled' />
                             </div>
                             <button onClick={() => {
                                 setIsGenerateDeckModalOpen(true)

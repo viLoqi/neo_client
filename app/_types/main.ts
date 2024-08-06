@@ -20,9 +20,9 @@ export interface UserProfileSchema {
     online: boolean
     handle: string
     photoURL: string
-    tier: "FREE" | "BASIC" | "PREMIUM"
-    courses: string[]
-    quota: number
+    // tier: "FREE" | "BASIC" | "PREMIUM"
+    // courses: string[]
+    // quota: number
 }
 
 export interface PomodoroConfigSchema {

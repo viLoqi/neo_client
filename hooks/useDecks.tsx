@@ -51,7 +51,6 @@ const useDecks = () => {
             }))
     }, [reload, baseURL, baseHeaders, token, user])
 
-    console.table(decks)
     return { decks, reload, addDeckToPrivateRepo, delDeckfromPrivateRepo };
 }
 

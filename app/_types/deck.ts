@@ -2,6 +2,7 @@ export interface CardSchema {
     question: string,
     answer: string,
     choices: string[],
+    difficulty: "EASY" | "MEDIUM" | "HARD"
     hint: string,
     order: number;
 }

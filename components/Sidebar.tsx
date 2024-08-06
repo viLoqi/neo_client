@@ -5,7 +5,7 @@ import CoursesCard from '@/app/(authenticated)/app/components/CoursesCard';
 import useUser from '@/hooks/useUser';
 import { Avatar, Button, Divider, Heading } from '@chakra-ui/react';
 import Logo from '@/components/Logo';
-import { BookOpenText, ChartLineUp, Chat, Club, House } from "@phosphor-icons/react";
+import { Chat, Club, House, Table } from "@phosphor-icons/react";
 import { usePathname } from 'next/navigation'
 import { Link } from '@chakra-ui/next-js'
 
@@ -16,11 +16,11 @@ const COURSES = [
 ];
 
 const NavItems = [
-    { dest: "/app", title: "Home", icon: <House /> },
-    { dest: "/forum", title: "Forum", icon: <BookOpenText /> },
+    { dest: "/app", title: "Home", icon: <House weight='duotone' /> },
+    { dest: "/forum", title: "Forum", icon: <Table weight='duotone' /> },
     // { dest: "/dashboard", title: "Dashboard", icon: <ChartLineUp /> },
-    { dest: "/deck", title: "Flashcards", icon: <Club /> },
-    { dest: "/chat", title: "Chat Rooms", icon: <Chat /> }
+    { dest: "/deck", title: "Flashcards", icon: <Club weight='duotone' /> },
+    { dest: "/chat", title: "Chat Rooms", icon: <Chat weight='duotone' /> }
 ]
 
 const SideBar = () => {

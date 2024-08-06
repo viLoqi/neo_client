@@ -2,11 +2,12 @@
 
 import { PrivateDeck } from "@/app/_types/repo";
 import useDecks from "@/hooks/useDecks";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading } from "@chakra-ui/react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { CaretRight, Cpu } from "@phosphor-icons/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import DeckCard from "./DeckCard";
+import CardsTab from "./CardsTab";
+import DetailsTab from "./DetailsTab";
 
 const DeckEditPage = () => {
     const { idx } = useParams<{ idx: string }>()
@@ -29,12 +30,26 @@ const DeckEditPage = () => {
                         <BreadcrumbLink href={`/deck/${idx}`}>{selectedDeck.name}</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
-                <Heading size="xl" className="flex items-center gap-4 mt-4">
+                <Heading size="lg" className="flex items-center gap-4 my-4">
                     <Cpu size={32} /> {selectedDeck.name}
                 </Heading>
             </div>
-            <div className="row-span-9">
-                {selectedDeck.cards.map((card => <DeckCard key={crypto.randomUUID()} card={card} />))}
+            <div className="row-span-9 overflow-y-scroll" >
+                <Tabs>
+                    <TabList className="">
+                        <Tab>Cards</Tab>
+                        <Tab>Details</Tab>
+                    </TabList>
+
+                    <TabPanels >
+                        <TabPanel>
+                            <CardsTab selectedDeck={selectedDeck} />
+                        </TabPanel>
+                        <TabPanel>
+                            <DetailsTab />
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
             </div>
         </div>;
 }

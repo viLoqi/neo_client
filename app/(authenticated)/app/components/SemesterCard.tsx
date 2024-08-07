@@ -1,4 +1,4 @@
-import { Card, Stack, Text, Heading, CardBody, CardFooter, Button, Center, SimpleGrid, Box } from "@chakra-ui/react";
+import { Card, Text, Heading, CardBody, CardFooter, Button, Center } from "@chakra-ui/react";
 import { BookBookmark, Student, Timer } from "@phosphor-icons/react";
 
 const SemesterCard = () => {
@@ -27,7 +27,7 @@ const SemesterCard = () => {
                 </CardBody>
 
                 <CardFooter>
-                    <Button variant='solid' colorScheme='blue'>
+                    <Button variant='solid' color='#326AFD' bgColor={"#DDEAFF"}>
                         Join Now
                     </Button>
                 </CardFooter>

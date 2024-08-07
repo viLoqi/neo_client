@@ -51,7 +51,7 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                             Fall 2024
                         </Text>
                     </div>
-                    <Button variant='solid' colorScheme='blue'>
+                    <Button variant='solid' color='#326AFD' bgColor={"#DDEAFF"}>
                         Study Now
                     </Button>
                 </CardBody>

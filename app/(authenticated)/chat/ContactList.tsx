@@ -50,13 +50,13 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
                 <TabIndicator mt='-1.5px' height='2px' bg='blue.500' borderRadius='1px' />
                 <TabPanels>
                     <TabPanel>
-                        <div className="flex items-center w-full p-4  mb-2">
+                        <div className="flex items-center w-full p-4 mb-2 bg-light-bg-active">
                             <MagnifyingGlass weight="duotone" />
-                            <Input placeholder='Start a converstation with their email' className='ml-2 focus:outline-none w-full placeholder-bg-light-bg-active' onKeyDown={(e) => { handleKeyDown(e) }} variant={"unstyled"} ref={inputRef} />
+                            <Input placeholder='Start a converstation with their email' className='ml-2 w-full' onKeyDown={(e) => { handleKeyDown(e) }} variant={"unstyled"} ref={inputRef} />
                         </div>
                         {selectedContact ?
                             contacts.map(contact => {
-                                return <ContactCard key={contact.uid} userName={contact.name} userProfilePicture={contact.photoURL} selected={contact.uid == selectedContact.uid} onClick={() => { setSelectedContact(contact) }} />
+                                return <ContactCard key={contact.uid} uid={contact.uid} userName={contact.name} userProfilePicture={contact.photoURL} selected={contact.uid == selectedContact.uid} onClick={() => { setSelectedContact(contact) }} />
                             })
                             : <></>
                         }

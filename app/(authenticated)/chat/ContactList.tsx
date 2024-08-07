@@ -50,12 +50,12 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
                 <TabIndicator mt='-1.5px' height='2px' bg='blue.500' borderRadius='1px' />
                 <TabPanels>
                     <TabPanel>
-                        <div className="flex items-center w-full p-4 mb-2 bg-light-bg-active">
+                        <div className="flex items-center w-full p-4 mb-2 ">
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <MagnifyingGlass weight="duotone" />
                                 </InputLeftElement>
-                                <Input placeholder='Search with @stonybrook.edu email' onKeyDown={(e) => { handleKeyDown(e) }} border={0} focusBorderColor={"transparent"} ref={inputRef} />
+                                <Input placeholder='Search with @stonybrook.edu email' onKeyDown={(e) => { handleKeyDown(e) }} border={0} ref={inputRef} />
                             </InputGroup>
                         </div>
                         {selectedContact ?

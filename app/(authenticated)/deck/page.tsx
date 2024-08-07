@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import GenerateDeckModal from "./components/GenerateDeckModal";
-import Deck from './components/Deck';
+import GenerateDeckModal from "./GenerateDeckModal";
+import Deck from './Deck';
 import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
 import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
@@ -73,7 +73,7 @@ export default function BrowseDeckPage() {
                 <div className='flex flex-col items-center w-full h-full'>
                     {/* course name */}
                     <h1 className="flex w-full justify-center  font-semibold border-b-[1px] py-2 mb-1 border-black">
-                        Search Your Decks
+                        Search Your Flashcards
                     </h1>
                     {/* main body */}
                     <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>

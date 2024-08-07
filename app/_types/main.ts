@@ -37,3 +37,15 @@ export interface Contact {
     photoURL: string
     email: string
 }
+
+export interface ForumPostSchema {
+    question: string,
+    studentAnswer: string
+    instructorAnswer: string
+    followups: string[]
+    upvotes: number
+    downvotes: number
+    authorName: string
+    authorPhotoURL: string
+    firstCreated: number
+}

@@ -5,7 +5,7 @@ import CoursesCard from '@/app/(authenticated)/app/components/CoursesCard';
 import useUser from '@/hooks/useUser';
 import { Avatar, Button, Divider, Heading } from '@chakra-ui/react';
 import Logo from '@/components/Logo';
-import { Chat, Club, House, Table } from "@phosphor-icons/react";
+import { Chat, Club, House, PlusCircle, Table } from "@phosphor-icons/react";
 import { usePathname } from 'next/navigation'
 import { Link } from '@chakra-ui/next-js'
 
@@ -20,7 +20,8 @@ const NavItems = [
     { dest: "/forum", title: "Forum", icon: <Table weight='duotone' /> },
     // { dest: "/dashboard", title: "Dashboard", icon: <ChartLineUp /> },
     { dest: "/deck", title: "Flashcards", icon: <Club weight='duotone' /> },
-    { dest: "/chat", title: "Chat Rooms", icon: <Chat weight='duotone' /> }
+    { dest: "/chat", title: "Chat Rooms", icon: <Chat weight='duotone' /> },
+    // { dest: "/profile", title: "Add Courses", icon: <PlusCircle weight='duotone' /> }
 ]
 
 const SideBar = () => {
@@ -42,7 +43,7 @@ const SideBar = () => {
                     </Link>)}
                 <Divider />
                 {/* Courses */}
-                <Heading size='md' fontWeight={"normal"} py={4}>Courses</Heading>
+                <Heading size='md' fontWeight={"normal"} py={4}>Recent Courses</Heading>
                 {COURSES.map((course) => {
                     return (
                         <div key={course.cid}>

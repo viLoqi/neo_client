@@ -10,11 +10,11 @@ const useUserOnlineStatus = (uid: string) => {
 
     useEffect(() => {
         const res = snapshots?.toJSON() as UserProfileSchema
-        console.log(res)
-        if (res)
+        if (res !== undefined && res != null) {
             setOnline(res["online"])
+        } else
+            setOnline(false)
     }, [snapshots])
-
 
     return online;
 }

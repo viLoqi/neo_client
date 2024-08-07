@@ -42,7 +42,19 @@ const SideBar = () => {
                         </span>
                     </Link>)}
                 <Divider />
-                {/* Courses */}
+                {/* Your Courses */}
+                <Heading size='md' fontWeight={"normal"} py={4}>Your Courses</Heading>
+                {COURSES.map((course) => {
+                    return (
+                        <div key={course.cid}>
+                            <CoursesCard
+                                course={course.cid}
+                                onClick={() => setActiveCourse(course)}
+                            />
+                        </div>
+                    );
+                })}
+                {/* Recent Courses */}
                 <Heading size='md' fontWeight={"normal"} py={4}>Recent Courses</Heading>
                 {COURSES.map((course) => {
                     return (

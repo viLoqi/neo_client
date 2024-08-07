@@ -5,6 +5,7 @@ import useUserOnlineStatus from "@/hooks/useUserOnlineStatus";
 
 const MessageBoxHeader = ({ contact }: { contact: Contact }) => {
     const online = useUserOnlineStatus(contact.uid);
+    console.log(online, contact.uid, contact.email)
     return (
         <>
             <div className="flex items-center gap-4">

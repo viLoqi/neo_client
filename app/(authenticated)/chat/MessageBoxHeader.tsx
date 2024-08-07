@@ -1,6 +1,6 @@
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { VideoCamera, Phone, DotsThreeOutlineVertical } from "@phosphor-icons/react";
-import { Contact } from "./ContactList";
+import { Contact } from "@/app/_types/main";
 
 const MessageBoxHeader = ({ contact }: { contact: Contact }) => {
     return (

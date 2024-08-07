@@ -30,3 +30,10 @@ export interface PomodoroConfigSchema {
     break: number,
     rounds: number,
 }
+
+export interface Contact {
+    uid: string
+    name: string
+    photoURL: string
+    email: string
+}

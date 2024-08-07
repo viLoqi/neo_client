@@ -2,18 +2,14 @@
 import useContacts from "@/hooks/useContacts";
 import ContactList from "./ContactList";
 import { useEffect, useState } from "react";
-import useUser from "@/hooks/useUser";
 import MessageBox from "./MessageBox"
-import { Contact } from "./ContactList";
+import { Contact } from "@/app/_types/main";
 
 const ChatPage = () => {
-    // TODO: replace with actual data
 
-    const [user] = useUser()
+    const contacts = useContacts()
 
-    const contacts = useContacts({ uid: user?.uid! })
-
-    const [selectedContact, setSelectedContact] = useState<Contact>({ name: "", photoURL: "", uid: "test" })
+    const [selectedContact, setSelectedContact] = useState<Contact>({ name: "", photoURL: "", uid: "test", email: "" })
 
     useEffect(() => {
         setSelectedContact(contacts[0])

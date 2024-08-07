@@ -1,10 +1,8 @@
-import { Avatar, AvatarBadge, Input } from "@chakra-ui/react";
-import { Contact } from "./ContactList";
-import { ImageSquare, PaperPlaneRight, Phone, Smiley, VideoCamera } from "@phosphor-icons/react";
-import { DotsThreeOutlineVertical } from "@phosphor-icons/react/dist/ssr";
+import { Input } from "@chakra-ui/react";
+import { ImageSquare, PaperPlaneRight, Smiley } from "@phosphor-icons/react";
 import useUser from "@/hooks/useUser";
 import useChat from "@/hooks/useChat";
-import { MessageSchema } from "@/app/_types/main";
+import { MessageSchema, Contact } from "@/app/_types/main";
 import Message from "./Message";
 import MessageBoxHeader from "./MessageBoxHeader";
 import { useEffect, useRef } from "react";
@@ -12,7 +10,7 @@ import { useEffect, useRef } from "react";
 const MessageBox = ({ contact }: { contact: Contact }) => {
     const [user] = useUser()
 
-    const { chatMessages, addChatMessage } = useChat({ uid: user?.uid!, tuid: contact?.uid })
+    const { chatMessages, addChatMessage } = useChat({ uid: user?.email!, tuid: contact?.email })
     const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
 
     const inputRef = useRef<HTMLInputElement>(null)
@@ -60,7 +58,6 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                         return <Message key={crypto.randomUUID()} {...currMsg} />
                     })}
                 </div>
-                {/* Adding p4 to this makes the container overflow :( */}
                 <div className="row-span-1 flex w-full h-full rounded-lg  flex-col border-2 border-light-bg-active shadow-md p-4 gap-2">
                     <Input placeholder={`Message ${contact.name}`} border={0} px={0} onKeyDown={e => handleKeyDown(e)} ref={inputRef} variant={"unstyled"} />
                     <div className="flex justify-between ">

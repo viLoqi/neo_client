@@ -1,15 +1,45 @@
-import { Heading, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
+import { Heading, Input, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import ContactCard from "./ContactCard";
+import { Contact } from "@/app/_types/main";
+import { MagnifyingGlass } from "@phosphor-icons/react";
+import useUser from "@/hooks/useUser";
+import useAuthToken from "@/hooks/useAuthToken";
+import { useMemo } from "react";
 
-export interface Contact {
-    uid: string
-    name: string
-    photoURL: string,
-}
 const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contacts: Contact[], selectedContact: Contact, setSelectedContact: Dispatch<SetStateAction<Contact>> }) => {
-    if (contacts && selectedContact)
-        return (<div >
+    //TODO: refactor this; gg too tired :(
+    const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
+    const [user] = useUser()
+    const token = useAuthToken()
+    const baseHeaders = useMemo(() => { return { "Content-Type": "application/json" } }, [])
+    const inputRef = useRef<HTMLInputElement>(null)
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit();
+        }
+    }
+
+    const handleSubmit = () => {
+        if (inputRef.current) {
+            const message = inputRef.current.value
+            if (!isWhitespaceString(message)) {
+                //TODO: give user visual feedback that the contact they are trying to add is invalid
+                fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/chat?uid=${user?.email}&tuid=${message}`, { method: "POST", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` } }).then((r) => {
+                    r.json().then(() => {
+                        if (inputRef.current)
+                            inputRef.current.value = ""
+
+                    }).catch(() => { console.log("BAD") })
+                })
+            }
+        }
+    }
+
+
+    if (contacts)
+        return (<div>
             <Heading className="my-8 ml-4" size="lg">Messages</Heading>
             <Tabs isFitted position='relative' variant='unstyled'>
                 <TabList>
@@ -20,9 +50,16 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
                 <TabIndicator mt='-1.5px' height='2px' bg='blue.500' borderRadius='1px' />
                 <TabPanels>
                     <TabPanel>
-                        {contacts.map(contact => {
-                            return <ContactCard key={contact.uid} userName={contact.name} userProfilePicture={contact.photoURL} selected={contact.uid == selectedContact.uid} onClick={() => { setSelectedContact(contact) }} />
-                        })}
+                        <div className="flex items-center w-full p-4  mb-2">
+                            <MagnifyingGlass weight="duotone" />
+                            <Input placeholder='Start a converstation with their email' className='ml-2 focus:outline-none w-full placeholder-bg-light-bg-active' onKeyDown={(e) => { handleKeyDown(e) }} variant={"unstyled"} ref={inputRef} />
+                        </div>
+                        {selectedContact ?
+                            contacts.map(contact => {
+                                return <ContactCard key={contact.uid} userName={contact.name} userProfilePicture={contact.photoURL} selected={contact.uid == selectedContact.uid} onClick={() => { setSelectedContact(contact) }} />
+                            })
+                            : <></>
+                        }
                     </TabPanel>
                     <TabPanel>
                         <p>Coming soon.</p>
@@ -34,8 +71,6 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
             </Tabs>
         </div>
         );
-
-    return <div>No Contacts, go make some friends :3</div>
 }
 
 export default ContactList;

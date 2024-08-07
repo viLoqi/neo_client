@@ -23,6 +23,7 @@ const useChat = ({ uid, tuid }: { uid: string, tuid: string }) => {
         return fetch(baseURL, { method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify(body) })
     }
 
+
     return { chatMessages, addChatMessage };
 }
 

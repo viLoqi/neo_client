@@ -6,7 +6,7 @@ import Deck from './Deck';
 import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
 import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
-import { Box, Heading, Input, Skeleton } from '@chakra-ui/react';
+import { Box, Heading, Input, Progress, Skeleton } from '@chakra-ui/react';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     // TODO: @Benny, remove hardcoded difficulty.
@@ -77,7 +77,7 @@ export default function BrowseDeckPage() {
                     </h1>
                     {/* main body */}
                     <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
-                        <div className='flex justify-between items-center py-2 my-2 h-14 rounded-lg bg-light-bg-subtle'>
+                        <div className='flex justify-between items-center py-2 my-4 h-14 rounded-lg bg-light-bg-subtle'>
                             <div className="flex items-center w-full p-4">
                                 <MagnifyingGlass weight="duotone" />
                                 <Input placeholder='Search by Subject or Keyword' className='ml-2 focus:outline-none w-full bg-inherit' onChange={(e) => { setFilter(e.target.value) }} variant='unstyled' />
@@ -95,11 +95,13 @@ export default function BrowseDeckPage() {
                                 />
                             )}
                         </div>
-                        <Skeleton isLoaded={!loading} className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar" height={"200px"}>
+                        {loading ? <Progress size='xs' isIndeterminate /> : <></>}
+
+                        <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
                             {filteredDecks.map((deck, idx) => (
                                 <Deck key={crypto.randomUUID()} deck={deck} idx={idx} delDeckfromPrivateRepo={delDeckfromPrivateRepo} />
                             ))}
-                        </Skeleton>
+                        </div>
                     </div>
                 </div>
             </div>

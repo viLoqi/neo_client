@@ -11,7 +11,6 @@ const useDecks = () => {
     const [user] = useUser()
 
     const [decks, setDecks] = useState<PrivateDeck[]>([])
-    const [reload, setReload] = useState(false)
     const school = useSchool()
     const token = useAuthToken()
     const [loading, setLoading] = useState(true)
@@ -28,7 +27,7 @@ const useDecks = () => {
                     ...baseHeaders,
                     "Authorization": `Bearer ${token}`,
                 }
-            }).then(() => setReload((prev) => !prev))
+            }).then(() => setLoading(true))
     }
 
     const delDeckfromPrivateRepo = (idx: number) => {
@@ -39,12 +38,11 @@ const useDecks = () => {
                     ...baseHeaders,
                     "Authorization": `Bearer ${token}`,
                 }
-            }).then(() => setReload((prev) => !prev))
+            }).then(() => setLoading(true))
     }
 
     useEffect(() => {
-        if (user && token) {
-            setLoading(true)
+        if (user && token && loading) {
             fetch(`${baseURL}&uid=${user.email}`, {
                 headers: {
                     ...baseHeaders,
@@ -55,7 +53,7 @@ const useDecks = () => {
                 setLoading(false)
             }))
         }
-    }, [reload, baseURL, baseHeaders, token, user])
+    }, [loading, baseURL, baseHeaders, token, user])
 
     return { decks, loading, addDeckToPrivateRepo, delDeckfromPrivateRepo };
 }

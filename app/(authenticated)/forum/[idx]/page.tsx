@@ -5,11 +5,13 @@ import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useParams } from "next/navigation";
 import ForumPostCard from "./ForumPostCard";
 import { ForumPostSchema } from "@/app/_types/main";
+import useForumPosts from "@/hooks/useForumPosts";
+import SearchBar from "@/components/SearchBar";
 
 const SectionForumPage = () => {
     const { idx } = useParams()
 
-    const posts: ForumPostSchema[] = [{ postId: "1", pinned: false, question: "WHat is 9 + 10", studentAnswer: "", instructorAnswer: "", followups: [], upvotes: 0, downvotes: 0, authorName: "Jie Chen", authorPhotoURL: "https://lh3.googleusercontent.com/a/ACg8ocKjfu_nP3HQYP4CPUMPvArMpFT04AX6b5OqGqAQfAxLPp7WB4ZR=s288-c-no", firstCreated: Date.now() }]
+    const { posts, loading } = useForumPosts()
 
     return <div className="grid grid-rows-10 w-full h-screen p-6 overflow-y-scroll">
         <div className="row-span-1">
@@ -26,10 +28,7 @@ const SectionForumPage = () => {
                     </Button>
                 </div>
             </div>
-            <div className="flex items-center w-full p-4 my-4 bg-light-bg-subtle">
-                <MagnifyingGlass weight="duotone" />
-                <Input placeholder='Search by Subject or Keyword' className='ml-2 focus:outline-none w-full bg-inherit' onChange={(e) => { }} variant='unstyled' />
-            </div>
+            <SearchBar />
         </div>
 
         <div className="row-span-8 mt-4">

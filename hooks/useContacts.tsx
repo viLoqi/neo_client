@@ -2,15 +2,15 @@ import useFirestore from "./useFirestore";
 import { Contact } from "@/app/_types/main";
 import useUser from "./useUser";
 
-const useContacts = (): Contact[] => {
+const useContacts = (): { contacts: Contact[], loading: boolean } => {
     const [user] = useUser()
-    const [contacts] = useFirestore({ collectionPath: `users/${user?.email}/contacts/` })
+    const [contacts, loading] = useFirestore({ collectionPath: `users/${user?.email}/contacts/` })
 
     if (contacts) {
-        return contacts as Contact[]
+        return { contacts: contacts as Contact[], loading }
     }
 
-    return [];
+    return { contacts: [], loading };
 }
 
 export default useContacts;

@@ -4,10 +4,11 @@ import ContactList from "./ContactList";
 import { useEffect, useState } from "react";
 import MessageBox from "./MessageBox"
 import { Contact } from "@/app/_types/main";
+import { Progress } from "@chakra-ui/react";
 
 const ChatPage = () => {
 
-    const contacts = useContacts()
+    const { contacts, loading } = useContacts()
 
     const [selectedContact, setSelectedContact] = useState<Contact>({ name: "", photoURL: "", uid: "test", email: "" })
 
@@ -16,8 +17,9 @@ const ChatPage = () => {
     }, [contacts])
 
 
-    return <div className="grid grid-cols-10 w-full h-screen ">
 
+
+    return <div className="grid grid-cols-10 w-full h-screen ">
         <div className="col-span-2 bg-light-bg-subtle border-light-bg-active border-x-2 ">
             <ContactList contacts={contacts} selectedContact={selectedContact} setSelectedContact={setSelectedContact} />
         </div>

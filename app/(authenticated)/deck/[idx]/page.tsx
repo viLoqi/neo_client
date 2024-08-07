@@ -2,7 +2,7 @@
 
 import { PrivateDeck } from "@/app/_types/repo";
 import useDecks from "@/hooks/useDecks";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, Skeleton, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, Progress, Skeleton, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { CaretRight, Cpu } from "@phosphor-icons/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -43,9 +43,8 @@ const DeckEditPage = () => {
 
                     <TabPanels >
                         <TabPanel>
-                            <Skeleton isLoaded={!loading} height={"200px"}>
-                                <CardsTab selectedDeck={selectedDeck} />
-                            </Skeleton>
+                            {loading ? <Progress size='xs' isIndeterminate /> : <></>}
+                            <CardsTab selectedDeck={selectedDeck} />
                         </TabPanel>
                         <TabPanel>
                             <DetailsTab />

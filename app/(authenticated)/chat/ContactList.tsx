@@ -1,4 +1,4 @@
-import { Heading, Input, InputGroup, InputLeftElement, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Heading, Input, InputGroup, InputLeftElement, Progress, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useRef } from "react";
 import ContactCard from "./ContactCard";
 import { Contact } from "@/app/_types/main";

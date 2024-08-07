@@ -1,17 +1,18 @@
-import { Input } from "@chakra-ui/react";
+import { Input, Progress } from "@chakra-ui/react";
 import { ImageSquare, PaperPlaneRight, Smiley } from "@phosphor-icons/react";
 import useUser from "@/hooks/useUser";
 import useChat from "@/hooks/useChat";
 import { MessageSchema, Contact } from "@/app/_types/main";
 import Message from "./Message";
 import MessageBoxHeader from "./MessageBoxHeader";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MessageBox = ({ contact }: { contact: Contact }) => {
     const [user] = useUser()
 
     const { chatMessages, addChatMessage } = useChat({ uid: user?.email!, tuid: contact?.email })
     const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
+    const [loading, setLoading] = useState(false)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const scrollRef = useRef<HTMLDivElement>(null)
@@ -38,8 +39,9 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
             const message = inputRef.current.value
             if (!isWhitespaceString(message)) {
                 const payload = { content: message, "author": user!.displayName!, "authorPhotoURL": user!.photoURL! }
+                setLoading(true)
                 addChatMessage({ body: payload }).then(() => {
-
+                    setLoading(false)
                 })
             }
         }
@@ -52,7 +54,7 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
             </div>
 
             <div className="grid grid-rows-9 row-span-9 p-4 ">
-                <div className="row-span-8 flex flex-col h-full w-full rounded-lg  overflow-y-scroll" ref={scrollRef}>
+                <div className="row-span-8 flex flex-col h-full w-full rounded-lg  overflow-y-auto" ref={scrollRef}>
                     {chatMessages?.map(e => {
                         const currMsg = e as MessageSchema
                         return <Message key={crypto.randomUUID()} {...currMsg} />
@@ -67,6 +69,8 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                         </div>
                         <PaperPlaneRight size={32} weight="duotone" onClick={() => { handleSubmit() }} />
                     </div>
+
+                    {loading ? <Progress size='xs' isIndeterminate /> : <></>}
                 </div>
             </div>
 

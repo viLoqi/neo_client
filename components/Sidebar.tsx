@@ -31,7 +31,7 @@ const SideBar = () => {
 
     if (user)
         return (
-            <div className="bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
+            <div className=" bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
                 {/* Logo */}
                 <Logo />
                 {/* Nav Items */}
@@ -55,7 +55,7 @@ const SideBar = () => {
                     );
                 })}
                 {/* Sign Out */}
-                <div className='grid grid-flow-col p-4 items-center mt-auto'>
+                <div className='grid grid-flow-col p-4 items-center mt-auto display-hidden'>
                     <span className='flex gap-2 items-center'>
                         <Avatar name={user.displayName!} src={user.photoURL!} width={38} height={38} />
                         <span className='items-center'>{user.displayName}</span>

@@ -39,6 +39,8 @@ export interface Contact {
 }
 
 export interface ForumPostSchema {
+    postId: string
+    pinned: boolean
     question: string,
     studentAnswer: string
     instructorAnswer: string

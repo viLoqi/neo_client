@@ -2,7 +2,7 @@
 
 import { PrivateDeck } from "@/app/_types/repo";
 import useDecks from "@/hooks/useDecks";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, Skeleton, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { CaretRight, Cpu } from "@phosphor-icons/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import DetailsTab from "./DetailsTab";
 
 const DeckEditPage = () => {
     const { idx } = useParams<{ idx: string }>()
-    const { decks } = useDecks()
+    const { decks, loading } = useDecks()
     const [selectedDeck, setSelectedDeck] = useState<PrivateDeck>({ name: "", cards: [] })
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const DeckEditPage = () => {
                     <Cpu size={32} /> {selectedDeck.name}
                 </Heading>
             </div>
-            <div className="row-span-9 overflow-y-scroll" >
+            <div className="row-span-9 overflow-y-auto" >
                 <Tabs>
                     <TabList className="">
                         <Tab>Cards</Tab>
@@ -43,7 +43,9 @@ const DeckEditPage = () => {
 
                     <TabPanels >
                         <TabPanel>
-                            <CardsTab selectedDeck={selectedDeck} />
+                            <Skeleton isLoaded={!loading} height={"200px"}>
+                                <CardsTab selectedDeck={selectedDeck} />
+                            </Skeleton>
                         </TabPanel>
                         <TabPanel>
                             <DetailsTab />

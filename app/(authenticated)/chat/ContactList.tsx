@@ -1,4 +1,4 @@
-import { Heading, Input, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Heading, Input, InputGroup, InputLeftElement, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useRef } from "react";
 import ContactCard from "./ContactCard";
 import { Contact } from "@/app/_types/main";
@@ -51,8 +51,12 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
                 <TabPanels>
                     <TabPanel>
                         <div className="flex items-center w-full p-4 mb-2 bg-light-bg-active">
-                            <MagnifyingGlass weight="duotone" />
-                            <Input placeholder='Start a converstation with their email' className='ml-2 w-full' onKeyDown={(e) => { handleKeyDown(e) }} variant={"unstyled"} ref={inputRef} />
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <MagnifyingGlass weight="duotone" />
+                                </InputLeftElement>
+                                <Input placeholder='Search with @stonybrook.edu email' onKeyDown={(e) => { handleKeyDown(e) }} border={0} focusBorderColor={"transparent"} ref={inputRef} />
+                            </InputGroup>
                         </div>
                         {selectedContact ?
                             contacts.map(contact => {

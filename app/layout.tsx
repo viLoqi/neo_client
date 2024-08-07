@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Source_Sans_3 } from 'next/font/google'
 import { Providers } from './providers'
 import '@/app/globals.css'
 
 
-const inter = Roboto({ subsets: ["latin"], weight: "400" })
+const inter = Source_Sans_3({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: 'Loqi',

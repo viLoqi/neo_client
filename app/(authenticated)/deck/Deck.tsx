@@ -29,7 +29,7 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                                     as={IconButton}
                                     aria-label='Options'
                                     icon={<DotsThreeOutlineVertical size={24} />}
-                                    variant='outline'
+                                    variant={"ghost"}
                                 />
                                 <MenuList>
                                     <MenuItem as={Link} href={`/deck/${idx}`}>

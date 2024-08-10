@@ -1,10 +1,8 @@
 "use client"
 
-import { Button, Heading, Input, Select } from "@chakra-ui/react";
-import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Button, Heading, Select } from "@chakra-ui/react";
 import { useParams } from "next/navigation";
 import ForumPostCard from "./ForumPostCard";
-import { ForumPostSchema } from "@/app/_types/main";
 import useForumPosts from "@/hooks/useForumPosts";
 import SearchBar from "@/components/SearchBar";
 
@@ -28,10 +26,10 @@ const SectionForumPage = () => {
                     </Button>
                 </div>
             </div>
-            <SearchBar />
         </div>
+        <SearchBar />
 
-        <div className="row-span-8 mt-4">
+        <div className="row-span-7 mt-4">
             {posts.map((post, idx) => {
                 return <ForumPostCard key={crypto.randomUUID()} post={post} idx={idx} />
             })}

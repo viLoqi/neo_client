@@ -9,7 +9,6 @@ import SearchBar from '@/components/SearchBar';
 
 export default function ForumPage() {
     const { forums } = useForums()
-
     if (forums)
         return (
             <div className="flex w-full h-screen p-6">

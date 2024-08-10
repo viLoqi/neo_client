@@ -3,7 +3,7 @@ import DeckCard from "./DeckCard";
 
 const CardsTab = ({ selectedDeck }: { selectedDeck: PrivateDeck }) => {
     return (
-        <div className="flex gap-1 flex-col">
+        <div className="flex gap-2 flex-col">
             {selectedDeck.cards.map(((card, idx) => <DeckCard key={crypto.randomUUID()} card={card} idx={idx} />))}
         </div>
     );

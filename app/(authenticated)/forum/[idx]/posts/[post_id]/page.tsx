@@ -1,11 +1,44 @@
 "use client"
-import { useParams } from "next/navigation";
+import { ForumPostSchema } from "@/app/_types/main";
+import { PrivateDeck } from "@/app/_types/repo";
+import useForumPosts from "@/hooks/useForumPosts";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading } from "@chakra-ui/react";
+import { CaretRight, Cpu } from "@phosphor-icons/react";
+import { useParams, usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import QuestionCard from "./QuestionCard";
+import AnswerCard from "./AnswerCard";
+import CommentCard from "./CommentCard";
 
 const ForumPostDetailPage = () => {
-    const { post_id } = useParams()
-    return <div className="flex w-full h-screen p-6">
-        {post_id}
-    </div>;
+    const { post_id } = useParams<{ post_id: string }>()
+    const { posts } = useForumPosts()
+    const path = usePathname()
+
+    const [selectedPost, setSelectedPost] = useState<ForumPostSchema>()
+
+    useEffect(() => {
+        setSelectedPost(posts[parseInt(post_id)])
+    }, [post_id, posts])
+
+    if (selectedPost)
+        return <div className="flex flex-col w-full h-screen p-4 gap-4 ">
+            <div className="">
+                <Breadcrumb spacing='8px' separator={<CaretRight />}>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href={`${path.split("/").slice(0, 3).join("/")}`}>Posts</BreadcrumbLink>
+                    </BreadcrumbItem>
+
+                    <BreadcrumbItem isCurrentPage>
+                        <BreadcrumbLink href={`${path}`}>{parseInt(post_id) + 1}</BreadcrumbLink>
+                    </BreadcrumbItem>
+                </Breadcrumb>
+            </div>
+            <QuestionCard {...selectedPost} />
+            <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" />
+            <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" />
+            <CommentCard comments={selectedPost["comments"]} />
+        </div>;
 }
 
 export default ForumPostDetailPage;

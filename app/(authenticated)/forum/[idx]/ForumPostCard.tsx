@@ -9,13 +9,12 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
     const basePath = usePathname()
 
     return (
-        <div className="flex bg-light-bg-subtle shadow-md">
-            <div className="w-[5%] flex items-center text-center justify-center ">{post.postId}</div>
-            <Card className="w-full bg-light-bg-subtle">
+        <div className="flex bg-light-bg-subtle shadow-md rounded-md">
+            <div className="w-[5%] flex items-center text-center justify-center ">{parseInt(post.postId) + 1}</div>
+            <Card className="w-full bg-light-bg-subtle" variant='outline'>
                 <CardHeader className="bg-light-bg-subtle">
                     <div className="flex justify-between bg-light-bg-subtle">
                         <LinkOverlay as={NextLink} href={`${basePath}/posts/${post.postId}`} className="bg-light-bg-subtle">
-
                             <div>
                                 <div className={`flex items-center w-full h-full `}>
                                     <Avatar name={post.authorName} src={post.authorPhotoURL}>
@@ -31,7 +30,7 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                             </div>
                         </LinkOverlay>
 
-                        <Button aria-label="More Action" leftIcon={<DotsThreeOutlineVertical size={20} weight="duotone" />} bg={"none"}>
+                        <Button aria-label="More Action" leftIcon={<DotsThreeOutlineVertical />} bg={"none"}>
                         </Button>
                     </div>
                 </CardHeader>
@@ -40,25 +39,25 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                         {post.question}
                     </div>
                     <div className="border p-4 rounded-2xl border-light-bg-active text-light-fg-text">
-                        {post.instructorAnswer ? post.instructorAnswer : "Unanswered"}
+                        {post.instructorAnswer.content ? post.instructorAnswer.content : "Unanswered"}
                     </div>
                 </CardBody>
                 <CardFooter className="flex justify-between text-light-fg-text bg-light-bg-subtle">
                     <div className="flex gap-2 text-center items-center">
-                        <Button aria-label="Upvote" leftIcon={<ThumbsUp size={20} weight="duotone" />} bg={"none"}>
+                        <Button aria-label="Upvote" leftIcon={<ThumbsUp />} bg={"none"}>
                             <span className="text-light-fg-text">{post.upvotes}</span>
                         </Button>
 
-                        <Button aria-label="Downvote" leftIcon={<ThumbsDown size={20} weight="duotone" />} bg={"none"}>
+                        <Button aria-label="Downvote" leftIcon={<ThumbsDown />} bg={"none"}>
                             <span className="text-light-fg-text">{post.downvotes}</span>
                         </Button>
 
-                        <Button aria-label="Comment" leftIcon={<ChatCentered size={20} weight="duotone" />} bg={"none"}>
+                        <Button aria-label="Comment" leftIcon={<ChatCentered />} bg={"none"}>
                             <span className="text-light-fg-text">{post.followups.length + (post.studentAnswer ? 1 : 0) + (post.instructorAnswer ? 1 : 0)}</span>
                         </Button>
                     </div>
                     <div className="flex gap-2 text-center items-center">
-                        <Button aria-label="Share Post" leftIcon={<ShareFat size={20} weight="duotone" />} bg={"none"} className="" >
+                        <Button aria-label="Share Post" leftIcon={<ShareFat />} bg={"none"} className="" >
                             <span className="text-light-fg-text">Share</span>
                         </Button>
                     </div>

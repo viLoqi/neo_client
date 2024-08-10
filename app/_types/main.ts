@@ -38,16 +38,34 @@ export interface Contact {
     email: string
 }
 
+export interface Answer {
+    author: string
+    role: string
+    content: string
+    authorPhotoURL: string
+    timestamp: number
+}
+
+export interface Comment {
+    author: string
+    authorPhotoURL: string
+    content: string
+    timestamp: number
+    replies: Comment[]
+}
+
 export interface ForumPostSchema {
     postId: string
     pinned: boolean
     question: string,
-    studentAnswer: string
-    instructorAnswer: string
+    description: string,
+    studentAnswer: Answer | null
+    instructorAnswer: Answer | null
     followups: string[]
     upvotes: number
     downvotes: number
     authorName: string
     authorPhotoURL: string
     firstCreated: number
+    comments: Comment[]
 }

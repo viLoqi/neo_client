@@ -14,9 +14,9 @@ const MessageBoxHeader = ({ contact }: { contact: Contact }) => {
                 <p className="text-md font-semibold">{contact.name}</p>
             </div>
             <div className="flex items-center gap-4">
-                <VideoCamera size={32} weight="duotone" />
-                <Phone size={32} weight="duotone" />
-                <DotsThreeOutlineVertical size={32} weight="duotone" />
+                <VideoCamera size={32} />
+                <Phone size={32} />
+                <DotsThreeOutlineVertical size={32} />
             </div></>
     )
 }

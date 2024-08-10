@@ -64,10 +64,10 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                     <Input placeholder={`Message ${contact.name}`} border={0} px={0} onKeyDown={e => handleKeyDown(e)} ref={inputRef} variant={"unstyled"} />
                     <div className="flex justify-between ">
                         <div className="flex gap-2">
-                            <Smiley size={32} weight="duotone" />
-                            <ImageSquare size={32} weight="duotone" />
+                            <Smiley size={32} />
+                            <ImageSquare size={32} />
                         </div>
-                        <PaperPlaneRight size={32} weight="duotone" onClick={() => { handleSubmit() }} />
+                        <PaperPlaneRight size={32} onClick={() => { handleSubmit() }} />
                     </div>
 
                     {loading ? <Progress size='xs' isIndeterminate /> : <></>}

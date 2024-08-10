@@ -14,7 +14,10 @@ const config: Config = {
         "light-fg-text": "#5A666E",
         'light-primary-text': '#285ADE',
         "light-bg-subtle": "#F7F9FB",
-        "light-bg-active": "#DBE2E7"
+        "light-bg-active": "#DBE2E7",
+        "warning": "#F5D90A",
+        "success": "#29A383",
+        "error": "#CA244D",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

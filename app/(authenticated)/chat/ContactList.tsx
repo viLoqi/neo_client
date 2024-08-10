@@ -60,7 +60,7 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
                         <div className="flex flex-col items-center w-full p-4 ">
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
-                                    <MagnifyingGlass weight="duotone" />
+                                    <MagnifyingGlass />
                                 </InputLeftElement>
                                 <Input placeholder='Search @stonybrook.edu email' onKeyDown={(e) => { handleKeyDown(e) }} border={0} ref={inputRef} />
                             </InputGroup>

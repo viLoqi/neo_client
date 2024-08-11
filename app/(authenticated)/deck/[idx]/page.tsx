@@ -18,6 +18,7 @@ const DeckEditPage = () => {
         setSelectedDeck(decks[parseInt(idx)])
     }, [idx, decks])
 
+
     if (selectedDeck)
         return <div className="grid grid-rows-10 w-full h-screen p-4">
             <div className="row-span-1">

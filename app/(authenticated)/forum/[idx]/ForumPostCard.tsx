@@ -39,7 +39,7 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                         {post.question}
                     </div>
                     <div className="border p-4 rounded-2xl border-light-bg-active text-light-fg-text">
-                        {post.instructorAnswer.content ? post.instructorAnswer.content : "Unanswered"}
+                        {post.instructorAnswer ? post.instructorAnswer.content : "Unanswered"}
                     </div>
                 </CardBody>
                 <CardFooter className="flex justify-between text-light-fg-text bg-light-bg-subtle">

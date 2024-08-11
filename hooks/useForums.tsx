@@ -9,7 +9,6 @@ interface ForumObject {
 const useForums = () => {
     const [loading, setLoading] = useState(true)
     const [forums, setForums] = useState<{ [key: string]: {} }>({})
-
     useEffect(() => {
         if (loading) {
             setForums({

@@ -31,7 +31,7 @@ export default function Index() {
                 <Navbar />
             </div>
 
-            {/* Main content block */}
+            {/* Main block */}
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row items-center">
@@ -52,8 +52,8 @@ export default function Index() {
                                     molestie amet massa sapien.
                                 </p>
                                 <div className="flex space-x-4">
-                                    <button className="bg-blue-600 text-white px-6 py-2 rounded-md">Get Started</button>
-                                    <button className="bg-white border border-gray-300 text-gray-900 px-6 py-2 rounded-md">Learn More</button>
+                                    <button className="bg-blue-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-300">Get Started</button>
+                                    <button className="bg-white border border-gray-300 text-gray-900 px-6 py-2 rounded-md shadow-md hover:bg-gray-400 transition duration-300">Learn More</button>
                                 </div>
                             </motion.div>
                         </div>
@@ -121,10 +121,73 @@ export default function Index() {
                     ))}
                 </div>
             </div>
+            {/*End Section */}
+            <div className="flex flex-col items-center justify-center py-16 bg-[#FBFCFD]">
+                <motion.div
+                className="bg-white shadow-lg rounded-lg p-12 text-center max-w-4xl"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to get started?</h2>
+                    <p className="text-gray-600 mb-8">
+                        Lorem ipsum dolor sit amet consectetur. Lacus aliquet vitae nulla netus sollicitudin.
+                        In enim tortor sed libero velit lectus. Egestas facilisi neque a arcu vitae dignissim.
+                        Sit lobortis orci risus volutpat eu habitasse.
+                    </p>
+                    <Link href="/login">
+                    <span className="inline-block bg-blue-600 text-white py-3 px-8 rounded-full shadow-md hover:bg-blue-700 transition duration-300">
+                    Get Started →
+                    </span>
+                    </Link>
+                </motion.div>
+            </div>
+             {/* Footer Section */}
+      <footer className="bg-[#FBFCFD] py-12">
+        {/* Top Row*/}
+        <div className="relative container mx-auto flex items-center">
+          {/* Left Section */}
+          <div className="flex flex-col items-start">
+            <Link href="/">
+              <span className="flex items-center cursor-pointer">
+                <Image
+                  src={'/loqi.png'}
+                  alt='logo'
+                  width={60}
+                  height={60}
+                />
+              </span>
+            </Link>
+          </div>
 
-            <footer className="w-full p-4 mt-auto">
-                {/* Footer content */}
-            </footer>
+          {/* Middle Section */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 text-gray-500 text-center">
+            © 2024 by [Product Name]. All rights reserved.
+          </div>
+
+          {/* Right Section */}
+          <div className="ml-auto flex items-center space-x-4">
+            <a href="#" className="text-gray-500 hover:text-gray-700 transition duration-300">
+              <svg width="20" height="20" fill="currentColor" className="text-xl">
+                <path d="M18 2H2C.89 2 0 2.89 0 4v12c0 1.11.89 2 2 2h8v-7H8V9h2V7c0-2.21 1.79-4 4-4h2v3h-2c-.55 0-1 .45-1 1v2h3l-.75 3H13v7h5c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Row */}
+        <div className="mt-1 text-gray-500 text-center">
+          <Link href="/">
+            <span className="hover:text-gray-700 transition duration-300">Privacy Policy</span>
+          </Link>
+          <span className="mx-2">•</span>
+          <Link href="/terms-of-service">
+            <span className="hover:text-gray-700 transition duration-300">Terms of Service</span>
+          </Link>
+          {/* <p className="text-gray-500 mt-2">Realized by Bilal Gondal</p> */}
+        </div>
+      </footer>
         </div>
     )
 }

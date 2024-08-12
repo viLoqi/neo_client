@@ -47,8 +47,9 @@ const useDecks = () => {
                 headers: {
                     ...baseHeaders,
                     "Authorization": `Bearer ${token}`,
-                }
-            }).then(r => r.json().then(d => {
+                },
+                // cache: 'force-cache'
+            },).then(r => r.json().then(d => {
                 setDecks(d[0]?.decks ?? [])
                 setLoading(false)
             }))

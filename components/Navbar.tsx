@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-
-interface NavLinkProps {
-  href: string;
-  label: string;
-}
 
 export const Navbar: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -20,11 +14,10 @@ export const Navbar: React.FC = () => {
     }
   }, [mounted]);
 
-  const navLinks: NavLinkProps[] = [
-    { href: '/', label: 'Home' },
-    { href: '/blogs', label: 'Blogs' },
-    { href: '/news', label: 'News' },
-    { href: '/dev', label: 'Dev' },
+  const navLinks = [
+    { href: '/features', label: 'Features' },
+    { href: '/pricing', label: 'Pricing' },
+    { href: '/testimonials', label: 'Testimonials' },
   ];
 
   if (!mounted || currentPath === null) {
@@ -36,33 +29,40 @@ export const Navbar: React.FC = () => {
       <div className="flex items-center">
         <Link href="/" passHref>
           <span className="flex items-center cursor-pointer">
-            <span className="ml-2 text-lg font-bold text-[#333B40]">LOGO</span>
+            <Image
+              src={'/loqi.png'}
+              alt='logo'
+              width={60}
+              height={60}
+            />
+            {/* <span className="ml-2 text-lg font-bold text-[#333B40]">LOGO</span> */}
           </span>
         </Link>
         <ul className="flex gap-8 ml-8 font-medium text-[#5A666E]">
-          <li>
-            <Link href="/features" passHref>
-              <span className="cursor-pointer">Features</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/pricing" passHref>
-              <span className="cursor-pointer">Pricing</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/testimonials" passHref>
-              <span className="cursor-pointer">Testimonials</span>
-            </Link>
-          </li>
+          {navLinks.map((link) => (
+            <li key={link.href} className="relative group">
+              <Link href={link.href} passHref>
+                <span className={`cursor-pointer ${currentPath === link.href ? 'text-blue-600' : ''}`}>
+                  {link.label}
+                </span>
+              </Link>
+              <span
+                className={`absolute left-0 bottom-0 h-0.5 w-full bg-blue-600 transition-all duration-300 scale-x-0 group-hover:scale-x-100 origin-left ${
+                  currentPath === link.href ? 'scale-x-100' : ''
+                }`}
+              />
+            </li>
+          ))}
         </ul>
       </div>
       <div className="flex items-center gap-4">
         <Link href="/signup" passHref>
-          <span className="cursor-pointer text-blue-600">Sign Up</span>
+        <span className="cursor-pointer text-blue-600 bg-transparent rounded-full transition-all duration-300 hover:text-lg hover:scale-105">
+          Sign Up
+        </span>
         </Link>
         <Link href="/login" passHref>
-          <button className="py-2 px-6 bg-blue-600 text-white rounded-full">
+          <button className="py-2 px-6 bg-blue-600 text-white rounded-full transition transform duration-300 hover:bg-blue-700 hover:shadow-lg hover:scale-105">
             Log In
           </button>
         </Link>

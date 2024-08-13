@@ -14,7 +14,7 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
             <Card className="w-full bg-light-bg-subtle" variant='outline'>
                 <CardHeader className="bg-light-bg-subtle">
                     <div className="flex justify-between bg-light-bg-subtle">
-                        <LinkOverlay as={NextLink} href={`${basePath}/posts/${post.postId}`} className="bg-light-bg-subtle">
+                        <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle">
                             <div>
                                 <div className={`flex items-center w-full h-full `}>
                                     <Avatar name={post.authorName} src={post.authorPhotoURL}>
@@ -23,7 +23,7 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                                     </div>
                                     <div className="flex flex-col ml-3">
                                         <p className="text-sm font-semibold">{post.authorName}</p>
-                                        <small className="text-light-fg-text">{moment(post.firstCreated).fromNow()}</small>
+                                        <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
                                     </div>
 
                                 </div>

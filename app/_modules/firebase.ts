@@ -12,7 +12,7 @@ const firebaseConfig = {
   storageBucket: "loqi-loqi.appspot.com",
   messagingSenderId: "622541820845",
   appId: "1:622541820845:web:e7b417188f959ea1c40724",
-  measurementId: "G-HZDJC6PYH8",
+  measurementId: "G-HZDJC6PYH8"
 };
 
 // For zb

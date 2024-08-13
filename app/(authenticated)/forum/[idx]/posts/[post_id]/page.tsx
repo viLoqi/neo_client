@@ -12,13 +12,14 @@ import CommentCard from "./CommentCard";
 
 const ForumPostDetailPage = () => {
     const { post_id } = useParams<{ post_id: string }>()
-    const { posts } = useForumPosts()
     const path = usePathname()
+    const { posts } = useForumPosts(path.split("/")[2])
 
     const [selectedPost, setSelectedPost] = useState<ForumPostSchema>()
 
     useEffect(() => {
-        setSelectedPost(posts[parseInt(post_id)])
+        if (posts)
+            setSelectedPost(posts[parseInt(post_id)])
     }, [post_id, posts])
 
     if (selectedPost)

@@ -1,45 +1,29 @@
 //TODO: impl
-import { ForumPostSchema } from "@/app/_types/main";
+import { ForumPostSchema, ForumPostRequest } from "@/app/_types/main";
+import { PrivateDeck } from "@/app/_types/repo";
 import { time } from "console";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import useAuthToken from "./useAuthToken";
+import useSchool from "./useSchool";
+import useUser from "./useUser";
+import { firestore } from "@/app/_modules/firebase";
+import { query, collection, orderBy } from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
-const useForumPosts = () => {
-    const [loading, setLoading] = useState(true)
-    const [posts, setPosts] = useState<ForumPostSchema[]>([])
+const useForumPosts = (forum: string) => {
+    const collectionPath = `forums/${forum}/posts`
+    const [posts] = useCollectionData(query(collection(firestore, collectionPath), orderBy("firstCreated", "desc")))
+    const school = useSchool()
+    const token = useAuthToken()
 
-    useEffect(() => {
+    const baseURL = `https://us-east1-loqi-loqi.cloudfunctions.net/forum?university=${school}`
+    const baseHeaders = useMemo(() => { return { "Content-Type": "application/json" } }, [])
 
-        if (loading) {
-            setPosts(
-                [{
-                    postId: "0", description: "I tried xyz but it dont work :(", pinned: false, question: "WHat is 9 + 10",
-                    studentAnswer: {
-                        "author": "Jie Chen",
-                        "authorPhotoURL": "", role: "student", content: "GG", timestamp: Date.now()
-                    },
-                    instructorAnswer: null,
-                    comments: [{
-                        "author": "Jie Chen",
-                        "authorPhotoURL": "", content: "Good question", timestamp: Date.now(),
-                        replies: [{
-                            "author": "Jie Chen",
-                            "authorPhotoURL": "", content: "Good question", timestamp: Date.now(),
-                            replies: []
-                        }, {
-                            "author": "Jie Chen",
-                            "authorPhotoURL": "", content: "Good questionssssssssssssssssssssssssssssssssssssssssssss", timestamp: Date.now(),
-                            replies: []
-                        }]
-                    }],
-                    followups: [], upvotes: 0, downvotes: 0, authorName: "Jie Chen", authorPhotoURL: "https://lh3.googleusercontent.com/a/ACg8ocKjfu_nP3HQYP4CPUMPvArMpFT04AX6b5OqGqAQfAxLPp7WB4ZR=s288-c-no", firstCreated: Date.now()
-                }]
-            )
-            setLoading(false)
-        }
+    const addForumPost = ({ body }: { body: ForumPostRequest }) => {
+        return fetch(baseURL, { method: "POST", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify(body) })
+    }
 
-    }, [loading])
-
-    return { posts, loading }
+    return { posts: posts as ForumPostSchema[], addForumPost }
 }
 
 export default useForumPosts;

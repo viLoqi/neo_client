@@ -9,7 +9,7 @@ import SearchBar from "@/components/SearchBar";
 const SectionForumPage = () => {
     const { idx } = useParams()
 
-    const { posts, loading } = useForumPosts()
+    const { posts } = useForumPosts(idx as string)
 
     return <div className="grid grid-rows-10 w-full h-screen p-6 overflow-y-scroll">
         <div className="row-span-1">
@@ -29,10 +29,10 @@ const SectionForumPage = () => {
         </div>
         <SearchBar />
 
-        <div className="row-span-7 mt-4">
-            {posts.map((post, idx) => {
+        <div className="row-span-7 mt-4 gap-4 flex flex-col">
+            {posts ? posts.map((post, idx) => {
                 return <ForumPostCard key={crypto.randomUUID()} post={post} idx={idx} />
-            })}
+            }) : <></>}
         </div>
     </div>;
 }

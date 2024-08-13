@@ -66,6 +66,21 @@ export interface ForumPostSchema {
     downvotes: number
     authorName: string
     authorPhotoURL: string
-    firstCreated: number
+    firstCreated: Timestamp
+    comments: Comment[]
+}
+
+export interface ForumPostRequest {
+    postId: string
+    pinned: boolean
+    question: string,
+    description: string,
+    studentAnswer: Answer | null
+    instructorAnswer: Answer | null
+    followups: string[]
+    upvotes: number
+    downvotes: number
+    authorName: string
+    authorPhotoURL: string
     comments: Comment[]
 }

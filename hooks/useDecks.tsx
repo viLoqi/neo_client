@@ -50,7 +50,7 @@ const useDecks = () => {
                 },
                 // cache: 'force-cache'
             },).then(r => r.json().then(d => {
-                setDecks(d[0]?.decks ?? [])
+                setDecks(d?.decks ?? [])
                 setLoading(false)
             }))
         }

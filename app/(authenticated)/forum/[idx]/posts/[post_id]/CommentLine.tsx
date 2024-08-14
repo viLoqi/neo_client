@@ -8,18 +8,18 @@ const CommentLine = ({ author, timestamp, authorPhotoURL, content, replies }: Co
         <div className="flex flex-col gap-2 w-full" >
             <div className="flex  items-center text-center">
                 <p>{author}</p>
-                <p className="text-light-fg-text"> · {moment(timestamp).fromNow()}</p>
+                <p className="text-light-fg-text"> · {moment(timestamp.toDate()).fromNow()}</p>
             </div>
             <div className="text-light-fg-text">
                 {content}
             </div>
-            <div className="w-full">{replies.length ?
+            <div className="w-full">{replies?.length ?
                 <Accordion allowToggle allowMultiple variant={'outline'} >
                     <AccordionItem  >
                         <h2 >
                             <AccordionButton>
                                 <Box as='span' flex='1' textAlign='left'>
-                                    View Replies {`(${replies.length})`}
+                                    View Replies {`(${replies?.length})`}
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>

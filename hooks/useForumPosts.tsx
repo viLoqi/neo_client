@@ -24,11 +24,20 @@ const useForumPosts = (forum: string) => {
     }
 
     const addAnswer = (content: string, role: string, postId: string) => {
-        console.log(postId)
         return fetch(`${baseURL}&post=${postId}`, {
             method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify({
                 "author": user?.displayName,
                 role, content,
+                "authorPhotoURL": user?.photoURL
+            })
+        })
+    }
+
+    const addComment = (content: string, postId: string) => {
+        return fetch(`${baseURL}&post=${postId}`, {
+            method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify({
+                "author": user?.displayName,
+                role: "comment", content,
                 "authorPhotoURL": user?.photoURL
             })
         })
@@ -46,7 +55,7 @@ const useForumPosts = (forum: string) => {
     }, [posts])
 
 
-    return { posts: filteredPosts, addForumPost, addAnswer }
+    return { posts: filteredPosts, addForumPost, addAnswer, addComment }
 }
 
 export default useForumPosts;

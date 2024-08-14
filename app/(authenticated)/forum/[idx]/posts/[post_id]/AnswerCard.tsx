@@ -20,7 +20,6 @@ const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
             addAnswer(inputRef.current.value, title === "Instructor Answer" ? "instructor" : "student", postId)
     }
 
-    console.log(answerer)
 
     if (answerer)
         return <div className="shadow-md">

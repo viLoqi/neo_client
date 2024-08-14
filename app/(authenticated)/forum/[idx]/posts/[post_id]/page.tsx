@@ -14,7 +14,7 @@ const ForumPostDetailPage = () => {
     // This is actually the index...
     const { post_id } = useParams<{ post_id: string }>()
     const path = usePathname()
-    const { posts, addAnswer } = useForumPosts(path.split("/")[2])
+    const { posts, addAnswer, addComment } = useForumPosts(path.split("/")[2])
 
     const [selectedPost, setSelectedPost] = useState<ForumPostSchema>()
 
@@ -40,7 +40,7 @@ const ForumPostDetailPage = () => {
             <QuestionCard {...selectedPost} />
             <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
             <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
-            <CommentCard comments={selectedPost["comments"]} />
+            <CommentCard comments={selectedPost["comments"]} addComment={addComment} postId={selectedPost["_id"]} />
         </div>;
 }
 

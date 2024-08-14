@@ -50,7 +50,7 @@ export interface Comment {
     author: string
     authorPhotoURL: string
     content: string
-    timestamp: number
+    timestamp: Timestamp
     replies: Comment[]
 }
 

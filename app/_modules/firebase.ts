@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
-
+import { getMessaging, getToken } from "firebase/messaging";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyA2ffbETwL8hupSveo6d55YTOun0kYzCC4",
@@ -25,3 +25,4 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const firestore = getFirestore(app)
 export const database = getDatabase(app)
+export const messaging = getMessaging(app);

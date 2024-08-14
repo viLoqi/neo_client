@@ -1,10 +1,12 @@
 'use client'
 import useUser from "@/hooks/useUser";
 import { redirect } from 'next/navigation'
-import React from "react";
-import { database } from '@/app/_modules/firebase'
+import React, { useEffect } from "react";
+import { database, messaging } from '@/app/_modules/firebase'
 import { ref, onValue, onDisconnect, set } from "firebase/database";
 import SideBar from '@/components/Sidebar'
+import { getToken } from "firebase/messaging";
+import FcmTokenComp from "@/components/FirebaseForeground";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const [user, loading] = useUser()
@@ -29,6 +31,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     }
 
     return <div className="flex w-full h-screen">
+        <FcmTokenComp />
         <SideBar />
         {children}
     </div>

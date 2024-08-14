@@ -33,6 +33,13 @@ const useForumPosts = (forum: string) => {
         })
     }
 
+    const upvote = (postId: string) => {
+        console.log("UPVOTING" + postId)
+        return fetch(`${baseURL}&post=${postId}`, {
+            method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }
+        })
+    }
+
     const addComment = (content: string, postId: string) => {
         return fetch(`${baseURL}&post=${postId}`, {
             method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify({
@@ -55,7 +62,7 @@ const useForumPosts = (forum: string) => {
     }, [posts])
 
 
-    return { posts: filteredPosts, addForumPost, addAnswer, addComment }
+    return { posts: filteredPosts, addForumPost, addAnswer, addComment, upvote }
 }
 
 export default useForumPosts;

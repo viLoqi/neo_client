@@ -1,12 +1,12 @@
 import { ForumPostSchema } from "@/app/_types/main";
+import useForumPosts from "@/hooks/useForumPosts";
 import { Link } from "@chakra-ui/next-js";
-import { Avatar, Card, CardBody, CardFooter, CardHeader, Button, LinkOverlay } from "@chakra-ui/react";
-import { ChatCentered, DotsThreeOutlineVertical, ShareFat, ThumbsDown, ThumbsUp } from "@phosphor-icons/react";
+import { Avatar, Card, CardBody, CardFooter, CardHeader, Button } from "@chakra-ui/react";
+import { ChatCentered, DotsThreeOutlineVertical, ShareFat, ThumbsUp } from "@phosphor-icons/react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
 
-const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) => {
-    console.log(post)
+const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: number, upvote: any }) => {
     const basePath = usePathname()
     return (
         <div className="flex bg-light-bg-subtle shadow-md rounded-md">
@@ -45,13 +45,13 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                 </CardBody>
                 <CardFooter className="flex justify-between text-light-fg-text bg-light-bg-subtle">
                     <div className="flex gap-2 text-center items-center">
-                        <Button aria-label="Upvote" leftIcon={<ThumbsUp />} bg={"none"}>
-                            <span className="text-light-fg-text">{post.upvotes}</span>
+                        <Button aria-label="Upvote" leftIcon={<ThumbsUp />} bg={"none"} onClick={() => upvote(post._id)}>
+                            <span className="text-light-fg-text" >{post.upvotes}</span>
                         </Button>
 
-                        <Button aria-label="Downvote" leftIcon={<ThumbsDown />} bg={"none"}>
+                        {/* <Button aria-label="Downvote" leftIcon={<ThumbsDown />} bg={"none"}>
                             <span className="text-light-fg-text">{post.downvotes}</span>
-                        </Button>
+                        </Button> */}
 
                         <Link href={`${basePath}/posts/${idx}`}>
                             <Button aria-label="Comment" leftIcon={<ChatCentered />} bg={"none"}>

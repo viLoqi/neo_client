@@ -10,8 +10,8 @@ import PostQuestionModal from "./PostQuestionModal";
 
 const SectionForumPage = () => {
     const { idx } = useParams<{ idx: string }>()
-    const { posts } = useForumPosts(idx)
-
+    const { posts, upvote } = useForumPosts(idx)
+    console.log("AHHHHHHH")
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     return <div className="grid grid-rows-10 w-full h-screen p-6 overflow-y-scroll">
@@ -39,7 +39,7 @@ const SectionForumPage = () => {
 
         <div className="row-span-7 mt-4 gap-4 flex flex-col">
             {posts ? posts.map((post, idx) => {
-                return <ForumPostCard key={crypto.randomUUID()} post={post} idx={idx} />
+                return <ForumPostCard key={crypto.randomUUID()} post={post} idx={idx} upvote={upvote} />
             }) : <></>}
         </div>
     </div>;

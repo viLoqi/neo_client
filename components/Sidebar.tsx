@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { auth } from '@/app/_modules/firebase';
 import CoursesCard from '@/app/(authenticated)/app/components/CoursesCard';
 import useUser from '@/hooks/useUser';
@@ -10,10 +10,15 @@ import { usePathname } from 'next/navigation'
 import { Link } from '@chakra-ui/next-js'
 
 // TODO: pull live data
-const COURSES = [
-    { cid: 'CSE114', name: 'Introduction to Object Orientated Programming' },
-    { cid: 'CSE215', name: 'Foundations of Computer Science' },
-];
+// const COURSES = [
+//     { cid: 'CSE114', link: "http://localhost/forum/91340" },
+//     { cid: 'CSE215', link: "http://localhost/forum/91340" },
+// ];
+
+export interface Course {
+    cid: string
+    link: string
+}
 
 const NavItems = [
     { dest: "/app", title: "Home", icon: <House weight='duotone' /> },
@@ -26,8 +31,15 @@ const NavItems = [
 
 const SideBar = () => {
     const [user, loading] = useUser()
-    const [activeCourse, setActiveCourse] = useState(COURSES[0]);
     const pathname = usePathname()
+
+    const [courses, setCourses] = useState<Course[]>([])
+
+    useEffect(() => {
+        const local = localStorage.getItem("recent")
+        if (local)
+            setCourses(JSON.parse(local))
+    }, [])
 
     if (user)
         return (
@@ -43,7 +55,7 @@ const SideBar = () => {
                     </Link>)}
                 <Divider />
                 {/* Your Courses */}
-                <Heading size='md' fontWeight={"normal"} py={4}>Your Courses</Heading>
+                {/* <Heading size='md' fontWeight={"normal"} py={4}>Your Courses</Heading>
                 {COURSES.map((course) => {
                     return (
                         <div key={course.cid}>
@@ -53,15 +65,15 @@ const SideBar = () => {
                             />
                         </div>
                     );
-                })}
+                })} */}
                 {/* Recent Courses */}
                 <Heading size='md' fontWeight={"normal"} py={4}>Recent Courses</Heading>
-                {COURSES.map((course) => {
+                {courses.map((course) => {
                     return (
                         <div key={course.cid}>
                             <CoursesCard
                                 course={course.cid}
-                                onClick={() => setActiveCourse(course)}
+                                link={course.link}
                             />
                         </div>
                     );

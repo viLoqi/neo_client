@@ -1,17 +1,15 @@
-import { Avatar } from "@chakra-ui/react";
-import { MouseEventHandler } from "react";
+import Link from "next/link";
 
 const CoursesCard = ({
     course,
-    onClick,
+    link
 }: {
-    course: string;
-    onClick: MouseEventHandler<HTMLButtonElement>;
+    course: string; link: string
 }) => {
     return (
-        <button onClick={onClick} className="flex w-full items-center rounded-xl  py-2 pr-2">
+        <Link href={link} className="flex w-full items-center rounded-xl  py-2 pr-2">
             {course}
-        </button>
+        </Link>
     );
 };
 

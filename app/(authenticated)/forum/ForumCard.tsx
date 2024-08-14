@@ -1,3 +1,4 @@
+import { Course } from "@/components/Sidebar";
 import { Link } from "@chakra-ui/next-js";
 import { Card, Text, Heading, CardBody, CardFooter, Button, Center, Tooltip } from "@chakra-ui/react";
 import { BookBookmark, Student } from "@phosphor-icons/react";
@@ -10,6 +11,20 @@ interface Input {
 }
 
 const ForumCard = ({ name, members, sections, sectionData }: Input) => {
+
+    const handleUpdateRecent = (classNumber: string) => {
+        const item = localStorage.getItem("recent")
+
+        if (item) {
+            const obj = JSON.parse(item) as Course[]
+
+            if (!obj.filter(c => c.cid === name).length)
+                localStorage.setItem("recent", JSON.stringify([...JSON.parse(item), { cid: name, link: `/forum/${classNumber}` }]))
+        } else
+            localStorage.setItem("recent", JSON.stringify([{ cid: name, link: `/forum/${classNumber}` }]))
+
+    }
+
     return (
         <div>
             <Card
@@ -38,7 +53,7 @@ const ForumCard = ({ name, members, sections, sectionData }: Input) => {
 
                             return (
                                 <Tooltip key={crypto.randomUUID()} label={instructor}>
-                                    <Link href={`/forum/${classNumber}`}>
+                                    <Link href={`/forum/${classNumber}`} onClick={() => handleUpdateRecent(classNumber)}>
                                         <Button key={crypto.randomUUID()} variant='solid' color='#326AFD' bgColor={"#DDEAFF"}>
                                             {section}
                                         </Button>

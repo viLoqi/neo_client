@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import ForumPostCard from "./ForumPostCard";
 import useForumPosts from "@/hooks/useForumPosts";
 import SearchBar from "@/components/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostQuestionModal from "./PostQuestionModal";
 
 const SectionForumPage = () => {

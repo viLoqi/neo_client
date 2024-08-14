@@ -23,8 +23,7 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
         if (scrollRef.current)
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
 
-        // if (inputRef.current)
-        //     inputRef.current.value = ""
+
     }, [chatMessages])
 
 
@@ -44,6 +43,8 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                 setLoading(true)
                 addChatMessage({ body: payload }).then(() => {
                     setLoading(false)
+                    if (inputRef.current)
+                        inputRef.current.value = ""
                 })
 
                 if (fcm) {

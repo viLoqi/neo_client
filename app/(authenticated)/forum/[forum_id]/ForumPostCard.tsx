@@ -1,12 +1,13 @@
 import { ForumPostSchema } from "@/app/_types/main";
 import useForumPosts from "@/hooks/useForumPosts";
 import { Link } from "@chakra-ui/next-js";
-import { Avatar, Card, CardBody, CardFooter, CardHeader, Button } from "@chakra-ui/react";
+import { Avatar, Card, CardBody, CardFooter, CardHeader, Button, LinkOverlay } from "@chakra-ui/react";
 import { ChatCentered, DotsThreeOutlineVertical, ShareFat, ThumbsUp } from "@phosphor-icons/react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
 import { useClipboard } from '@chakra-ui/react'
 import { useEffect } from "react";
+import NextLink from "next/link"
 
 const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: number, upvote: any }) => {
     const basePath = usePathname()
@@ -28,13 +29,12 @@ const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: numb
                                 </Avatar>
                                 <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-fullz-10">
                                 </div>
-                                {/* <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle"> */}
-                                <div className="flex flex-col ml-3">
-                                    <p className="text-sm font-semibold">{post.authorName}</p>
-                                    <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
-                                </div>
-                                {/* </LinkOverlay> */}
-
+                                <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle">
+                                    <div className="flex flex-col ml-3">
+                                        <p className="text-sm font-semibold">{post.authorName}</p>
+                                        <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
+                                    </div>
+                                </LinkOverlay>
                             </div>
                         </div>
 

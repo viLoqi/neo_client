@@ -39,7 +39,7 @@ const SectionForumPage = () => {
 
         <div className="row-span-7 mt-4 gap-4 flex flex-col">
             {posts ? posts.map((post, idx) => {
-                return <ForumPostCard key={crypto.randomUUID()} post={post} idx={idx} upvote={upvote} />
+                return <ForumPostCard key={post._id} post={post} idx={idx} upvote={upvote} />
             }) : <></>}
         </div>
     </div>;

@@ -13,20 +13,22 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
             <Card className="w-full bg-light-bg-subtle" variant='outline'>
                 <CardHeader className="bg-light-bg-subtle">
                     <div className="flex justify-between bg-light-bg-subtle">
-                        <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle">
-                            <div>
-                                <div className={`flex items-center w-full h-full `}>
-                                    <Avatar name={post.authorName} src={post.authorPhotoURL}>
-                                    </Avatar>
-                                    <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-fullz-10">
-                                    </div>
+                        <div>
+
+                            <div className={`flex items-center w-full h-full `}>
+                                <Avatar name={post.authorName} src={post.authorPhotoURL}>
+                                </Avatar>
+                                <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-fullz-10">
+                                </div>
+                                <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle">
                                     <div className="flex flex-col ml-3">
                                         <p className="text-sm font-semibold">{post.authorName}</p>
                                         <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
                                     </div>
-                                </div>
+                                </LinkOverlay>
+
                             </div>
-                        </LinkOverlay>
+                        </div>
 
                         <Button aria-label="More Action" leftIcon={<DotsThreeOutlineVertical />} bg={"none"}>
                         </Button>

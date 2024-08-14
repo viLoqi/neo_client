@@ -26,7 +26,7 @@ const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
             <Card variant={"outline"}>
                 <CardHeader className="bg-light-bg-subtle">
                     <span className="flex gap-2" >
-                        <Avatar name="TEST" size={'sm'} />
+                        <Avatar name={answerer.author} size={'sm'} />
                         <span>
                             <p>{answerer.author}</p>
                             <small className="capitalize">{answerer.role}</small>

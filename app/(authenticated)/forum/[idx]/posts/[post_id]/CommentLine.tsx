@@ -4,7 +4,7 @@ import moment from "moment";
 
 const CommentLine = ({ author, timestamp, authorPhotoURL, content, replies }: Comment) => {
     return <div className="flex gap-4 w-full">
-        <Avatar name="TEST" size={'sm'} />
+        <Avatar name={author} size={'sm'} />
         <div className="flex flex-col gap-2 w-full" >
             <div className="flex  items-center text-center">
                 <p>{author}</p>

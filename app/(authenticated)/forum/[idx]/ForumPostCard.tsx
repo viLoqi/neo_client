@@ -1,8 +1,8 @@
 import { ForumPostSchema } from "@/app/_types/main";
+import { Link } from "@chakra-ui/next-js";
 import { Avatar, Card, CardBody, CardFooter, CardHeader, Button, LinkOverlay } from "@chakra-ui/react";
 import { ChatCentered, DotsThreeOutlineVertical, ShareFat, ThumbsDown, ThumbsUp } from "@phosphor-icons/react";
 import moment from "moment";
-import NextLink from 'next/link'
 import { usePathname } from "next/navigation";
 
 const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) => {
@@ -52,9 +52,12 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                             <span className="text-light-fg-text">{post.downvotes}</span>
                         </Button>
 
-                        <Button aria-label="Comment" leftIcon={<ChatCentered />} bg={"none"}>
-                            <span className="text-light-fg-text">{post.followups.length + (post.studentAnswer ? 1 : 0) + (post.instructorAnswer ? 1 : 0)}</span>
-                        </Button>
+                        <Link href={`${basePath}/posts/${idx}`}>
+                            <Button aria-label="Comment" leftIcon={<ChatCentered />} bg={"none"}>
+
+                                <span className="text-light-fg-text">{post.followups.length + (post.studentAnswer ? 1 : 0) + (post.instructorAnswer ? 1 : 0)}</span>
+                            </Button>
+                        </Link>
                     </div>
                     <div className="flex gap-2 text-center items-center">
                         <Button aria-label="Share Post" leftIcon={<ShareFat />} bg={"none"} className="" >

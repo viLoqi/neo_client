@@ -5,9 +5,16 @@ import { Avatar, Card, CardBody, CardFooter, CardHeader, Button } from "@chakra-
 import { ChatCentered, DotsThreeOutlineVertical, ShareFat, ThumbsUp } from "@phosphor-icons/react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
+import { useClipboard } from '@chakra-ui/react'
+import { useEffect } from "react";
 
 const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: number, upvote: any }) => {
     const basePath = usePathname()
+    const { onCopy, value, setValue, hasCopied } = useClipboard('')
+    useEffect(() => {
+        setValue(`https://loqi.jiechen.dev${basePath}/posts/${idx}`)
+    }, [])
+
     return (
         <div className="flex bg-light-bg-subtle shadow-md rounded-md">
             <div className="w-[5%] flex items-center text-center justify-center ">--</div>
@@ -61,7 +68,7 @@ const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: numb
                         </Link>
                     </div>
                     <div className="flex gap-2 text-center items-center">
-                        <Button aria-label="Share Post" leftIcon={<ShareFat />} bg={"none"} className="" >
+                        <Button aria-label="Share Post" leftIcon={<ShareFat />} bg={"none"} onClick={onCopy} >
                             <span className="text-light-fg-text">Share</span>
                         </Button>
                     </div>

@@ -10,22 +10,24 @@ const useFcmToken = () => {
     useEffect(() => {
         const retrieveToken = async () => {
             try {
-                if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-                    // Request notification permission
-                    const permission = await Notification.requestPermission();
-                    setNotificationPermissionStatus(permission);
+                const msg = await messaging()
+                if (msg)
+                    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+                        // Request notification permission
+                        const permission = await Notification.requestPermission();
+                        setNotificationPermissionStatus(permission);
 
-                    if (permission === 'granted') {
-                        const currentToken = await getToken(messaging, {
-                            vapidKey: 'BInCgeXep5OWmV3PeQrttYKnw2qCLy1NnM9MVwqQbeNqPRMlVJNwMjA7vdIffABaZGoeOgy26sOB1s0I_8LK_EE', // Replace with your Firebase project's VAPID key
-                        });
-                        if (currentToken) {
-                            setToken(currentToken);
-                        } else {
-                            console.log('No registration token available. Request permission to generate one.');
+                        if (permission === 'granted') {
+                            const currentToken = await getToken(msg, {
+                                vapidKey: 'BInCgeXep5OWmV3PeQrttYKnw2qCLy1NnM9MVwqQbeNqPRMlVJNwMjA7vdIffABaZGoeOgy26sOB1s0I_8LK_EE', // Replace with your Firebase project's VAPID key
+                            });
+                            if (currentToken) {
+                                setToken(currentToken);
+                            } else {
+                                console.log('No registration token available. Request permission to generate one.');
+                            }
                         }
                     }
-                }
             } catch (error) {
                 console.log('Error retrieving token:', error);
             }

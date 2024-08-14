@@ -27,7 +27,6 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
         if (inputRef.current) {
             const message = inputRef.current.value
             if (!isWhitespaceString(message)) {
-                //TODO: give user visual feedback that the contact they are trying to add is invalid
                 setLoading(true)
                 setError(false)
                 fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/chat?uid=${user?.email}&tuid=${message}`, { method: "POST", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` } }).then((r) => {

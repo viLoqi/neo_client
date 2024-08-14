@@ -23,8 +23,8 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
         if (scrollRef.current)
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
 
-        if (inputRef.current)
-            inputRef.current.value = ""
+        // if (inputRef.current)
+        //     inputRef.current.value = ""
     }, [chatMessages])
 
 

@@ -3,8 +3,6 @@ import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-
-// aka landing page
 export default function Index() {
     let features = [
         {
@@ -24,15 +22,73 @@ export default function Index() {
             title: 'Generative AI-powered',
         },
     ];
-
+    const plans = [
+        {
+          title: 'Free',
+          price: '$0',
+          period: 'per month',
+          description: 'For first time users getting a feel for the tool',
+          buttonText: 'Try for free now',
+          features: ['Lorem Ipsum', 'Lorem Ipsum', 'Lorem Ipsum'],
+        },
+        {
+          title: 'Plus',
+          price: '$7.99',
+          period: 'per month',
+          description:
+            'Semper cras massa sed lobortis egestas non. Parturient eu lorem dui ultricies.',
+          buttonText: 'Upgrade to plus',
+          features: [
+            'Lorem Ipsum',
+            'Lorem Ipsum',
+            'Quick search',
+            'Lorem Ipsum',
+            'Lorem Ipsum',
+          ],
+        },
+        {
+          title: 'Pro',
+          price: '$7.99',
+          period: 'per month',
+          description:
+            'Semper cras massa sed lobortis egestas non. Parturient eu lorem dui ultricies.',
+          buttonText: 'Upgrade to Pro',
+          features: [
+            'Lorem Ipsum',
+            'Lorem Ipsum',
+            'Quick search',
+            'Lorem Ipsum',
+            'Lorem Ipsum',
+          ],
+        },
+        {
+          title: 'Premium',
+          price: '$39.99',
+          period: 'per month',
+          description:
+            'Semper cras massa sed lobortis egestas non. Parturient eu lorem dui ultricies.',
+          buttonText: 'Upgrade to premium',
+          features: [
+            '50,000 monthly queries',
+            'Artwork analysis 200',
+            'Quick search',
+            'Prompt library',
+            'Chat modes',
+            'Personalized conversation',
+            '3 days free trial',
+            'Ad-free experience',
+            'Premium support',
+          ],
+        },
+      ];
     return (
-        <div className='h-screen bg-gradient-to-b bg-[#FBFCFD] overflow-auto no-scrollbar'>
+        <div className='h-screen bg-gradient-to-b bg-[#FBFCFD] overflow-auto no-scrollbar scroll-smooth'>
             <div className="z-20 absolute top-0 left-0 w-screen">
                 <Navbar />
             </div>
 
             {/* Main block */}
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-[#FBFCFD] flex items-center justify-center">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row items-center">
                         {/* Text Section */}
@@ -84,7 +140,7 @@ export default function Index() {
             </div>
 
             {/* Features Section */}
-            <div className="h-screen container mx-auto flex flex-col justify-center items-center py-16 px-4 text-center">
+            <div id="features" className="h-screen container mx-auto flex flex-col justify-center items-center py-16 px-4 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -121,8 +177,66 @@ export default function Index() {
                     ))}
                 </div>
             </div>
+            {/* Pricing Plan Section */}
+        <div id="pricing-plan" className="py-16 bg-[#FBFCFD] h-screen">
+        
+      <div  className="container mx-auto px-4">
+        <h2 className="text-5xl font-bold text-center text-gray-900 mb-12">
+          Pricing Plan
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <h3 className="text-blue-600 font-semibold mb-2 text-xl">
+                {plan.title}
+              </h3>
+              <p className="text-gray-600 mb-4 text-center">
+                {plan.description}
+              </p>
+              <div className="text-gray-900 text-3xl font-bold">
+                {plan.price}
+              </div>
+              <div className="text-gray-500 text-sm">{plan.period}</div>
+              <Link href="/signup">
+                <button className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 transition duration-300">
+                  {plan.buttonText}
+                </button>
+              </Link>
+              <ul className="mt-6 text-gray-600 text-sm space-y-2">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-center">
+                    <svg
+                      className="w-5 h-5 text-blue-600 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
             {/*End Section */}
-            <div className="flex flex-col items-center justify-center py-16 bg-[#FBFCFD]">
+            <div id="get-started" className="flex flex-col items-center justify-center py-16 bg-[#FBFCFD] min-h-screen">
                 <motion.div
                 className="bg-white shadow-lg rounded-lg p-12 text-center max-w-4xl"
                 initial={{ opacity: 0, y: 50 }}
@@ -143,7 +257,7 @@ export default function Index() {
                     </Link>
                 </motion.div>
             </div>
-             {/* Footer Section */}
+    {/* Footer Section */}
       <footer className="bg-[#FBFCFD] py-12">
         {/* Top Row*/}
         <div className="relative container mx-auto flex items-center">
@@ -169,9 +283,16 @@ export default function Index() {
           {/* Right Section */}
           <div className="ml-auto flex items-center space-x-4">
             <a href="#" className="text-gray-500 hover:text-gray-700 transition duration-300">
-              <svg width="20" height="20" fill="currentColor" className="text-xl">
-                <path d="M18 2H2C.89 2 0 2.89 0 4v12c0 1.11.89 2 2 2h8v-7H8V9h2V7c0-2.21 1.79-4 4-4h2v3h-2c-.55 0-1 .45-1 1v2h3l-.75 3H13v7h5c1.11 0 2-.89 2-2V4c0-1.11-.89-2-2-2z" />
-              </svg>
+            <svg 
+                width="20" height="20" fill="currentColor" className="text-xl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/>
+                </svg>
+            </a>
+            <a href="#" className="text-gray-500 hover:text-gray-700 transition duration-300">
+                <svg 
+                width="20" height="20" fill="currentColor" className="text-xl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                </svg>
             </a>
           </div>
         </div>
@@ -185,9 +306,9 @@ export default function Index() {
           <Link href="/terms-of-service">
             <span className="hover:text-gray-700 transition duration-300">Terms of Service</span>
           </Link>
-          {/* <p className="text-gray-500 mt-2">Realized by Bilal Gondal</p> */}
         </div>
       </footer>
         </div>
     )
 }
+

@@ -178,8 +178,7 @@ export default function Index() {
                 </div>
             </div>
             {/* Pricing Plan Section */}
-        <div id="pricing-plan" className="py-16 bg-[#FBFCFD] h-screen">
-        
+    <div id="pricing-plan" className="py-16 bg-[#FBFCFD] h-screen">
       <div  className="container mx-auto px-4">
         <h2 className="text-5xl font-bold text-center text-gray-900 mb-12">
           Pricing Plan
@@ -238,14 +237,14 @@ export default function Index() {
             {/*End Section */}
             <div id="get-started" className="flex flex-col items-center justify-center py-16 bg-[#FBFCFD] min-h-screen">
                 <motion.div
-                className="bg-white shadow-lg rounded-lg p-12 text-center max-w-4xl"
+                className="bg-[#FBFCFD] shadow-lg rounded-lg p-12 text-center max-w-6xl"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to get started?</h2>
-                    <p className="text-gray-600 mb-8">
+                    <h2 className="text-5xl font-bold text-gray-900 mb-4">Ready to get started?</h2>
+                    <p className="text-gray-600 mb-8 text-xl">
                         Lorem ipsum dolor sit amet consectetur. Lacus aliquet vitae nulla netus sollicitudin.
                         In enim tortor sed libero velit lectus. Egestas facilisi neque a arcu vitae dignissim.
                         Sit lobortis orci risus volutpat eu habitasse.

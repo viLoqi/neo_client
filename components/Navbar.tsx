@@ -15,13 +15,14 @@ export const Navbar: React.FC = () => {
   }, [mounted]);
 
   const navLinks = [
-    { href: '/features', label: 'Features' },
-    { href: '/pricing', label: 'Pricing' },
-    { href: '/testimonials', label: 'Testimonials' },
+    { href: '#features', label: 'Features' },
+    { href: '#pricing-plan', label: 'Pricing' },
+    // { href: '#testimonials', label: 'Testimonials' },
+    { href: '#get-started', label: 'Get Started' },
   ];
 
   if (!mounted || currentPath === null) {
-    return null; // or a loading spinner
+    return null;
   }
 
   return (

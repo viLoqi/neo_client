@@ -75,6 +75,7 @@ messaging.onBackgroundMessage((payload) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
+    console.log(event.notification.data)
     if (event?.notification?.data && event?.notification?.data?.link) {
         self.clients.openWindow(event.notification.data.link);
     }

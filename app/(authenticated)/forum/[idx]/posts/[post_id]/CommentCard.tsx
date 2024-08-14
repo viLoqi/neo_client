@@ -17,15 +17,17 @@ const CommentCard = ({ comments, addComment, postId }: CommentCardProps) => {
             addComment(inputRef.current.value, postId)
     }
 
-    return <div className="shadow-md">
+    return <div className="shadow-md ">
         <Card variant={"outline"} >
             <CardHeader className="bg-light-bg-subtle">
                 <Heading size={"md"}>{comments.length} Comments</Heading>
             </CardHeader>
             <CardBody className="bg-light-bg-subtle">
-                {comments.map(comment =>
-                    <CommentLine key={crypto.randomUUID()} {...comment} />
-                )}
+                <div className="sm:h-[12rem] overflow-y-auto">
+                    {comments.toReversed().map(comment =>
+                        <CommentLine key={crypto.randomUUID()} {...comment} />
+                    )}
+                </div>
                 <Input placeholder="Add a comment..." ref={inputRef} />
             </CardBody>
             <CardFooter className="bg-light-bg-subtle">

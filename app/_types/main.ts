@@ -43,7 +43,7 @@ export interface Answer {
     role: string
     content: string
     authorPhotoURL: string
-    timestamp: number
+    timestamp: Timestamp
 }
 
 export interface Comment {
@@ -55,6 +55,7 @@ export interface Comment {
 }
 
 export interface ForumPostSchema {
+    _id: string
     pinned: boolean
     question: string,
     description: string,
@@ -81,4 +82,11 @@ export interface ForumPostRequest {
     authorName: string
     authorPhotoURL: string
     comments: Comment[]
+}
+
+export interface ForumAnswerPostRequest {
+    author: string
+    role: string
+    content: string
+    authorPhotoURL: string
 }

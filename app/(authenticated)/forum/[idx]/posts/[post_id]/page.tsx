@@ -11,9 +11,10 @@ import AnswerCard from "./AnswerCard";
 import CommentCard from "./CommentCard";
 
 const ForumPostDetailPage = () => {
+    // This is actually the index...
     const { post_id } = useParams<{ post_id: string }>()
     const path = usePathname()
-    const { posts } = useForumPosts(path.split("/")[2])
+    const { posts, addAnswer } = useForumPosts(path.split("/")[2])
 
     const [selectedPost, setSelectedPost] = useState<ForumPostSchema>()
 
@@ -21,6 +22,7 @@ const ForumPostDetailPage = () => {
         if (posts)
             setSelectedPost(posts[parseInt(post_id)])
     }, [post_id, posts])
+
 
     if (selectedPost)
         return <div className="flex flex-col w-full h-screen p-4 gap-4 ">
@@ -36,8 +38,8 @@ const ForumPostDetailPage = () => {
                 </Breadcrumb>
             </div>
             <QuestionCard {...selectedPost} />
-            <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" />
-            <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" />
+            <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
+            <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
             <CommentCard comments={selectedPost["comments"]} />
         </div>;
 }

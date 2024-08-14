@@ -34,10 +34,18 @@ const useForumPosts = (forum: string) => {
     }
 
     const upvote = (postId: string) => {
-        console.log("UPVOTING" + postId)
-        return fetch(`${baseURL}&post=${postId}`, {
-            method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }
-        })
+
+        const cache = `upvote:${postId}`
+
+        if (localStorage.getItem(cache)) {
+            return null
+
+        } else {
+            localStorage.setItem(`upvote:${postId}`, "1")
+            return fetch(`${baseURL}&post=${postId}`, {
+                method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }
+            })
+        }
     }
 
     const addComment = (content: string, postId: string) => {

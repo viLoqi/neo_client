@@ -6,6 +6,7 @@ import { MessageSchema, Contact } from "@/app/_types/main";
 import Message from "./Message";
 import MessageBoxHeader from "./MessageBoxHeader";
 import { useEffect, useRef, useState } from "react";
+import useUserFCMToken from "@/hooks/useUserFCMToken";
 
 const MessageBox = ({ contact }: { contact: Contact }) => {
     const [user] = useUser()
@@ -13,6 +14,7 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
     const { chatMessages, addChatMessage } = useChat({ uid: user?.email!, tuid: contact?.email })
     const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
     const [loading, setLoading] = useState(false)
+    const fcm = useUserFCMToken(contact?.uid)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const scrollRef = useRef<HTMLDivElement>(null)
@@ -43,6 +45,17 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                 addChatMessage({ body: payload }).then(() => {
                     setLoading(false)
                 })
+
+                if (fcm) {
+                    fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/notify?token=${fcm}`, {
+                        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+                            title: `${user?.displayName} sent you a message`,
+                            body: message,
+                            link: "https://loqi.jiechen.dev/chat"
+                        })
+                    })
+                }
+
             }
         }
     }

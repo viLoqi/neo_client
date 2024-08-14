@@ -63,7 +63,7 @@ self.addEventListener('push', (e) => {
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    // console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
     const { title, body, image, icon, ...restPayload } = payload.data;
     const notificationOptions = {
@@ -75,7 +75,7 @@ messaging.onBackgroundMessage((payload) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
-    console.log(event.notification.data)
+    // console.log(event.notification.data)
     if (event?.notification?.data && event?.notification?.data?.link) {
         self.clients.openWindow(event.notification.data.link);
     }

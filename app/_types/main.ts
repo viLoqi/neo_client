@@ -20,6 +20,7 @@ export interface UserProfileSchema {
     online: boolean
     handle: string
     photoURL: string
+    fcm: string
     // tier: "FREE" | "BASIC" | "PREMIUM"
     // courses: string[]
     // quota: number

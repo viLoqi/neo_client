@@ -6,7 +6,7 @@ import useFcmToken from '@/hooks/useFCMToken';
 
 export default function FcmTokenComp() {
     const { fcmToken, notificationPermissionStatus } = useFcmToken();
-    console.log(fcmToken)
+    // console.log(fcmToken)
     useEffect(() => {
         if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
             if (notificationPermissionStatus === 'granted') {

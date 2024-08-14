@@ -13,7 +13,7 @@ const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: numb
     const basePath = usePathname()
     const { onCopy, value, setValue, hasCopied } = useClipboard('')
     useEffect(() => {
-        setValue(`https://loqi.jiechen.dev${basePath}/posts/${idx}`)
+        setValue(`https://loqi.jiechen.dev${basePath}/posts/${post._id}`)
     }, [])
 
     return (
@@ -29,7 +29,7 @@ const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: numb
                                 </Avatar>
                                 <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-fullz-10">
                                 </div>
-                                <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle">
+                                <LinkOverlay as={NextLink} href={`${basePath}/posts/${post._id}`} className="bg-light-bg-subtle">
                                     <div className="flex flex-col ml-3">
                                         <p className="text-sm font-semibold">{post.authorName}</p>
                                         <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
@@ -60,7 +60,7 @@ const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: numb
                             <span className="text-light-fg-text">{post.downvotes}</span>
                         </Button> */}
 
-                        <Link href={`${basePath}/posts/${idx}`}>
+                        <Link href={`${basePath}/posts/${post._id}`}>
                             <Button aria-label="Comment" leftIcon={<ChatCentered />} bg={"none"}>
 
                                 <span className="text-light-fg-text">{post.followups.length + (post.studentAnswer ? 1 : 0) + (post.instructorAnswer ? 1 : 0)}</span>

@@ -20,7 +20,7 @@ const ForumPostDetailPage = () => {
 
     useEffect(() => {
         if (posts)
-            setSelectedPost(posts[parseInt(post_id)])
+            setSelectedPost(posts.filter(post => post._id === post_id)[0])
     }, [post_id, posts])
 
 

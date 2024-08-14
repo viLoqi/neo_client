@@ -12,14 +12,28 @@ const SectionForumPage = () => {
     const { forum_id } = useParams<{ forum_id: string }>()
     const { posts, upvote } = useForumPosts(forum_id)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    console.log(forum_id, isModalOpen)
+    const [filter, setFilter] = useState("RECENT")
+
+    const [orderedPosts, setOrderedPosts] = useState(posts)
+
+    useEffect(() => {
+        switch (filter) {
+            case "HOT":
+                setOrderedPosts(posts.toSorted(post => post.upvotes).toReversed())
+                break
+            case "UNANSWERED":
+                setOrderedPosts(posts.filter(post => !(post.studentAnswer && post.instructorAnswer)))
+                break
+            default: setOrderedPosts(posts)
+        }
+    }, [posts, filter])
 
     return <div className="grid grid-rows-10 w-full h-screen p-6 overflow-y-scroll">
         <div className="row-span-1">
             <div className="flex justify-between w-full">
                 <Heading className="col-span-2" size={"lg"}>{forum_id}</Heading>
                 <div className="grid grid-flow-col gap-4">
-                    <Select >
+                    <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
                         <option value='RECENT'>Most Recent</option>
                         <option value='HOT'>Most Popular</option>
                         <option value='UNANSWERED'>Unanswered</option>
@@ -38,7 +52,7 @@ const SectionForumPage = () => {
         <SearchBar />
 
         <div className="row-span-7 mt-4 gap-4 flex flex-col">
-            {posts ? posts.map((post, idx) => {
+            {orderedPosts ? orderedPosts.map((post, idx) => {
                 return <ForumPostCard key={post._id} post={post} idx={idx} upvote={upvote} />
             }) : <></>}
         </div>

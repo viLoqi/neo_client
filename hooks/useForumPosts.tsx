@@ -8,7 +8,7 @@ import { query, collection, orderBy, doc } from "firebase/firestore";
 import { useCollection, useCollectionData } from "react-firebase-hooks/firestore";
 import useUser from "./useUser";
 
-const useForumPosts = (forum: string) => {
+const useForumPosts = (forum: string, filter: string | null = null) => {
     const collectionPath = `forums/${forum}/posts`
     const [posts] = useCollection(query(collection(firestore, collectionPath), orderBy("firstCreated", "desc")))
     const [filteredPosts, setFilteredPosts] = useState<ForumPostSchema[]>([])

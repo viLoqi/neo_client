@@ -55,7 +55,6 @@ export interface Comment {
 }
 
 export interface ForumPostSchema {
-    postId: string
     pinned: boolean
     question: string,
     description: string,
@@ -71,7 +70,6 @@ export interface ForumPostSchema {
 }
 
 export interface ForumPostRequest {
-    postId: string
     pinned: boolean
     question: string,
     description: string,

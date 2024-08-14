@@ -1,8 +1,5 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
-import { Input } from '@chakra-ui/react';
 import ForumCard from './ForumCard';
 import useForums from '@/hooks/useForums';
 import SearchBar from '@/components/SearchBar';

@@ -26,7 +26,7 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create your account</ModalHeader>
+        <ModalHeader>Generate a Deck</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>

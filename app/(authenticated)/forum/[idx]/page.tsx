@@ -5,11 +5,14 @@ import { useParams } from "next/navigation";
 import ForumPostCard from "./ForumPostCard";
 import useForumPosts from "@/hooks/useForumPosts";
 import SearchBar from "@/components/SearchBar";
+import { useState } from "react";
+import PostQuestionModal from "./PostQuestionModal";
 
 const SectionForumPage = () => {
-    const { idx } = useParams()
+    const { idx } = useParams<{ idx: string }>()
+    const { posts } = useForumPosts(idx)
 
-    const { posts } = useForumPosts(idx as string)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     return <div className="grid grid-rows-10 w-full h-screen p-6 overflow-y-scroll">
         <div className="row-span-1">
@@ -21,9 +24,14 @@ const SectionForumPage = () => {
                         <option value='HOT'>Most Popular</option>
                         <option value='UNANSWERED'>Unanswered</option>
                     </Select>
-                    <Button key={crypto.randomUUID()} variant='solid' color='#326AFD' bgColor={"#DDEAFF"} className="w-full" rounded={16} >
+                    <Button key={crypto.randomUUID()} variant='solid' color='#326AFD' bgColor={"#DDEAFF"} className="w-full" rounded={16} onClick={() => setIsModalOpen(true)} >
                         Post Question
                     </Button>
+                    <PostQuestionModal
+                        isOpen={isModalOpen}
+                        forumId={idx}
+                        onClose={() => setIsModalOpen(false)}
+                    />
                 </div>
             </div>
         </div>

@@ -7,10 +7,9 @@ import { usePathname } from "next/navigation";
 
 const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) => {
     const basePath = usePathname()
-
     return (
         <div className="flex bg-light-bg-subtle shadow-md rounded-md">
-            <div className="w-[5%] flex items-center text-center justify-center ">{parseInt(post.postId) + 1}</div>
+            <div className="w-[5%] flex items-center text-center justify-center ">--</div>
             <Card className="w-full bg-light-bg-subtle" variant='outline'>
                 <CardHeader className="bg-light-bg-subtle">
                     <div className="flex justify-between bg-light-bg-subtle">
@@ -25,7 +24,6 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                                         <p className="text-sm font-semibold">{post.authorName}</p>
                                         <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
                                     </div>
-
                                 </div>
                             </div>
                         </LinkOverlay>

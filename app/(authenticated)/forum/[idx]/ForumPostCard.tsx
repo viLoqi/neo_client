@@ -6,6 +6,7 @@ import moment from "moment";
 import { usePathname } from "next/navigation";
 
 const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) => {
+    console.log(post)
     const basePath = usePathname()
     return (
         <div className="flex bg-light-bg-subtle shadow-md rounded-md">

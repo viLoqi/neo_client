@@ -20,12 +20,12 @@ const ForumPostCard = ({ post, idx }: { post: ForumPostSchema, idx: number }) =>
                                 </Avatar>
                                 <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-fullz-10">
                                 </div>
-                                <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle">
-                                    <div className="flex flex-col ml-3">
-                                        <p className="text-sm font-semibold">{post.authorName}</p>
-                                        <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
-                                    </div>
-                                </LinkOverlay>
+                                {/* <LinkOverlay as={NextLink} href={`${basePath}/posts/${idx}`} className="bg-light-bg-subtle"> */}
+                                <div className="flex flex-col ml-3">
+                                    <p className="text-sm font-semibold">{post.authorName}</p>
+                                    <small className="text-light-fg-text">{moment(post.firstCreated.toDate()).fromNow()}</small>
+                                </div>
+                                {/* </LinkOverlay> */}
 
                             </div>
                         </div>

@@ -6,9 +6,11 @@ import { MagnifyingGlass } from "@phosphor-icons/react";
 import useUser from "@/hooks/useUser";
 import useAuthToken from "@/hooks/useAuthToken";
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const ContactList = ({ contacts, selectedContact }: { contacts: Contact[], selectedContact: Contact }) => {
     //TODO: refactor this; gg too tired :(
+    const router = useRouter()
     const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -25,14 +27,15 @@ const ContactList = ({ contacts, selectedContact }: { contacts: Contact[], selec
 
     const handleSubmit = () => {
         if (inputRef.current) {
-            const message = inputRef.current.value
+            const message = inputRef.current.value.toLowerCase()
             if (!isWhitespaceString(message)) {
                 setLoading(true)
                 setError(false)
                 fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/chat?uid=${user?.email}&tuid=${message}`, { method: "POST", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` } }).then((r) => {
-                    r.json().then(() => {
+                    r.json().then((d) => {
                         if (inputRef.current)
                             inputRef.current.value = ""
+                        router.push(`${d["status"]}`)
                         setLoading(false)
                     }).catch(() => {
                         setLoading(false)

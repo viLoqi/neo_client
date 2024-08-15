@@ -16,7 +16,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         if (contacts.length > 0) {
             const uid = path.split("/")[2]
             if (uid) {
-                setSelectedContact(contacts.filter(c => c.uid === uid)[0])
+                const res = contacts.filter(c => c.uid === uid)[0]
+                if (res)
+                    setSelectedContact(contacts.filter(c => c.uid === uid)[0])
             } else {
                 setSelectedContact({ name: "", photoURL: "", uid: "test", email: "" })
             }

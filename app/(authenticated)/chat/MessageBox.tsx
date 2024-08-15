@@ -53,7 +53,7 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
                             title: `${user?.displayName} sent you a message`,
                             body: message,
-                            link: `loqi.jiechen.dev${path}`
+                            link: `${path}`
                         })
                     })
                 }

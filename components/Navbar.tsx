@@ -70,9 +70,9 @@ export const Navbar: React.FC = () => {
       </div>
       <div className="flex items-center gap-4">
         <Link href="/signup" passHref>
-          <span className="cursor-pointer text-blue-600 bg-transparent rounded-full transition-all duration-300 hover:text-lg hover:scale-105">
+          {/* <span className="cursor-pointer text-blue-600 bg-transparent rounded-full transition-all duration-300 hover:text-lg hover:scale-105">
             Sign Up
-          </span>
+          </span> */}
         </Link>
         <Link href="/login" passHref>
           <button className="py-2 px-6 bg-blue-600 text-white rounded-full transition transform duration-300 hover:bg-blue-700 hover:shadow-lg hover:scale-105">

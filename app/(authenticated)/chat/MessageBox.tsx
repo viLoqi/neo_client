@@ -7,10 +7,11 @@ import Message from "./Message";
 import MessageBoxHeader from "./MessageBoxHeader";
 import { useEffect, useRef, useState } from "react";
 import useUserFCMToken from "@/hooks/useUserFCMToken";
+import { usePathname } from "next/navigation";
 
 const MessageBox = ({ contact }: { contact: Contact }) => {
     const [user] = useUser()
-
+    const path = usePathname()
     const { chatMessages, addChatMessage } = useChat({ uid: user?.email!, tuid: contact?.email })
     const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
     const [loading, setLoading] = useState(false)
@@ -52,7 +53,7 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
                             title: `${user?.displayName} sent you a message`,
                             body: message,
-                            link: "https://loqi.jiechen.dev/chat"
+                            link: `loqi.jiechen.dev${path}`
                         })
                     })
                 }

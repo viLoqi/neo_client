@@ -7,7 +7,7 @@ import useUser from "@/hooks/useUser";
 import useAuthToken from "@/hooks/useAuthToken";
 import { useMemo, useState } from "react";
 
-const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contacts: Contact[], selectedContact: Contact, setSelectedContact: Dispatch<SetStateAction<Contact>> }) => {
+const ContactList = ({ contacts, selectedContact }: { contacts: Contact[], selectedContact: Contact }) => {
     //TODO: refactor this; gg too tired :(
     const isWhitespaceString = (str: String) => !str.replace(/\s/g, '').length
     const [loading, setLoading] = useState(false)
@@ -73,12 +73,9 @@ const ContactList = ({ contacts, setSelectedContact, selectedContact }: { contac
                         <div className="my-4">
                             {selectedContact ?
                                 contacts.map(contact => {
-                                    return <ContactCard key={contact.uid} uid={contact.uid} userName={contact.name} userProfilePicture={contact.photoURL} selected={contact.uid == selectedContact.uid} onClick={() => { setSelectedContact(contact) }} />
+                                    return <ContactCard key={contact.uid} uid={contact.uid} userName={contact.name} userProfilePicture={contact.photoURL} selected={contact.uid == selectedContact.uid} />
                                 })
-                                : <Alert status='info'>
-                                    <AlertIcon />
-                                    Start a converstation by looking up their school email
-                                </Alert>
+                                : <></>
                             }
                         </div>
                     </TabPanel>

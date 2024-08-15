@@ -1,35 +1,16 @@
 "use client"
-import useContacts from "@/hooks/useContacts";
-import ContactList from "./ContactList";
-import { useEffect, useState } from "react";
-import MessageBox from "./MessageBox"
-import { Contact } from "@/app/_types/main";
-import { Progress } from "@chakra-ui/react";
+
+import { Alert, AlertIcon, Center } from "@chakra-ui/react";
 
 const ChatPage = () => {
 
-    const { contacts, loading } = useContacts()
-
-    const [selectedContact, setSelectedContact] = useState<Contact>({ name: "", photoURL: "", uid: "test", email: "" })
-
-    useEffect(() => {
-        setSelectedContact(contacts[0])
-    }, [contacts])
-
-
-
-    if (loading) {
-        return
-    }
-
-    return <div className="grid grid-cols-10 w-full h-screen ">
-        <div className="col-span-2 bg-light-bg-subtle border-light-bg-active border-x-2 ">
-            <ContactList contacts={contacts} selectedContact={selectedContact} setSelectedContact={setSelectedContact} />
-        </div>
-
-        <div className="col-span-8 ">
-            <MessageBox contact={selectedContact} />
-        </div>
+    return <div className="flex justify-center items-center p-4 h-full">
+        <Center>
+            <Alert status='info' className="">
+                <AlertIcon />
+                Start a converstation by looking up their school email
+            </Alert>
+        </Center>
     </div >;
 }
 

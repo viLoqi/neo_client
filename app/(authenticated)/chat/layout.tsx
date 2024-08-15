@@ -14,10 +14,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         if (contacts.length > 0) {
-            console.log(contacts)
             const uid = path.split("/")[2]
             if (uid) {
                 setSelectedContact(contacts.filter(c => c.uid === uid)[0])
+            } else {
+                setSelectedContact({ name: "", photoURL: "", uid: "test", email: "" })
             }
         }
 

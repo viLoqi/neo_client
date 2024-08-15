@@ -1,11 +1,11 @@
 //TODO: impl
-import { ForumPostSchema, ForumPostRequest, ForumAnswerPostRequest } from "@/app/_types/main";
+import { ForumPostSchema, ForumPostRequest } from "@/app/_types/main";
 import { useEffect, useMemo, useState } from "react";
 import useAuthToken from "./useAuthToken";
 import useSchool from "./useSchool";
 import { firestore } from "@/app/_modules/firebase";
 import { query, collection, orderBy, doc } from "firebase/firestore";
-import { useCollection, useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import useUser from "./useUser";
 
 const useForumPosts = (forum: string, filter: string | null = null) => {
@@ -58,6 +58,14 @@ const useForumPosts = (forum: string, filter: string | null = null) => {
         })
     }
 
+    const editPostDescription = (content: string, postId: string) => {
+        return fetch(`${baseURL}&post=${postId}`, {
+            method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify({
+                description: content
+            })
+        })
+    }
+
     useEffect(() => {
         const d = posts?.docs.map((d) => {
             const dt = d.data()
@@ -70,7 +78,7 @@ const useForumPosts = (forum: string, filter: string | null = null) => {
     }, [posts])
 
 
-    return { posts: filteredPosts, addForumPost, addAnswer, addComment, upvote }
+    return { posts: filteredPosts, addForumPost, addAnswer, addComment, upvote, editPostDescription }
 }
 
 export default useForumPosts;

@@ -18,7 +18,7 @@ const ForumCard = ({ name, members, sections, sectionData }: Input) => {
         if (item) {
             const obj = JSON.parse(item) as Course[]
 
-            if (!obj.filter(c => c.cid === name).length)
+            if (!obj.filter(c => c.cid === name).length && obj.length <= 5)
                 localStorage.setItem("recent", JSON.stringify([...JSON.parse(item), { cid: name, link: `/forum/${classNumber}` }]))
         } else
             localStorage.setItem("recent", JSON.stringify([{ cid: name, link: `/forum/${classNumber}` }]))

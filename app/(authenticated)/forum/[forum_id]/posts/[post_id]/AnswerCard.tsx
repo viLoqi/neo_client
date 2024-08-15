@@ -3,6 +3,7 @@ import { Answer, ForumAnswerPostRequest } from "@/app/_types/main";
 import moment from "moment";
 import { useRef, useState } from "react";
 import { PaperPlaneTilt, PencilSimple } from "@phosphor-icons/react";
+import EditableControls from "@/components/EditableControls";
 
 interface Input {
     answerer: Answer | null
@@ -38,14 +39,26 @@ const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
                 </div> : <Heading size={'md'}>{title}</Heading>}
             </CardHeader>
             <CardBody className="bg-light-bg-subtle">
-                <Input placeholder={answerer?.content ?? "Add an answer..."} ref={inputRef} />
+                <Editable
+                    className="flex flex-col gap-2"
+                    isPreviewFocusable={false} defaultValue={answerer?.content} onSubmit={handlePostAnswer}>
+                    <EditablePreview />
+                    {answerer?.content ? <>
+                        <Input as={EditableInput} placeholder={"Add an answer..."} ref={inputRef} />
+                        <EditableControls />
+                    </> : <>
+                        <Input placeholder={answerer?.content ?? "Add an answer..."} ref={inputRef} />
+                        <Button leftIcon={answerer?.content ? <PencilSimple size={16} /> : <PaperPlaneTilt size={16} />} color={"#285ADE"} maxW={'xs'} onClick={handlePostAnswer}>
+                            Post
+                        </Button>
+                    </>}
+
+                </Editable>
             </CardBody>
             <CardFooter className="bg-light-bg-subtle">
-                <Button leftIcon={answerer?.content ? <PencilSimple size={16} /> : <PaperPlaneTilt size={16} />} color={"#285ADE"} onClick={handlePostAnswer}>
-                    {answerer?.content ? "Edit" : "Post"}
-                </Button>
+
             </CardFooter>
-        </Card>
+        </Card >
     </div >;
 }
 

@@ -14,7 +14,7 @@ const ForumPostDetailPage = () => {
     // This is actually the index...
     const { post_id } = useParams<{ post_id: string }>()
     const path = usePathname()
-    const { posts, addAnswer, addComment } = useForumPosts(path.split("/")[2])
+    const { posts, addAnswer, addComment, editPostDescription } = useForumPosts(path.split("/")[2])
 
     const [selectedPost, setSelectedPost] = useState<ForumPostSchema>()
 
@@ -33,11 +33,11 @@ const ForumPostDetailPage = () => {
                     </BreadcrumbItem>
 
                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink href={`${path}`}>{parseInt(post_id) + 1}</BreadcrumbLink>
+                        <BreadcrumbLink href={`${path}`}>{selectedPost.question}</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
             </div>
-            <QuestionCard {...selectedPost} />
+            <QuestionCard {...selectedPost} editPost={editPostDescription} post_id={post_id} />
             <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
             <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
             <CommentCard comments={selectedPost["comments"]} addComment={addComment} postId={selectedPost["_id"]} />

@@ -28,10 +28,10 @@ const DeckEditPage = () => {
                     </BreadcrumbItem>
 
                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink href={`/deck/${idx}`}>{selectedDeck.name}</BreadcrumbLink>
+                        <BreadcrumbLink href={`/deck/${idx}`} className="capitalize">{selectedDeck.name}</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
-                <Heading size="lg" className="flex items-center gap-4 my-4">
+                <Heading size="lg" className="flex items-center gap-4 my-4 capitalize">
                     <Cpu size={32} /> {selectedDeck.name}
                 </Heading>
             </div>
@@ -45,7 +45,7 @@ const DeckEditPage = () => {
                     <TabPanels >
                         <TabPanel>
                             {loading ? <Progress size='xs' isIndeterminate /> : <></>}
-                            <CardsTab selectedDeck={selectedDeck} />
+                            <CardsTab selectedDeck={selectedDeck} deckIndex={parseInt(idx)} />
                         </TabPanel>
                         <TabPanel>
                             <DetailsTab />

@@ -39,7 +39,7 @@ const SideBar = () => {
         const local = localStorage.getItem("recent")
         if (local)
             setCourses(JSON.parse(local))
-    }, [])
+    }, [pathname])
 
     if (user)
         return (
@@ -67,8 +67,8 @@ const SideBar = () => {
                     );
                 })} */}
                 {/* Recent Courses */}
-                <Heading size='md' fontWeight={"normal"} py={4}>Recent Courses</Heading>
-                {courses.map((course) => {
+                <Heading size='md' fontWeight={"normal"} py={4}>Recent Forums</Heading>
+                {courses.toReversed().map((course) => {
                     return (
                         <div key={course.cid}>
                             <CoursesCard

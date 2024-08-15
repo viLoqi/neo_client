@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import useSchool from "./useSchool";
 import { PrivateDeck } from "@/app/_types/repo";
-import { PostDeckRequest } from "@/app/_types/deck";
+import { CardSchema, PostDeckRequest } from "@/app/_types/deck";
 import useAuthToken from "./useAuthToken";
 import useUser from "./useUser";
 
@@ -18,7 +18,7 @@ const useDecks = () => {
     const baseURL = `https://us-east1-loqi-loqi.cloudfunctions.net/repo?university=${school}`
     const baseHeaders = useMemo(() => { return { "Content-Type": "application/json" } }, [])
 
-    const addDeckToPrivateRepo = async ({ deckContent }: { deckContent: PostDeckRequest }) => {
+    const addDeckToPrivateRepo = async ({ deckContent }: { deckContent: PostDeckRequest | {} }) => {
         if (user)
             fetch(`${baseURL}&uid=${user.email}`, {
                 method: "PATCH",
@@ -41,6 +41,20 @@ const useDecks = () => {
             }).then(() => setLoading(true))
     }
 
+    // Deck Index (did) and Card Index (cid)
+    const editCardInDeck = (did: number, cid: number, newCard: CardSchema) => {
+        if (user)
+            return fetch(`${baseURL}&uid=${user.email}&cid=${cid}&did=${did}`, {
+                method: "PATCH",
+                headers: {
+                    ...baseHeaders,
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify(newCard)
+                // Force cache invalidation
+            }).then(() => addDeckToPrivateRepo({ deckContent: {} }))
+    }
+
     useEffect(() => {
         if (user && token && loading) {
             fetch(`${baseURL}&uid=${user.email}`, {
@@ -52,11 +66,14 @@ const useDecks = () => {
             },).then(r => r.json().then(d => {
                 setDecks(d?.decks ?? [])
                 setLoading(false)
-            }))
+            })).catch(() => {
+                setDecks([])
+                setLoading(false)
+            })
         }
     }, [loading, baseURL, baseHeaders, token, user])
 
-    return { decks, loading, addDeckToPrivateRepo, delDeckfromPrivateRepo };
+    return { decks, loading, addDeckToPrivateRepo, delDeckfromPrivateRepo, editCardInDeck };
 }
 
 export default useDecks;

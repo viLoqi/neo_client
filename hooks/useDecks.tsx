@@ -32,13 +32,14 @@ const useDecks = () => {
 
     const delDeckfromPrivateRepo = (idx: number) => {
         if (user)
-            fetch(`${baseURL}&uid=${user.email}&idx=${idx}`, {
+            return fetch(`${baseURL}&uid=${user.email}&idx=${idx}`, {
                 method: "DELETE",
                 headers: {
                     ...baseHeaders,
                     "Authorization": `Bearer ${token}`,
                 }
-            }).then(() => setLoading(true))
+                // Force cache invalidation
+            }).then(() => addDeckToPrivateRepo({ deckContent: {} }))
     }
 
     // Deck Index (did) and Card Index (cid)

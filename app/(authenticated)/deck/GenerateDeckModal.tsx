@@ -1,21 +1,27 @@
 "use client"
 
 import { useState } from 'react';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper, useToast } from '@chakra-ui/react';
 
 // Define a type for your component's props
 type GenerateDeckModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onGenerate: (numQuestions: string, questionType: string) => void;
+  onGenerate: any
 };
 
 export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: GenerateDeckModalProps) {
   const [numQuestions, setNumQuestions] = useState<string>('1');
   const [questionType, setQuestionType] = useState<string>('');
+  const toast = useToast()
 
   const handleGenerateClick = () => {
-    onGenerate(numQuestions, questionType);
+    toast.promise(onGenerate(numQuestions, questionType)
+      , {
+        success: { title: 'Deck Generated', description: 'Looks great' },
+        error: { title: 'Deck Was Not Generated', description: 'Something wrong' },
+        loading: { title: 'Generating Deck...', description: 'Please wait' },
+      })
     onClose();
   };
 

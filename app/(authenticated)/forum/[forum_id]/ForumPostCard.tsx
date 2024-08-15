@@ -1,21 +1,21 @@
 import { ForumPostSchema } from "@/app/_types/main";
-import useForumPosts from "@/hooks/useForumPosts";
 import { Link } from "@chakra-ui/next-js";
-import { Avatar, Card, CardBody, CardFooter, CardHeader, Button, LinkOverlay } from "@chakra-ui/react";
+import { Avatar, Card, CardBody, CardFooter, CardHeader, Button, LinkOverlay, IconButton, Menu, MenuButton, MenuItem, MenuList, useClipboard, useToast } from "@chakra-ui/react";
 import { ChatCentered, DotsThreeOutlineVertical, ShareFat, ThumbsUp } from "@phosphor-icons/react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
-import { useClipboard } from '@chakra-ui/react'
 import { useEffect } from "react";
 import NextLink from "next/link"
+import useUser from "@/hooks/useUser";
 
-const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: number, upvote: any }) => {
+const ForumPostCard = ({ post, idx, upvote, delForumPost }: { post: ForumPostSchema, idx: number, upvote: any, delForumPost: any }) => {
     const basePath = usePathname()
     const { onCopy, value, setValue, hasCopied } = useClipboard('')
+    const [user] = useUser()
     useEffect(() => {
         setValue(`https://loqi.jiechen.dev${basePath}/posts/${post._id}`)
     }, [])
-
+    const toast = useToast()
     return (
         <div className="flex bg-light-bg-subtle shadow-md rounded-md">
             <div className="w-[5%] flex items-center text-center justify-center ">--</div>
@@ -38,8 +38,38 @@ const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: numb
                             </div>
                         </div>
 
-                        <Button aria-label="More Action" leftIcon={<DotsThreeOutlineVertical />} bg={"none"}>
-                        </Button>
+                        <Menu>
+                            <MenuButton
+                                as={IconButton}
+                                aria-label='Options'
+                                icon={<DotsThreeOutlineVertical size={24} />}
+                                variant={"ghost"}
+                            />
+                            <MenuList>
+                                <MenuItem as={Link} href={`${basePath}/posts/${post._id}`}>
+                                    Edit
+                                </MenuItem>
+                                <MenuItem onClick={() => {
+                                    if (post.authorName === user?.displayName) {
+                                        toast.promise(delForumPost(post._id), {
+                                            success: { title: 'Post Deleted', description: 'Looks great' },
+                                            error: { title: 'Post Was Not Deleted', description: 'Something wrong' },
+                                            loading: { title: 'Deleting Post...', description: 'Please wait' },
+                                        })
+                                    } else {
+                                        toast({
+                                            title: 'Account created.',
+                                            description: "We've created your account for you.",
+                                            status: 'success',
+                                            duration: 9000,
+                                            isClosable: true,
+                                        })
+                                    }
+                                }}>
+                                    Delete
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
                     </div>
                 </CardHeader>
                 <CardBody className="gap-4 flex flex-col bg-light-bg-subtle ">
@@ -62,7 +92,6 @@ const ForumPostCard = ({ post, idx, upvote }: { post: ForumPostSchema, idx: numb
 
                         <Link href={`${basePath}/posts/${post._id}`}>
                             <Button aria-label="Comment" leftIcon={<ChatCentered />} bg={"none"}>
-
                                 <span className="text-light-fg-text">{post.followups.length + (post.studentAnswer ? 1 : 0) + (post.instructorAnswer ? 1 : 0)}</span>
                             </Button>
                         </Link>

@@ -2,7 +2,7 @@ import { ForumPostSchema } from "@/app/_types/main";
 import EditableControls from "@/components/EditableControls";
 import useForumPosts from "@/hooks/useForumPosts";
 import { Button, Card, CardBody, CardFooter, CardHeader, Editable, EditableInput, EditablePreview, Heading, Input } from "@chakra-ui/react";
-import { PaperPlaneTilt, PencilSimple, SealQuestion, Star } from "@phosphor-icons/react";
+import { SealQuestion } from "@phosphor-icons/react";
 import { useRef } from "react";
 
 interface Input extends ForumPostSchema {

@@ -1,16 +1,16 @@
 import { PrivateDeck } from "@/app/_types/repo"
-import { Card, Text, Heading, CardBody, Button, Center, Menu, IconButton, MenuButton, MenuList, MenuItem, CardFooter } from "@chakra-ui/react";
+import { Card, Text, Heading, CardBody, Button, Center, Menu, IconButton, MenuButton, MenuList, MenuItem, CardFooter, useToast } from "@chakra-ui/react";
 import { Cpu, DotsThreeOutlineVertical, SealQuestion, Timer } from "@phosphor-icons/react";
 import { Link } from "@chakra-ui/next-js";
 
 interface Input {
     deck: PrivateDeck
     idx: number
-    delDeckfromPrivateRepo: (idx: number) => void
+    delDeckfromPrivateRepo: any
 }
 
 export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
-
+    const toast = useToast()
     return (
         <div>
             <Card
@@ -34,7 +34,14 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                                 <MenuItem as={Link} href={`/deck/${idx}`}>
                                     Edit
                                 </MenuItem>
-                                <MenuItem onClick={() => delDeckfromPrivateRepo(idx)}>
+                                <MenuItem onClick={() => {
+
+                                    toast.promise(delDeckfromPrivateRepo(idx), {
+                                        success: { title: 'Deck Deleted', description: 'Looks great' },
+                                        error: { title: 'Deck Was Not Deleted', description: 'Something wrong' },
+                                        loading: { title: 'Deleting Deck...', description: 'Please wait' },
+                                    })
+                                }}>
                                     Delete
                                 </MenuItem>
                             </MenuList>

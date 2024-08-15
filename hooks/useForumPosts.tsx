@@ -8,7 +8,7 @@ import { query, collection, orderBy, doc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import useUser from "./useUser";
 
-const useForumPosts = (forum: string, filter: string | null = null) => {
+const useForumPosts = (forum: string) => {
     const collectionPath = `forums/${forum}/posts`
     const [posts] = useCollection(query(collection(firestore, collectionPath), orderBy("firstCreated", "desc")))
     const [filteredPosts, setFilteredPosts] = useState<ForumPostSchema[]>([])
@@ -21,6 +21,10 @@ const useForumPosts = (forum: string, filter: string | null = null) => {
 
     const addForumPost = ({ body }: { body: ForumPostRequest }) => {
         return fetch(baseURL, { method: "POST", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify(body) })
+    }
+
+    const delForumPost = (postId: string) => {
+        return fetch(`${baseURL}&post=${postId}`, { method: "DELETE", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` } })
     }
 
     const addAnswer = (content: string, role: string, postId: string) => {
@@ -78,7 +82,7 @@ const useForumPosts = (forum: string, filter: string | null = null) => {
     }, [posts])
 
 
-    return { posts: filteredPosts, addForumPost, addAnswer, addComment, upvote, editPostDescription }
+    return { posts: filteredPosts, addForumPost, addAnswer, addComment, upvote, editPostDescription, delForumPost }
 }
 
 export default useForumPosts;

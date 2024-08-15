@@ -10,7 +10,7 @@ import PostQuestionModal from "./PostQuestionModal";
 
 const SectionForumPage = () => {
     const { forum_id } = useParams<{ forum_id: string }>()
-    const { posts, upvote } = useForumPosts(forum_id)
+    const { posts, upvote, delForumPost } = useForumPosts(forum_id)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [filter, setFilter] = useState("RECENT")
 
@@ -53,7 +53,7 @@ const SectionForumPage = () => {
 
         <div className="row-span-7 mt-4 gap-4 flex flex-col">
             {orderedPosts ? orderedPosts.map((post, idx) => {
-                return <ForumPostCard key={post._id} post={post} idx={idx} upvote={upvote} />
+                return <ForumPostCard key={post._id} post={post} idx={idx} upvote={upvote} delForumPost={delForumPost} />
             }) : <></>}
         </div>
     </div>;

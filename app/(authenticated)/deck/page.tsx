@@ -6,7 +6,7 @@ import Deck from './Deck';
 import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
 import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
-import { Box, Heading, Input, Progress, Skeleton } from '@chakra-ui/react';
+import { Box, Heading, Input, Progress } from '@chakra-ui/react';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     // TODO: @Benny, remove hardcoded difficulty.
@@ -61,6 +61,8 @@ export default function BrowseDeckPage() {
 
             addDeckToPrivateRepo({ deckContent: { name: questionType, cards: cardSchemas } });
 
+            return "done"
+
         } catch (error) {
             console.error('Error generating questions:', error);
         }
@@ -99,7 +101,7 @@ export default function BrowseDeckPage() {
 
                         <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
                             {filteredDecks.map((deck, idx) => (
-                                <Deck key={crypto.randomUUID()} deck={deck} idx={idx} delDeckfromPrivateRepo={delDeckfromPrivateRepo} />
+                                <Deck key={deck.name + idx} deck={deck} idx={idx} delDeckfromPrivateRepo={delDeckfromPrivateRepo} />
                             ))}
                         </div>
                     </div>

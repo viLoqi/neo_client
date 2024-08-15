@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper, Textarea } from '@chakra-ui/react';
 import useForumPosts from '@/hooks/useForumPosts';
 import useUser from '@/hooks/useUser';
 
@@ -55,7 +55,7 @@ export default function PostQuestionModal({ isOpen, onClose, forumId }: PostQues
 
                     <FormControl mt={4}>
                         <FormLabel>Description</FormLabel>
-                        <Input placeholder='Description' onChange={(e) => setDescription(e.target.value)} />
+                        <Textarea placeholder='Description' onChange={(e) => setDescription(e.target.value)} />
                     </FormControl>
                 </ModalBody>
 

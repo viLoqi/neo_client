@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper, Textarea } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper, Textarea, useToast } from '@chakra-ui/react';
 import useForumPosts from '@/hooks/useForumPosts';
 import useUser from '@/hooks/useUser';
 
@@ -17,9 +17,11 @@ export default function PostQuestionModal({ isOpen, onClose, forumId }: PostQues
     const [description, setDescription] = useState<string>('');
     const { addForumPost } = useForumPosts(forumId)
     const [user] = useUser()
+    const toast = useToast()
 
     const handleAsk = () => {
-        addForumPost({
+
+        toast.promise(addForumPost({
             body: {
                 "description": description,
                 "pinned": false,
@@ -34,6 +36,12 @@ export default function PostQuestionModal({ isOpen, onClose, forumId }: PostQues
                 "authorPhotoURL": user?.photoURL!
             }
         })
+            , {
+                success: { title: 'Question Posted', description: 'Looks great' },
+                error: { title: 'Question Was Not Generated', description: 'Something wrong' },
+                loading: { title: 'Posting Question...', description: 'Please wait' },
+            })
+
         onClose();
     };
 

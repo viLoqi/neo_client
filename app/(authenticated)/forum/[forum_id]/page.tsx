@@ -38,7 +38,7 @@ const SectionForumPage = () => {
                         <option value='HOT'>Most Popular</option>
                         <option value='UNANSWERED'>Unanswered</option>
                     </Select>
-                    <Button key={crypto.randomUUID()} variant='solid' color='#326AFD' bgColor={"#DDEAFF"} className="w-full" rounded={16} onClick={() => setIsModalOpen(true)} >
+                    <Button variant='solid' color='#326AFD' bgColor={"#DDEAFF"} className="w-full" rounded={16} onClick={() => setIsModalOpen(true)} >
                         Post Question
                     </Button>
                     <PostQuestionModal

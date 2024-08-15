@@ -71,7 +71,7 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                 <div className="row-span-8 flex flex-col h-full w-full rounded-lg  overflow-y-auto" ref={scrollRef}>
                     {chatMessages?.map(e => {
                         const currMsg = e as MessageSchema
-                        return <Message key={crypto.randomUUID()} {...currMsg} />
+                        return <Message key={currMsg.content} {...currMsg} />
                     })}
                 </div>
                 <div className="row-span-1 flex w-full h-full rounded-lg  flex-col border-2 border-light-bg-active shadow-md p-4 gap-2">

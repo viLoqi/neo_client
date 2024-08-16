@@ -35,7 +35,7 @@ const ContactList = ({ contacts, selectedContact }: { contacts: Contact[], selec
                     r.json().then((d) => {
                         if (inputRef.current)
                             inputRef.current.value = ""
-                        router.push(`${d["status"]}`)
+                        router.push(`/chat/${d["status"]}`)
                         setLoading(false)
                     }).catch(() => {
                         setLoading(false)

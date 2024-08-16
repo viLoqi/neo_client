@@ -8,7 +8,7 @@ import useDecks from '@/hooks/useDecks';
 import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
 import { Box, Heading, Input, Progress } from '@chakra-ui/react';
 
-export function parseToCardSchema(generatedQuestions: string): CardSchema[] {
+function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
     return Object.keys(questionsObj).map((key, index) => {
         const { question, answer, choices, hint, difficulty } = questionsObj[key];
@@ -58,9 +58,7 @@ export default function BrowseDeckPage() {
 
             console.log(questionType, cardSchemas)
 
-            addDeckToPrivateRepo({ deckContent: { name: questionType, cards: cardSchemas } });
-
-            return "done"
+            return addDeckToPrivateRepo({ deckContent: { name: questionType, cards: cardSchemas } });
 
         } catch (error) {
             console.error('Error generating questions:', error);

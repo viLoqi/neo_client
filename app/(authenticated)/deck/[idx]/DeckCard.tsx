@@ -4,7 +4,14 @@ import { Button, Card, CardBody, CardFooter, CardHeader, Editable, EditablePrevi
 import { DotsThreeOutlineVertical, FloppyDisk, Lightbulb, PencilSimple, SquareSplitVertical, Star, ThumbsDown, ThumbsUp } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import useDecks from "@/hooks/useDecks";
-import { parseToCardSchema } from "../page";
+
+function parseToCardSchema(generatedQuestions: string): CardSchema[] {
+    const questionsObj = JSON.parse(generatedQuestions);
+    return Object.keys(questionsObj).map((key, index) => {
+        const { question, answer, choices, hint, difficulty } = questionsObj[key];
+        return { question, answer, choices, hint, order: index, difficulty };
+    });
+}
 
 const DeckCard = ({ card, cardIndex, deckIndex }: { card: CardSchema, cardIndex: number, deckIndex: number }) => {
     const toast = useToast()

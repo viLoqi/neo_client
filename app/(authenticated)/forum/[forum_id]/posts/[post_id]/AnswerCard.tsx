@@ -27,7 +27,7 @@ const AnswerCard = ({ answerer, title, addAnswer, postId, authorEmail }: Input) 
             setInputValue(inputRef.current.value)
             fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/email?to=${authorEmail}`, {
                 method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-                    "post_link": path,
+                    "post_link": "loqi.jiechen.dev/" + path,
                     "post_answer": inputRef.current.value
                 })
             })

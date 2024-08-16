@@ -49,11 +49,14 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
                 })
 
                 if (fcm) {
+                    const redirectLink = path.split("/")
+                    redirectLink[2] = user?.uid!
+
                     fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/notify?token=${fcm}`, {
                         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
                             title: `${user?.displayName} sent you a message`,
                             body: message,
-                            link: `${path}`
+                            link: `${redirectLink}`
                         })
                     })
                 }

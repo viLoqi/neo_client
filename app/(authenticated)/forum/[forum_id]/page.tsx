@@ -23,7 +23,7 @@ const SectionForumPage = () => {
                 setOrderedPosts(posts.toSorted(post => post.upvotes).toReversed())
                 break
             case "UNANSWERED":
-                setOrderedPosts(posts.filter(post => !(post.studentAnswer && post.instructorAnswer)))
+                setOrderedPosts(posts.filter(post => !post.instructorAnswer))
                 break
             default: setOrderedPosts(posts)
         }

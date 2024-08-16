@@ -65,6 +65,7 @@ export interface ForumPostSchema {
     followups: string[]
     upvotes: number
     downvotes: number
+    authorEmail: string
     authorName: string
     authorPhotoURL: string
     firstCreated: Timestamp
@@ -81,6 +82,7 @@ export interface ForumPostRequest {
     upvotes: number
     downvotes: number
     authorName: string
+    authorEmail: string
     authorPhotoURL: string
     comments: Comment[]
 }

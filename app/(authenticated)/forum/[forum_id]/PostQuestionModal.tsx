@@ -33,6 +33,7 @@ export default function PostQuestionModal({ isOpen, onClose, forumId }: PostQues
                 "upvotes": 0,
                 "downvotes": 0,
                 "authorName": user?.displayName!,
+                "authorEmail": user?.email!,
                 "authorPhotoURL": user?.photoURL!
             }
         })

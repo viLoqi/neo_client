@@ -4,29 +4,35 @@ import moment from "moment";
 import { useRef, useState } from "react";
 import { PaperPlaneTilt, PencilSimple } from "@phosphor-icons/react";
 import EditableControls from "@/components/EditableControls";
+import { usePathname } from "next/navigation";
 
 interface Input {
     answerer: Answer | null
     title: string
     postId: string
     addAnswer: (content: string, role: string, postId: string) => Promise<Response>
+    authorEmail: string
 }
 
-const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
+const AnswerCard = ({ answerer, title, addAnswer, postId, authorEmail }: Input) => {
 
+    const path = usePathname()
     const inputRef = useRef<HTMLTextAreaElement>(null)
     const [inputValue, setInputValue] = useState(answerer?.content)
+
 
     const handlePostAnswer = () => {
         if (inputRef.current) {
             addAnswer(inputRef.current.value, title === "Instructor Answer" ? "instructor" : "student", postId)
             setInputValue(inputRef.current.value)
+            fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/email?to=${authorEmail}`, {
+                method: "POST", body: JSON.stringify({
+                    "post_link": path,
+                    "post_answer": inputRef.current.value
+                })
+            })
         }
-
-
     }
-
-    console.log(inputValue)
 
     return <div className="shadow-md">
         <Card variant={"outline"}>

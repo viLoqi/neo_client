@@ -16,6 +16,7 @@ const ForumPostDetailPage = () => {
     const path = usePathname()
     const { posts, addAnswer, addComment, editPostDescription } = useForumPosts(path.split("/")[2])
 
+
     const [selectedPost, setSelectedPost] = useState<ForumPostSchema>()
 
     useEffect(() => {
@@ -38,8 +39,8 @@ const ForumPostDetailPage = () => {
                 </Breadcrumb>
             </div>
             <QuestionCard {...selectedPost} editPost={editPostDescription} post_id={post_id} />
-            <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
-            <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} />
+            <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} authorEmail={selectedPost.authorEmail} />
+            <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} authorEmail={selectedPost.authorEmail} />
             <CommentCard comments={selectedPost["comments"]} addComment={addComment} postId={selectedPost["_id"]} />
         </div>;
 }

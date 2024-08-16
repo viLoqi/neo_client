@@ -8,15 +8,14 @@ interface Props {
 
 const UserCard = ({ userName, userHandle, userProfilePicture }: Props) => {
     return (
-        <div className="flex items-center w-full h-14 rounded-lg">
+        <div className="flex items-center w-full h-14 rounded-lg gap-1 ">
             <Avatar name={userName} src={userProfilePicture}>
                 <AvatarBadge borderColor='papayawhip' bg='green.500' boxSize='1em' />
             </Avatar>
-            <div className="relative size-3 ml-[-12px] mb-[-30px] rounded-fullz-10">
-            </div>
-            <div className="flex flex-col ml-3">
+
+            <div className="flex flex-col">
                 <p className="text-sm font-semibold">{userName}</p>
-                <p className="text-sm  font-light">@{userHandle}</p>
+                <p className="text-sm font-semibold">@ {userHandle}</p>
             </div>
         </div>
     );

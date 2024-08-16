@@ -21,6 +21,8 @@ const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
             addAnswer(inputRef.current.value, title === "Instructor Answer" ? "instructor" : "student", postId)
     }
 
+    console.log(answerer?.content)
+
     return <div className="shadow-md">
         <Card variant={"outline"}>
             <CardHeader className="bg-light-bg-subtle">
@@ -41,7 +43,7 @@ const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
             <CardBody className="bg-light-bg-subtle">
                 <Editable
                     className="flex flex-col gap-2"
-                    isPreviewFocusable={false} defaultValue={answerer?.content} onSubmit={handlePostAnswer}>
+                    isPreviewFocusable={false} value={answerer?.content} onSubmit={handlePostAnswer}>
                     <EditablePreview />
                     {answerer?.content ? <>
                         <Input as={EditableInput} placeholder={"Add an answer..."} ref={inputRef} />

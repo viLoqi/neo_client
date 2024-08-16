@@ -26,7 +26,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 set(fcmRef, fcmToken)
             } else {
                 // Note: Arrays dont "exist" in RTDB, they need to be formatted like such: courses: { 0: "CSE320-01" }
-                set(userRef, { name: user.displayName, handle: user.displayName, online: true, photoURL: user.photoURL, fcm: fcmToken })
+                set(userRef, { name: user.displayName, handle: user.email!.split("@")[0], online: true, photoURL: user.photoURL, fcm: fcmToken })
             }
             onDisconnect(presenceRef).set(false);
         });

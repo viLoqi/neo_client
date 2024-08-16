@@ -15,13 +15,12 @@ interface Input {
 const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
 
     const inputRef = useRef<HTMLInputElement>(null)
+    const [inputValue, setInputValue] = useState(answerer?.content)
 
     const handlePostAnswer = () => {
         if (inputRef.current)
             addAnswer(inputRef.current.value, title === "Instructor Answer" ? "instructor" : "student", postId)
     }
-
-    console.log(answerer?.content)
 
     return <div className="shadow-md">
         <Card variant={"outline"}>
@@ -43,7 +42,7 @@ const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
             <CardBody className="bg-light-bg-subtle">
                 <Editable
                     className="flex flex-col gap-2"
-                    isPreviewFocusable={false} value={answerer?.content} onSubmit={handlePostAnswer}>
+                    isPreviewFocusable={false} value={inputValue} onChange={(value) => setInputValue(value)} onSubmit={handlePostAnswer}>
                     <EditablePreview />
                     {answerer?.content ? <>
                         <Input as={EditableInput} placeholder={"Add an answer..."} ref={inputRef} />

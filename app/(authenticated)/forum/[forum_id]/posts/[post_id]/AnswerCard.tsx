@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Avatar, Input, Heading, Button, Editable, EditableInput, EditablePreview } from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, CardFooter, Avatar, Input, Heading, Button, Editable, EditableInput, EditablePreview, Textarea } from "@chakra-ui/react";
 import { Answer, ForumAnswerPostRequest } from "@/app/_types/main";
 import moment from "moment";
 import { useRef, useState } from "react";
@@ -14,13 +14,19 @@ interface Input {
 
 const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
 
-    const inputRef = useRef<HTMLInputElement>(null)
+    const inputRef = useRef<HTMLTextAreaElement>(null)
     const [inputValue, setInputValue] = useState(answerer?.content)
 
     const handlePostAnswer = () => {
-        if (inputRef.current)
+        if (inputRef.current) {
             addAnswer(inputRef.current.value, title === "Instructor Answer" ? "instructor" : "student", postId)
+            setInputValue(inputRef.current.value)
+        }
+
+
     }
+
+    console.log(inputValue)
 
     return <div className="shadow-md">
         <Card variant={"outline"}>
@@ -42,13 +48,15 @@ const AnswerCard = ({ answerer, title, addAnswer, postId }: Input) => {
             <CardBody className="bg-light-bg-subtle">
                 <Editable
                     className="flex flex-col gap-2"
-                    isPreviewFocusable={false} value={inputValue} onChange={(value) => setInputValue(value)} onSubmit={handlePostAnswer}>
+                    isPreviewFocusable={false} value={inputValue} onChange={(value) => {
+                        setInputValue(value)
+                    }} onSubmit={handlePostAnswer}>
                     <EditablePreview />
                     {answerer?.content ? <>
-                        <Input as={EditableInput} placeholder={"Add an answer..."} ref={inputRef} />
+                        <Textarea as={EditableInput} placeholder={"Add an answer..."} ref={inputRef} />
                         <EditableControls />
                     </> : <>
-                        <Input placeholder={answerer?.content ?? "Add an answer..."} ref={inputRef} />
+                        <Textarea placeholder={answerer?.content ?? "Add an answer..."} ref={inputRef} />
                         <Button leftIcon={answerer?.content ? <PencilSimple size={16} /> : <PaperPlaneTilt size={16} />} color={"#285ADE"} maxW={'xs'} onClick={handlePostAnswer}>
                             Post
                         </Button>

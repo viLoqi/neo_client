@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import useDecks from "@/hooks/useDecks";
 
 const DeckCard = ({ card, cardIndex, deckIndex }: { card: CardSchema, cardIndex: number, deckIndex: number }) => {
-    const [selected, setSelected] = useState(card.difficulty)
 
     // Intermediate representation of the card when it changes
     const [varCard, setVarCard] = useState<CardSchema>(card)
+    const [selected, setSelected] = useState(varCard.difficulty)
 
     const { decks, editCardInDeck } = useDecks()
 
@@ -66,9 +66,6 @@ const DeckCard = ({ card, cardIndex, deckIndex }: { card: CardSchema, cardIndex:
                             variant={"ghost"}
                         />
                         <MenuList>
-                            <MenuItem>
-                                Edit
-                            </MenuItem>
                             <MenuItem >
                                 Delete
                             </MenuItem>

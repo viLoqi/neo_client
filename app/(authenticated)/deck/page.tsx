@@ -12,8 +12,8 @@ function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     // TODO: @Benny, remove hardcoded difficulty.
     const questionsObj = JSON.parse(generatedQuestions);
     return Object.keys(questionsObj).map((key, index) => {
-        const { question, answer, choices, hint } = questionsObj[key];
-        return { question, answer, choices, hint, order: index, difficulty: "EASY" };
+        const { question, answer, choices, hint, difficulty } = questionsObj[key];
+        return { question, answer, choices, hint, order: index, difficulty };
     });
 }
 
@@ -29,10 +29,10 @@ export default function BrowseDeckPage() {
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
-    const handleGenerateDeck = async (numQuestions: string, questionType: string, diff: "EASY" | "MEDIUM" | "HARD") => {
-        console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
+    const handleGenerateDeck = async (numQuestions: string, questionType: string, difficulty: "EASY" | "MEDIUM" | "HARD") => {
+        console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}, Difficulty: ${difficulty}`);
 
-        const payload = { numQuestions, questionType };
+        const payload = { numQuestions, questionType, difficulty };
         console.log("type of: ", typeof payload);
 
         try {
@@ -65,6 +65,7 @@ export default function BrowseDeckPage() {
 
         } catch (error) {
             console.error('Error generating questions:', error);
+            throw new Error()
         }
 
     };

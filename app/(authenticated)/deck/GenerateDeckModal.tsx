@@ -26,7 +26,7 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
     toast.promise(onGenerate(numQuestions, questionType, diff)
       , {
         success: { title: 'Deck Generated', description: 'Looks great' },
-        error: { title: 'Deck Was Not Generated', description: 'Something wrong' },
+        error: { title: 'Deck Was Not Generated', description: 'Something wrong, please try again' },
         loading: { title: 'Generating Deck...', description: 'Please wait' },
       })
     onClose();
@@ -44,7 +44,7 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
         <ModalBody pb={6}>
           <FormControl>
             <FormLabel>Number of Questions</FormLabel>
-            <NumberInput defaultValue={10} min={10} max={15} onChange={(valueString) => setNumQuestions(valueString)}>
+            <NumberInput defaultValue={numQuestions} max={5} onChange={(valueString) => setNumQuestions(valueString)}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />

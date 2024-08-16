@@ -58,9 +58,9 @@ const ForumPostCard = ({ post, idx, upvote, delForumPost }: { post: ForumPostSch
                                         })
                                     } else {
                                         toast({
-                                            title: 'Account created.',
-                                            description: "We've created your account for you.",
-                                            status: 'success',
+                                            title: 'Post Was Not Deleted',
+                                            description: "You did not create this post.",
+                                            status: 'error',
                                             duration: 9000,
                                             isClosable: true,
                                         })

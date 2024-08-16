@@ -7,6 +7,7 @@ import useForumPosts from "@/hooks/useForumPosts";
 import SearchBar from "@/components/SearchBar";
 import { useEffect, useState } from "react";
 import PostQuestionModal from "./PostQuestionModal";
+import { Note, Star } from "@phosphor-icons/react";
 
 const SectionForumPage = () => {
     const { forum_id } = useParams<{ forum_id: string }>()
@@ -30,8 +31,7 @@ const SectionForumPage = () => {
 
     return <div className="grid grid-rows-10 w-full h-screen p-6 overflow-y-scroll">
         <div className="row-span-1">
-            <div className="flex justify-between w-full">
-                <Heading className="col-span-2" size={"lg"}>{forum_id}</Heading>
+            <div className="flex gap-4 w-full">
                 <div className="grid grid-flow-col gap-4">
                     <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
                         <option value='RECENT'>Most Recent</option>

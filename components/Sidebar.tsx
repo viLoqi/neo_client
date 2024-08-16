@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { auth } from '@/app/_modules/firebase';
 import CoursesCard from '@/app/(authenticated)/app/components/CoursesCard';
 import useUser from '@/hooks/useUser';
-import { Avatar, Button, Divider, Heading } from '@chakra-ui/react';
+import { Avatar, Badge, Button, Divider, Heading } from '@chakra-ui/react';
 import Logo from '@/components/Logo';
 import { Chat, Club, House, PlusCircle, Table } from "@phosphor-icons/react";
 import { usePathname } from 'next/navigation'
@@ -45,7 +45,11 @@ const SideBar = () => {
         return (
             <div className=" bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
                 {/* Logo */}
-                <Logo />
+                <span className='flex items-center gap-4'>
+                    <Logo />
+                    <Badge colorScheme='purple'>BETA</Badge>
+                </span>
+
                 {/* Nav Items */}
                 {NavItems.map(item =>
                     <Link key={item.title} href={item.dest} className={`py-2 pr-2 ${pathname === item.dest ? "border-r-4 border-r-light-primary" : ""}`} >

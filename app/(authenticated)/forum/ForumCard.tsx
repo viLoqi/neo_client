@@ -1,7 +1,7 @@
 import { Course } from "@/components/Sidebar";
 import { Link } from "@chakra-ui/next-js";
 import { Card, Text, Heading, CardBody, CardFooter, Button, Center, Tooltip } from "@chakra-ui/react";
-import { BookBookmark, Student } from "@phosphor-icons/react";
+import { BookBookmark, NavigationArrow, Student } from "@phosphor-icons/react";
 
 interface Input {
     name: string
@@ -25,6 +25,8 @@ const ForumCard = ({ name, members, sections, sectionData }: Input) => {
 
     }
 
+    console.log(sectionData)
+
     return (
         <div>
             <Card
@@ -38,9 +40,7 @@ const ForumCard = ({ name, members, sections, sectionData }: Input) => {
                     <CardBody >
                         <Heading size='md'>{name}</Heading>
                         <div className="flex items-center gap-2">
-                            <Text py='2' display={"flex"} alignItems={"center"} gap={1}>
-                                <Student /><span>{members} members</span>
-                            </Text>
+
                             <Text py='2'>
                                 Fall 2024
                             </Text>

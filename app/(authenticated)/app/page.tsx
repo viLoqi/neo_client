@@ -26,9 +26,7 @@ export default function App() {
                 </div>
                 <Heading size='md'>Classes</Heading>
                 {/* Semester Cards */}
-                <div className='grid grid-cols-3 gap-4'>
-                    <SemesterCard />
-                    <SemesterCard />
+                <div className='grid gap-4'>
                     <SemesterCard />
                 </div>
 

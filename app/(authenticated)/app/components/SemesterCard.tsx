@@ -1,9 +1,10 @@
+import { Link } from "@chakra-ui/next-js";
 import { Card, Text, Heading, CardBody, CardFooter, Button, Center } from "@chakra-ui/react";
 import { BookBookmark, Student, Timer } from "@phosphor-icons/react";
 
 const SemesterCard = () => {
     return (
-        <div className="my-4">
+        <div className="my-4 max-w-lg">
             <Card
                 overflow='hidden'
                 variant='outline'
@@ -13,24 +14,22 @@ const SemesterCard = () => {
                     <BookBookmark size={80} />
 
                     <CardBody >
-                        <Heading size='md'>1st Semester</Heading>
+                        <Heading size='md'>Check out the forums tab!</Heading>
                         <div className="grid grid-cols-3 items-center gap-1">
                             <Text py='2' display={"flex"} alignItems={"center"} gap={1}>
-                                <Student />  <span>42</span>
-                            </Text>
-                            <Text py='2' display={"flex"} alignItems={"center"} gap={1}>
-                                <Timer /> <span>30 min</span>
+                                <Student />  <span>∞</span>
                             </Text>
                             <Text py='2'>
                                 Fall 2024
                             </Text>
                         </div>
                     </CardBody>
-
                     <CardFooter>
-                        <Button variant='solid' color='#326AFD' bgColor={"#DDEAFF"}>
-                            Join Now
-                        </Button>
+                        <Link href="/forum" >
+                            <Button variant='solid' color='#326AFD' bgColor={"#DDEAFF"}>
+                                Go Now
+                            </Button>
+                        </Link>
                     </CardFooter>
                 </Center>
 

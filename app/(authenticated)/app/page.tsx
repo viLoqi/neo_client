@@ -4,6 +4,7 @@ import useUser from '@/hooks/useUser';
 import { Heading } from '@chakra-ui/react';
 import SemesterCard from './components/SemesterCard';
 import moment from 'moment';
+import FcmTokenComp from "@/components/FirebaseForeground";
 
 // TODO: replace with real data later
 const COURSES = [
@@ -31,6 +32,7 @@ export default function App() {
                 </div>
 
                 <Heading size='md'>Recent Activities</Heading>
+                {/* <FcmTokenComp /> */}
             </div>
             {/* Users panel */}
             <UsersPanel />

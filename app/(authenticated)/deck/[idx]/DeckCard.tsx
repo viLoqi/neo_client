@@ -42,22 +42,6 @@ const DeckCard = ({ card, cardIndex, deckIndex }: { card: CardSchema, cardIndex:
         })
     }
 
-    const handleEdit = () => {
-        editCardInDeck(deckIndex, cardIndex, {
-            "question": "EGG",
-            "answer": "int x;",
-            "choices": [
-                "E",
-                "D",
-                "I",
-                "T"
-            ],
-            "hint": "The correct syntax starts with the data type followed by the variable name.",
-            "order": 0,
-            "difficulty": "EASY"
-        })
-    }
-
     return <Card className="shadow-md bg-light-bg-subtle">
         <CardHeader>
             <span className="flex justify-between">
@@ -101,14 +85,14 @@ const DeckCard = ({ card, cardIndex, deckIndex }: { card: CardSchema, cardIndex:
             </OrderedList>
         </CardBody>
         <CardFooter className="flex">
-            <IconButton aria-label="Upvote" icon={<ThumbsUp />} bgColor={"transparent"} p={0} w={"fit-content"}>
+            {/* <IconButton aria-label="Upvote" icon={<ThumbsUp />} bgColor={"transparent"} p={0} w={"fit-content"}>
             </IconButton>
             <IconButton aria-label="Downvote" icon={<ThumbsDown />} bgColor={"transparent"} p={0} w={"fit-content"}>
             </IconButton>
 
             <Button aria-label="Share Post" leftIcon={<FloppyDisk />} bg={"none"} onClick={handleEdit} >
                 <span className="text-light-fg-text">Save Changes</span>
-            </Button>
+            </Button> */}
         </CardFooter>
     </Card>;
 }

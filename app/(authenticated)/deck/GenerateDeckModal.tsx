@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper, useToast } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, Button, NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper, useToast, Select } from '@chakra-ui/react';
 
 // Define a type for your component's props
 type GenerateDeckModalProps = {
@@ -13,10 +13,17 @@ type GenerateDeckModalProps = {
 export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: GenerateDeckModalProps) {
   const [numQuestions, setNumQuestions] = useState<string>('1');
   const [questionType, setQuestionType] = useState<string>('');
+  const [diff, setDiff] = useState("EASY")
   const toast = useToast()
 
+  const colorTable = {
+    "EASY": "text-success",
+    "MEDIUM": "text-warning",
+    "HARD": "text-error"
+  }
+
   const handleGenerateClick = () => {
-    toast.promise(onGenerate(numQuestions, questionType)
+    toast.promise(onGenerate(numQuestions, questionType, diff)
       , {
         success: { title: 'Deck Generated', description: 'Looks great' },
         error: { title: 'Deck Was Not Generated', description: 'Something wrong' },
@@ -37,7 +44,7 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
         <ModalBody pb={6}>
           <FormControl>
             <FormLabel>Number of Questions</FormLabel>
-            <NumberInput defaultValue={1} min={1} max={10} onChange={(valueString) => setNumQuestions(valueString)}>
+            <NumberInput defaultValue={10} min={10} max={15} onChange={(valueString) => setNumQuestions(valueString)}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />
@@ -46,9 +53,18 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
             </NumberInput>
           </FormControl>
 
-          <FormControl mt={4}>
+          <FormControl mt={4} isRequired>
             <FormLabel>Question Type</FormLabel>
             <Input placeholder='What is on your mind?' onChange={(e) => setQuestionType(e.target.value)} />
+          </FormControl>
+
+          <FormControl mt={4}>
+            <FormLabel>Difficulty</FormLabel>
+            <Select value={diff} onChange={(e) => setDiff(e.target.value as "EASY" | "MEDIUM" | "HARD")} className={`${colorTable[diff as "EASY" | "MEDIUM" | "HARD"]}`}>
+              <option className={`${colorTable["EASY"]}`} value='EASY'>Easy</option>
+              <option className={`${colorTable["MEDIUM"]}`} value='MEDIUM'>Medium</option>
+              <option className={`${colorTable["HARD"]}`} value='HARD'>Hard</option>
+            </Select>
           </FormControl>
         </ModalBody>
 

@@ -29,7 +29,7 @@ export default function BrowseDeckPage() {
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
-    const handleGenerateDeck = async (numQuestions: string, questionType: string) => {
+    const handleGenerateDeck = async (numQuestions: string, questionType: string, diff: "EASY" | "MEDIUM" | "HARD") => {
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}`);
 
         const payload = { numQuestions, questionType };
@@ -87,7 +87,7 @@ export default function BrowseDeckPage() {
                             <button onClick={() => {
                                 setIsGenerateDeckModalOpen(true)
                             }} className="flex items-center justify-center w-[200px] h-full bg-light-primary hover:bg-[#2860F3] rounded-xl">
-                                <div className='flex items-center gap-2 text-white font-bold text-lg'> <MagicWand /> <span>Generate Deck</span></div>
+                                <div className='flex items-center gap-2 text-white font-bold text-lg'> <MagicWand /> <span>Generate Cards</span></div>
                             </button>
                             {isGenerateDeckModalOpen && (
                                 <GenerateDeckModal

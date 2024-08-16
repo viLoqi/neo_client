@@ -8,6 +8,7 @@ import Logo from '@/components/Logo';
 import { Chat, Club, House, PlusCircle, Table } from "@phosphor-icons/react";
 import { usePathname } from 'next/navigation'
 import { Link } from '@chakra-ui/next-js'
+import FcmTokenComp from './FirebaseForeground';
 
 // TODO: pull live data
 // const COURSES = [
@@ -25,7 +26,13 @@ const NavItems = [
     { dest: "/forum", title: "Forum", icon: <Table weight='duotone' /> },
     // { dest: "/dashboard", title: "Dashboard", icon: <ChartLineUp /> },
     { dest: "/deck", title: "Flashcards", icon: <Club weight='duotone' /> },
-    { dest: "/chat", title: "Chat Rooms", icon: <Chat weight='duotone' /> },
+    {
+        dest: "/chat", title: "Chat Rooms", icon: <>
+
+            <Chat weight='duotone' />
+
+        </>
+    },
     // { dest: "/profile", title: "Add Courses", icon: <PlusCircle weight='duotone' /> }
 ]
 
@@ -34,11 +41,15 @@ const SideBar = () => {
     const pathname = usePathname()
 
     const [courses, setCourses] = useState<Course[]>([])
+    const [reset, setReset] = useState(false)
 
     useEffect(() => {
         const local = localStorage.getItem("recent")
         if (local)
             setCourses(JSON.parse(local))
+
+        if (pathname.includes("chat"))
+            setReset((prev) => !prev)
     }, [pathname])
 
     if (user)
@@ -58,6 +69,8 @@ const SideBar = () => {
                         </span>
                     </Link>)}
                 <Divider />
+                <FcmTokenComp reset={reset} />
+
                 {/* Your Courses */}
                 {/* <Heading size='md' fontWeight={"normal"} py={4}>Your Courses</Heading>
                 {COURSES.map((course) => {

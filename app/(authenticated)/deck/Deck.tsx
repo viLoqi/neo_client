@@ -1,5 +1,5 @@
 import { PrivateDeck } from "@/app/_types/repo"
-import { Card, Text, Heading, CardBody, Button, Center, Menu, IconButton, MenuButton, MenuList, MenuItem, CardFooter, useToast } from "@chakra-ui/react";
+import { Card, Text, Heading, CardBody, Button, Center, Menu, IconButton, MenuButton, MenuList, MenuItem, CardFooter, useToast, LinkOverlay } from "@chakra-ui/react";
 import { Cpu, DotsThreeOutlineVertical, SealQuestion, Timer } from "@phosphor-icons/react";
 import { Link } from "@chakra-ui/next-js";
 
@@ -18,6 +18,8 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                 variant='outline'
             >
                 <CardBody className="bg-light-bg-subtle" >
+                    <LinkOverlay href={`/deck/${idx}`}>
+                    </LinkOverlay>
                     <span className="flex justify-between">
                         <div className="flex items-center gap-2 text-center">
                             <Cpu size={24} />
@@ -58,12 +60,12 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                         <Text py='2' display={"flex"} alignItems={"center"} gap={1}>
                             <SealQuestion />  <span>{deck.cards.length} Questions</span>
                         </Text>
-                        <Text py='2' display={"flex"} alignItems={"center"} gap={1}>
+                        {/* <Text py='2' display={"flex"} alignItems={"center"} gap={1}>
                             <Timer /> <span>30 min</span>
-                        </Text>
-                        <Text py='2'>
+                        </Text> */}
+                        {/* <Text py='2'>
                             Fall 2024
-                        </Text>
+                        </Text> */}
                     </div>
                 </CardFooter>
             </Card>

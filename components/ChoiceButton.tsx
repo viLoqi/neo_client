@@ -2,13 +2,16 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 
-const ChoiceButton = ({ text, isCorrect, getNextCard }: { text: String, isCorrect: boolean, getNextCard: () => void }) => {
+const ChoiceButton = ({ text, isCorrect, getNextCard, incorrectAttempts }: { text: String, isCorrect: boolean, getNextCard: () => void, incorrectAttempts: number }) => {
     const [chosen, setChosen] = useState(false);
 
     const onChoiceClick = () => {
         setChosen(true)
         if (isCorrect)
             getNextCard()
+        else {
+            incorrectAttempts += 1
+        }
     };
 
     return (

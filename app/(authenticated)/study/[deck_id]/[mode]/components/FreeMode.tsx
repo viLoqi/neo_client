@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { CardSchema } from "@/app/_types/deck";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import UsersPanel from "@/components/UsersPanel";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -17,6 +17,12 @@ const FreeMode = () => {
     const [cards, setCards] = useState<CardSchema[]>([])
     const [activeCardIndex, setActiveCardIndex] = useState(0)
     const [questionAnswered, setQuestionAnswered] = useState(0)
+
+
+    // These need not be states because it will not affect the rendering
+    let timeTaken = 0
+    let incorrectAttempts = 0
+
 
     const { deck_id } = useParams<{ deck_id: string }>()
 
@@ -33,11 +39,28 @@ const FreeMode = () => {
     }
 
     const getNextCard = () => {
-        setActiveCardIndex((prev) => prev + 1 < cards.length ? prev + 1 : prev);
-        setQuestionAnswered(prev => prev + 1)
-        // setActiveCardIndex((activeCardIndex + 1) % deckLength);
+
+        // LOG STATS
+        const store = localStorage.getItem(`report:${deck_id}`)
+
+        if (store) {
+            const prev = JSON.parse(store)
+            prev[activeCardIndex] = timeTaken
+            localStorage.setItem(`report:${deck_id}`, JSON.stringify(prev))
+        } else {
+            const d: { [key: number]: number } = {}
+            d[activeCardIndex] = timeTaken
+            localStorage.setItem(`report:${deck_id}`, JSON.stringify(d))
+        }
+
+
+        // MOVE TO NEXT CARD
         console.log("getting next card...");
+        setActiveCardIndex((prev) => prev + 1 < cards.length ? prev + 1 : prev);
+        setQuestionAnswered((prev) => prev + 1 <= cards.length ? prev + 1 : prev)
         setTimerKey(prevKey => prevKey + 1); // reset timer
+
+
     }
 
     useEffect(() => {
@@ -74,7 +97,7 @@ const FreeMode = () => {
     //     }
     // }
 
-    const duration = 70;
+    const duration = 60;
     const course = decks[parseInt(deck_id)] ? decks[parseInt(deck_id)].name : ""
     const deckLength = cards.length
 
@@ -103,6 +126,7 @@ const FreeMode = () => {
                                 size={150}
                                 duration={duration}
                                 colors={["#29A383", "#F5D90A", "#CA244D"]}
+                                onUpdate={(remainingTime) => { timeTaken = (duration - remainingTime) }}
                                 colorsTime={[duration, duration / 2, 0]}
                             >
                                 {({ remainingTime }) => {
@@ -124,7 +148,7 @@ const FreeMode = () => {
                                 {
                                     cards.map((card, index) => {
                                         return (activeCardIndex == index &&
-                                            <Flashcard key={card.answer + index} card={card} getNextCard={getNextCard} />
+                                            <Flashcard key={card.answer + index} card={card} getNextCard={getNextCard} incorrectAttempts={incorrectAttempts} />
                                         )
                                     })
                                 }

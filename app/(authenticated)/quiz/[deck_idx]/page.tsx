@@ -13,6 +13,7 @@ const DeckEditPage = () => {
     const { deck_idx } = useParams<{ deck_idx: string }>()
     const { decks, loading } = useDecks()
     const [selectedDeck, setSelectedDeck] = useState<PrivateDeck>({ name: "", cards: [] })
+    const [activeIndex, setActiveIndex] = useState(0)
 
     useEffect(() => {
         setSelectedDeck(decks[parseInt(deck_idx)])
@@ -36,7 +37,7 @@ const DeckEditPage = () => {
                 </Heading>
             </div>
             <div className="row-span-9 overflow-y-auto" >
-                <Tabs >
+                <Tabs index={activeIndex} onChange={(index) => setActiveIndex(index)} >
                     <TabList className="">
                         <Tab>Cards</Tab>
                         <Tab>Details</Tab>
@@ -47,9 +48,10 @@ const DeckEditPage = () => {
                             {loading ? <Progress size='xs' isIndeterminate /> : <></>}
                             <CardsTab selectedDeck={selectedDeck} deckIndex={parseInt(deck_idx)} />
                         </TabPanel>
-                        <TabPanel>
-                            <DetailsTab />
-                        </TabPanel>
+                        {/* Lady Loading, so that this is only rendered when user clicks on tab */}
+                        {activeIndex == 1 ? <TabPanel >
+                            <DetailsTab deck_index={parseInt(deck_idx)} />
+                        </TabPanel> : <></>}
                     </TabPanels>
                 </Tabs>
             </div>

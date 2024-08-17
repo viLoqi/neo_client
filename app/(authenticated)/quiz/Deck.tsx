@@ -18,7 +18,7 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                 variant='outline'
             >
                 <CardBody className="bg-light-bg-subtle" >
-                    <LinkOverlay href={`/study/${idx}`}>
+                    <LinkOverlay href={`/study/${idx}/free`}>
                     </LinkOverlay>
                     <span className="flex justify-between">
                         <div className="flex items-center gap-2 text-center">

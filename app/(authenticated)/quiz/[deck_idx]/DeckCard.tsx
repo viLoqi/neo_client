@@ -1,7 +1,7 @@
 import { CardSchema } from "@/app/_types/deck";
 import CardChoice from "./CardChoice";
 import { Button, Card, CardBody, CardFooter, CardHeader, Editable, EditablePreview, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, OrderedList, Select, useToast } from "@chakra-ui/react";
-import { DotsThreeOutlineVertical, FloppyDisk, Lightbulb, PencilSimple, SquareSplitVertical, Star, ThumbsDown, ThumbsUp } from "@phosphor-icons/react";
+import { DotsThreeOutlineVertical, FloppyDisk, Lightbulb } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import useDecks from "@/hooks/useDecks";
 

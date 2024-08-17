@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import ChoiceButton from "@/components/ChoiceButton";
 import { CardSchema } from "@/app/_types/deck";
 
-const Flashcard = ({ card }: { card: CardSchema }) => {
+const Flashcard = ({ card, getNextCard }: { card: CardSchema, getNextCard: () => void }) => {
     const stackVariants = {
         onTop: {
             x: "0",
@@ -35,22 +35,17 @@ const Flashcard = ({ card }: { card: CardSchema }) => {
         return <>NO CARD</>
 
     return (
-        <motion.div className="absolute flex flex-col w-full h-4/5 py-8 items-center justify-evenly rounded-[50px] bg-white"
+        <motion.div className="absolute flex flex-col w-full h-4/5 py-8 items-center justify-evenly rounded-[50px] bg-light-bg-subtle border-2 border-bg-light-bg-active"
             initial={"onBottom"}
             animate={"onTop"}
             exit={"exit"}
             variants={stackVariants}
         >
-            {/* Deck title */}
-            <h1 className="font-bold text-3xl">
-                deckName
-            </h1>
             {/* Question */}
-            <div className="w-4/5 mt-5">
-                <p className="whitespace-pre font-bold text-sm">
-                    {card.question}
-                </p>
-            </div>
+            <h1 className="font-bold text-3xl">
+
+                {card.question}
+            </h1>
             {/* Answer choices */}
             <div className="grid grid-cols-2 gap-3 w-4/5">
                 {card.choices.map((choice) => {
@@ -59,6 +54,7 @@ const Flashcard = ({ card }: { card: CardSchema }) => {
                             key={choice}
                             text={choice}
                             isCorrect={choice === card.answer}
+                            getNextCard={getNextCard}
                         />
                     );
                 })}

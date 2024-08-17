@@ -3,23 +3,22 @@
 import { useParams, useRouter } from "next/navigation";
 import { CardSchema } from "@/app/_types/deck";
 import { useEffect, useState } from "react";
-
-import { CiCircleChevLeft } from "react-icons/ci";
-import Link from "next/link";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import UsersPanel from "@/components/UsersPanel";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Flashcard from "./Flashcard";
 import { AnimatePresence } from "framer-motion"
 import useDecks from "@/hooks/useDecks";
+import { ArrowLeft, CaretLeft } from "@phosphor-icons/react";
+import { Box, Button, ScaleFade } from "@chakra-ui/react";
 // Carolsuole
 const FreeMode = () => {
     const router = useRouter();
-
     const [cards, setCards] = useState<CardSchema[]>([])
     const [activeCardIndex, setActiveCardIndex] = useState(0)
+    const [questionAnswered, setQuestionAnswered] = useState(0)
 
-    const { deck_id = 0 } = useParams()
+    const { deck_id } = useParams<{ deck_id: string }>()
 
     const { decks } = useDecks()
 
@@ -28,12 +27,15 @@ const FreeMode = () => {
 
     const getPrevCard = () => {
         activeCardIndex == 0 ? setActiveCardIndex(deckLength - 1) : setActiveCardIndex(activeCardIndex - 1);
+        setQuestionAnswered(prev => prev - 1)
         console.log("getting prev card...");
         setTimerKey(prevKey => prevKey + 1); // reset timer
     }
 
     const getNextCard = () => {
-        setActiveCardIndex((activeCardIndex + 1) % deckLength);
+        setActiveCardIndex((prev) => prev + 1 < cards.length ? prev + 1 : prev);
+        setQuestionAnswered(prev => prev + 1)
+        // setActiveCardIndex((activeCardIndex + 1) % deckLength);
         console.log("getting next card...");
         setTimerKey(prevKey => prevKey + 1); // reset timer
     }
@@ -41,13 +43,12 @@ const FreeMode = () => {
     useEffect(() => {
 
         if (Array.isArray(decks) && decks.length) {
-            setCards(decks[deck_id as number].cards)
+            setCards(decks[parseInt(deck_id)].cards)
             setActiveCardIndex(0)
         }
         else
             setCards([])
     }, [deck_id, decks])
-
 
     // Flashcard Carousel functionalities
     // const stackVariants = {
@@ -74,34 +75,34 @@ const FreeMode = () => {
     // }
 
     const duration = 70;
-    const course = "TBD"
+    const course = decks[parseInt(deck_id)] ? decks[parseInt(deck_id)].name : ""
     const deckLength = cards.length
-
-
 
     console.log("current card index: " + activeCardIndex);
     return (
         <div className="flex w-full h-screen">
-            <div className="flex flex-col w-full h-full bg-[#18593c]">
+            <div className="flex flex-col w-full h-full ">
                 {/* Course title */}
-                <h1 className="flex w-full justify-center text-white font-semibold border-b-[1px] py-2 mb-1 border-black">
+                <h1 className="flex w-full justify-center font-semibold border-b-[1px] py-2 mb-1 border-black">
                     {course}
                 </h1>
                 {/* main body */}
                 <div className="flex h-full pl-12">
                     {/* Left side */}
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                         {/* Back button */}
                         {/* <Link href='/'> */}
-                        <CiCircleChevLeft size="50" color="white" onClick={() => router.back()} />
+                        <Button leftIcon={<CaretLeft size={24} />} onClick={() => router.back()} variant={"ghost"}>
+                            Back
+                        </Button>
                         {/* </Link> */}
-                        <div className="flex mt-[30vh] items-center justify-center text-white text-xl font-semibold size-36 justify-self-center">
+                        <div className="flex mt-[30vh] items-center justify-center text-xl font-semibold size-36 justify-self-center">
                             <CountdownCircleTimer
                                 isPlaying
                                 key={timerKey}
                                 size={150}
                                 duration={duration}
-                                colors={["#ffffff", "#F7B801", "#A30000"]}
+                                colors={["#29A383", "#F5D90A", "#CA244D"]}
                                 colorsTime={[duration, duration / 2, 0]}
                             >
                                 {({ remainingTime }) => {
@@ -118,12 +119,12 @@ const FreeMode = () => {
                         {/* prev button */}
                         <button className={`${activeCardIndex == 0 ? "invisible w-[3rem]" : "btn"}`} onClick={getPrevCard}><FaChevronLeft /></button>
                         {/* card */}
-                        <div className="flex w-4/5 h-full mx-10 items-center justify-center relative" >
+                        <div className="flex w-4/5 h-full mx-10 items-center justify-center relative " >
                             <AnimatePresence>
                                 {
                                     cards.map((card, index) => {
                                         return (activeCardIndex == index &&
-                                            <Flashcard key={index} card={card} />
+                                            <Flashcard key={card.answer + index} card={card} getNextCard={getNextCard} />
                                         )
                                     })
                                 }
@@ -133,6 +134,15 @@ const FreeMode = () => {
                             </div>
                         </div>
                         {/* next button */}
+                        <ScaleFade initialScale={0} in={questionAnswered == cards.length}>
+                            <Button p='40px'
+                                color='white'
+                                mt='4'
+                                bg='teal.500'
+                                rounded='md'
+                                _hover={{ bg: "teal.600" }}
+                                shadow='md' onClick={() => { router.push(`${location.protocol}//${location.hostname}/quiz/${deck_id}`) }}>View Report</Button>
+                        </ScaleFade>
                         <button className={`${activeCardIndex == deckLength - 1 ? "invisible w-[3rem]" : "btn"}`} onClick={getNextCard}><FaChevronRight /></button>
                     </div>
                 </div>

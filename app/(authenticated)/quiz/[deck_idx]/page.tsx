@@ -10,13 +10,13 @@ import CardsTab from "./CardsTab";
 import DetailsTab from "./DetailsTab";
 
 const DeckEditPage = () => {
-    const { idx } = useParams<{ idx: string }>()
+    const { deck_idx } = useParams<{ deck_idx: string }>()
     const { decks, loading } = useDecks()
     const [selectedDeck, setSelectedDeck] = useState<PrivateDeck>({ name: "", cards: [] })
 
     useEffect(() => {
-        setSelectedDeck(decks[parseInt(idx)])
-    }, [idx, decks])
+        setSelectedDeck(decks[parseInt(deck_idx)])
+    }, [deck_idx, decks])
 
 
     if (selectedDeck)
@@ -28,7 +28,7 @@ const DeckEditPage = () => {
                     </BreadcrumbItem>
 
                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink href={`/quiz/${idx}`} className="capitalize">{selectedDeck.name}</BreadcrumbLink>
+                        <BreadcrumbLink href={`/quiz/${deck_idx}`} className="capitalize">{selectedDeck.name}</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
                 <Heading size="lg" className="flex items-center gap-4 my-4 capitalize">
@@ -36,7 +36,7 @@ const DeckEditPage = () => {
                 </Heading>
             </div>
             <div className="row-span-9 overflow-y-auto" >
-                <Tabs>
+                <Tabs >
                     <TabList className="">
                         <Tab>Cards</Tab>
                         <Tab>Details</Tab>
@@ -45,7 +45,7 @@ const DeckEditPage = () => {
                     <TabPanels >
                         <TabPanel>
                             {loading ? <Progress size='xs' isIndeterminate /> : <></>}
-                            <CardsTab selectedDeck={selectedDeck} deckIndex={parseInt(idx)} />
+                            <CardsTab selectedDeck={selectedDeck} deckIndex={parseInt(deck_idx)} />
                         </TabPanel>
                         <TabPanel>
                             <DetailsTab />

@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import GenerateDeckModal from "./GenerateDeckModal";
 import Deck from './Deck';
 import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
 import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
-import { Box, Heading, Input, Progress } from '@chakra-ui/react';
+import { Input, Progress } from '@chakra-ui/react';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);

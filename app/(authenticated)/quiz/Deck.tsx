@@ -18,7 +18,7 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                 variant='outline'
             >
                 <CardBody className="bg-light-bg-subtle" >
-                    <LinkOverlay href={`/deck/${idx}`}>
+                    <LinkOverlay href={`/study/${idx}`}>
                     </LinkOverlay>
                     <span className="flex justify-between">
                         <div className="flex items-center gap-2 text-center">
@@ -33,7 +33,7 @@ export default function Deck({ deck, idx, delDeckfromPrivateRepo }: Input) {
                                 variant={"ghost"}
                             />
                             <MenuList>
-                                <MenuItem as={Link} href={`/deck/${idx}`}>
+                                <MenuItem as={Link} href={`/quiz/${idx}`}>
                                     Edit
                                 </MenuItem>
                                 <MenuItem onClick={() => {

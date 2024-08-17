@@ -24,11 +24,11 @@ const DeckEditPage = () => {
             <div className="row-span-1">
                 <Breadcrumb spacing='8px' separator={<CaretRight />}>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href='/deck'>Flashcards</BreadcrumbLink>
+                        <BreadcrumbLink href='/quiz'>Decks</BreadcrumbLink>
                     </BreadcrumbItem>
 
                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink href={`/deck/${idx}`} className="capitalize">{selectedDeck.name}</BreadcrumbLink>
+                        <BreadcrumbLink href={`/quiz/${idx}`} className="capitalize">{selectedDeck.name}</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
                 <Heading size="lg" className="flex items-center gap-4 my-4 capitalize">

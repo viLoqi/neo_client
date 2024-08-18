@@ -39,8 +39,8 @@ const ForumPostDetailPage = () => {
                 </Breadcrumb>
             </div>
             <QuestionCard {...selectedPost} editPost={editPostDescription} post_id={post_id} />
-            <AnswerCard answerer={selectedPost["instructorAnswer"]} title="Instructor Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} authorEmail={selectedPost.authorEmail} />
-            <AnswerCard answerer={selectedPost["studentAnswer"]} title="Student Answer" addAnswer={addAnswer} postId={selectedPost["_id"]} authorEmail={selectedPost.authorEmail} />
+            <AnswerCard answerer={selectedPost["instructorAnswer"]} role="instructor" addAnswer={addAnswer} post={selectedPost} />
+            <AnswerCard answerer={selectedPost["studentAnswer"]} role="student" addAnswer={addAnswer} post={selectedPost} />
             <CommentCard comments={selectedPost["comments"]} addComment={addComment} postId={selectedPost["_id"]} />
         </div>;
 }

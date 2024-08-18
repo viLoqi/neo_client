@@ -1,19 +1,19 @@
 "use client"
 
-import { Button, Heading, Select } from "@chakra-ui/react";
+import { Button, Select } from "@chakra-ui/react";
 import { useParams } from "next/navigation";
 import ForumPostCard from "./ForumPostCard";
 import useForumPosts from "@/hooks/useForumPosts";
 import SearchBar from "@/components/SearchBar";
 import { useEffect, useState } from "react";
 import PostQuestionModal from "./PostQuestionModal";
-import { Note, Star } from "@phosphor-icons/react";
 
 const SectionForumPage = () => {
     const { forum_id } = useParams<{ forum_id: string }>()
     const { posts, upvote, delForumPost } = useForumPosts(forum_id)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [filter, setFilter] = useState("RECENT")
+    const [searchText, setSearchText] = useState("")
 
     const [orderedPosts, setOrderedPosts] = useState(posts)
 
@@ -27,7 +27,12 @@ const SectionForumPage = () => {
                 break
             default: setOrderedPosts(posts)
         }
-    }, [posts, filter])
+
+        if (searchText) {
+            setOrderedPosts(prev => prev.filter(post => post.question.includes(searchText)))
+        }
+    }, [posts, filter, searchText])
+
 
     return <div className="grid grid-rows-10 w-full h-screen p-6 overflow-y-scroll">
         <div className="row-span-1">
@@ -49,7 +54,7 @@ const SectionForumPage = () => {
                 </div>
             </div>
         </div>
-        <SearchBar />
+        <SearchBar placeholderT="Search..." changeHandler={(e: any) => { setSearchText(e.target.value) }} />
 
         <div className="row-span-7 mt-4 gap-4 flex flex-col">
             {orderedPosts ? orderedPosts.map((post, idx) => {

@@ -7,6 +7,7 @@ import { firestore } from "@/app/_modules/firebase";
 import { query, collection, orderBy, doc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import useUser from "./useUser";
+import useForumProperties from "./useForumProperties";
 
 const useForumPosts = (forum: string) => {
     const collectionPath = `forums/${forum}/posts`
@@ -15,6 +16,8 @@ const useForumPosts = (forum: string) => {
     const school = useSchool()
     const token = useAuthToken()
     const [user] = useUser()
+
+    const forumProperties = useForumProperties(forum)
 
     const baseURL = `https://us-east1-loqi-loqi.cloudfunctions.net/forum?university=${school}&uid=${forum}`
     const baseHeaders = useMemo(() => { return { "Content-Type": "application/json" } }, [])

@@ -93,3 +93,12 @@ export interface ForumAnswerPostRequest {
     content: string
     authorPhotoURL: string
 }
+
+export interface NotifyEmailBody {
+    to: string
+    type: "NEW ANSWER ADDED" | "NEW QUESTION ADDED"
+    cls: string
+    question: string
+    description: string
+    post_link: string
+}

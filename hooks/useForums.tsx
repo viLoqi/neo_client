@@ -187,15 +187,15 @@ const useForums = () => {
                         "instructor": "Daniel Benz",
                         "meetingDates": "08/26/2024 - 12/19/2024"
                     },
-                    "90-LEC": {
-                        "classNumber": "95453",
-                        "section": "90-LEC",
-                        "semester": "Fall SK",
-                        "classTime": "TuTh 10:30AM - 11:50AM",
-                        "room": "Korea  OUTOFCNTRY",
-                        "instructor": "AMOS OMONDI",
-                        "meetingDates": "08/23/2024 - 12/12/2024"
-                    }
+                    // "90-LEC": {
+                    //     "classNumber": "95453",
+                    //     "section": "90-LEC",
+                    //     "semester": "Fall SK",
+                    //     "classTime": "TuTh 10:30AM - 11:50AM",
+                    //     "room": "Korea  OUTOFCNTRY",
+                    //     "instructor": "AMOS OMONDI",
+                    //     "meetingDates": "08/23/2024 - 12/12/2024"
+                    // }
                 },
                 // "CSE 260": {
                 //     "01-LEC": {

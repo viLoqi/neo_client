@@ -16,7 +16,7 @@ export default function ForumPage() {
                     </h1>
                     {/* main body */}
                     <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
-                        <SearchBar />
+                        <SearchBar placeholderT='Search...' changeHandler={() => { }} />
                         <div className="pb-[2rem] flex flex-col gap-4 overflow-scroll no-scrollbar">
                             {Object.keys(forums).map((key, idx) => {
                                 const sections = Object.keys(forums[key as keyof typeof forums])

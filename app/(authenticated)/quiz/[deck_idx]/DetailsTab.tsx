@@ -1,4 +1,3 @@
-import { useEffect, useState, useMemo } from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 const DetailsTab = ({ deck_index }: { deck_index: number }) => {

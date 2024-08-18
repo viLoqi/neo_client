@@ -11,7 +11,7 @@ type GenerateDeckModalProps = {
 };
 
 export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: GenerateDeckModalProps) {
-  const [numQuestions, setNumQuestions] = useState<string>('1');
+  const [numQuestions, setNumQuestions] = useState<string>('5');
   const [questionType, setQuestionType] = useState<string>('');
   const [diff, setDiff] = useState("EASY")
   const toast = useToast()

@@ -1,25 +1,36 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Heading } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { ZAxis, CartesianGrid, XAxis, YAxis, Tooltip, Scatter, ScatterChart, Label, Legend, ComposedChart, AreaChart, Area } from 'recharts';
 
 const DetailsTab = ({ deck_index }: { deck_index: number }) => {
-    // const [data, setData] = useState([])
+    const [data, setData] = useState([])
 
-    // useEffect(() => {
-    //     const ls = localStorage.getItem(`report:${deck_index}`)
-    //     if (ls)
-    //         setData(JSON.parse(ls))
-    // }, [deck_index])
+    useEffect(() => {
+        const ls = localStorage.getItem(`report:${deck_index}`)
+        if (ls)
+            setData(JSON.parse(ls))
+    }, [deck_index])
 
-    const data = [{ name: 'Q0', timeTaken: 1 }, { name: 'Q1', timeTaken: 5 }, { name: 'Q2', timeTaken: 5 }, { name: 'Q3', timeTaken: 1 }, { name: 'Q4', timeTaken: 5 }];
-
+    // const data = [{ qid: 0, timeTaken: 100, attemptDate: "TEST" }, { qid: 0, timeTaken: 200, aid: "TEST" }]
     return (
-        <div className="w-full h-full">
-            <LineChart width={600} height={300} data={data}>
-                <Line type="monotone" dataKey="timeTaken" stroke="#8884d8" />
-                <CartesianGrid stroke="#ccc" />
-                <XAxis dataKey="name" />
-                <YAxis dataKey={"timeTaken"} />
-            </LineChart>
-        </div>
+        <div className="w-full h-full flex gap-4 flex-col">
+            <Heading>Time Taken Across Attempts</Heading>
+            <ScatterChart width={600} height={400}  >
+                <Scatter type="monotone" dataKey="timeTaken" fill="#82ca9d" data={data} />
+                <CartesianGrid strokeDasharray="3 3" />
+
+                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                <XAxis dataKey="qid" type='category' allowDuplicatedCategory={false}>
+                    <Label value="Question" offset={0} position="insideBottom" />
+
+                </XAxis>
+                <YAxis dataKey="timeTaken" unit={"s"}>
+                    <Label value="Time Taken" angle={-90} position="left" offset={0} />
+                </YAxis>
+                <ZAxis dataKey="attemptDate" >
+                </ZAxis>
+            </ScatterChart>
+        </div >
     )
 }
 

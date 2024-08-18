@@ -64,7 +64,7 @@ const ContactList = ({ contacts, selectedContact }: { contacts: Contact[], selec
                                 <InputLeftElement pointerEvents='none'>
                                     <MagnifyingGlass />
                                 </InputLeftElement>
-                                <Input placeholder='Search @stonybrook.edu email' onKeyDown={(e) => { handleKeyDown(e) }} border={0} ref={inputRef} />
+                                <Input placeholder='Search @stonybrook.edu email' onKeyDown={(e) => { handleKeyDown(e) }} border={0} ref={inputRef} autoComplete="ASD" />
                             </InputGroup>
                         </div>
                         {loading ? <Progress size='xs' isIndeterminate /> : <></>}

@@ -11,6 +11,7 @@ import { AnimatePresence } from "framer-motion"
 import useDecks from "@/hooks/useDecks";
 import { ArrowLeft, CaretLeft } from "@phosphor-icons/react";
 import { Box, Button, ScaleFade } from "@chakra-ui/react";
+import moment from "moment";
 // Carolsuole
 const FreeMode = () => {
     const router = useRouter();
@@ -43,14 +44,17 @@ const FreeMode = () => {
         // LOG STATS
         const store = localStorage.getItem(`report:${deck_id}`)
 
+        const entry: { [key: string]: any } = {}
+        entry["qid"] = activeCardIndex
+        entry["timeTaken"] = timeTaken
+        entry["attemptDate"] = moment().format("MMMM Do YYYY, h:mm:ss a")
+
         if (store) {
             const prev = JSON.parse(store)
-            prev[activeCardIndex] = timeTaken
+            prev.push(entry)
             localStorage.setItem(`report:${deck_id}`, JSON.stringify(prev))
         } else {
-            const d: { [key: number]: number } = {}
-            d[activeCardIndex] = timeTaken
-            localStorage.setItem(`report:${deck_id}`, JSON.stringify(d))
+            localStorage.setItem(`report:${deck_id}`, JSON.stringify([entry]))
         }
 
 

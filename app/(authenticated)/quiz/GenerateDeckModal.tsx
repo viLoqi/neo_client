@@ -39,7 +39,7 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Generate a Deck</ModalHeader>
+        <ModalHeader>Generate a Quiz</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>
@@ -66,6 +66,17 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
               <option className={`${colorTable["HARD"]}`} value='HARD'>Hard</option>
             </Select>
           </FormControl>
+
+
+          <FormControl mt={4}  >
+            <FormLabel>Notes (Coming Soon...)</FormLabel>
+            <Select disabled value={"SELECT"}>
+              <option value='SELECT'>Select notes to be used for question generation</option>
+            </Select>
+          </FormControl>
+
+
+
         </ModalBody>
 
         <ModalFooter>

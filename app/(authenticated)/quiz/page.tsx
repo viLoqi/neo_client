@@ -73,7 +73,7 @@ export default function BrowseDeckPage() {
                 <div className='flex flex-col items-center w-full h-full'>
                     {/* course name */}
                     <h1 className="flex w-full justify-center  font-semibold border-b-[1px] py-2 mb-1 border-black">
-                        Search Your Flashcards
+                        Search Your Quizzes
                     </h1>
                     {/* main body */}
                     <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
@@ -85,7 +85,7 @@ export default function BrowseDeckPage() {
                             <button onClick={() => {
                                 setIsGenerateDeckModalOpen(true)
                             }} className="flex items-center justify-center w-[200px] h-full bg-light-primary hover:bg-[#2860F3] rounded-xl">
-                                <div className='flex items-center gap-2 text-white font-bold text-lg'> <MagicWand /> <span>Generate Cards</span></div>
+                                <div className='flex items-center gap-2 text-white font-bold text-lg'> <MagicWand /> <span>Generate Quiz</span></div>
                             </button>
                             {isGenerateDeckModalOpen && (
                                 <GenerateDeckModal

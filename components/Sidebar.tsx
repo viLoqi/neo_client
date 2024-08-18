@@ -61,9 +61,10 @@ const SideBar = () => {
                 {NavItems.map(item =>
                     <Link key={item.title} href={item.dest} className={`py-2 pr-2 ${pathname === item.dest ? "border-r-4 border-r-light-primary" : ""}`} >
                         <span className={`flex items-center gap-2 text-xl ${pathname === item.dest ? "text-light-primary-text" : ""}`}>
-                            {item.icon} {item.title}
+                            {item.icon} {item.title}  {item.title === "Quizzes" ? <Badge colorScheme='purple'>BETA</Badge> : <></>}
                         </span>
-                    </Link>)}
+                    </Link>)
+                }
                 <Divider />
                 <FcmTokenComp reset={reset} />
 
@@ -81,16 +82,18 @@ const SideBar = () => {
                 })} */}
                 {/* Recent Courses */}
                 <Heading size='md' fontWeight={"normal"} py={4}>Recent Forums</Heading>
-                {courses.toReversed().map((course) => {
-                    return (
-                        <div key={course.cid}>
-                            <CoursesCard
-                                course={course.cid}
-                                link={course.link}
-                            />
-                        </div>
-                    );
-                })}
+                {
+                    courses.toReversed().map((course) => {
+                        return (
+                            <div key={course.cid}>
+                                <CoursesCard
+                                    course={course.cid}
+                                    link={course.link}
+                                />
+                            </div>
+                        );
+                    })
+                }
                 {/* Sign Out */}
                 <div className='grid grid-flow-col p-4 items-center mt-auto display-hidden'>
                     <span className='flex gap-2 items-center'>
@@ -101,7 +104,7 @@ const SideBar = () => {
                         Sign Out
                     </Button>
                 </div>
-            </div>
+            </div >
         );
 }
 

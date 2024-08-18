@@ -38,6 +38,17 @@ const AnswerCard = ({ answerer, role, addAnswer, post }: Input) => {
                 "description": inputRef.current.value,
                 "post_link": location.href
             })
+
+            if (post.instructorAnswer) {
+                notify({
+                    "to": post.instructorAnswer.authorEmail,
+                    "type": "NEW ANSWER ADDED",
+                    "cls": path.split("/")[2],
+                    "question": post.question,
+                    "description": inputRef.current.value,
+                    "post_link": location.href
+                })
+            }
         }
     }
 

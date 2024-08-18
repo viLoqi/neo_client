@@ -1,20 +1,38 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Heading, Input } from "@chakra-ui/react";
 import CommentLine from "./CommentLine";
-import { Comment } from "@/app/_types/main";
+import { Comment, ForumPostSchema } from "@/app/_types/main";
 import { useRef } from "react";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
+import { usePathname } from "next/navigation";
+import useNotifyEmail from "@/hooks/useNotifyEmail";
+import useUser from "@/hooks/useUser";
 
 interface CommentCardProps {
     comments: Comment[]
     addComment: (content: string, postId: string) => Promise<Response>
-    postId: string
+    post: ForumPostSchema
 }
-const CommentCard = ({ comments, addComment, postId }: CommentCardProps) => {
+const CommentCard = ({ comments, addComment, post }: CommentCardProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
+    const path = usePathname()
+    const { notify } = useNotifyEmail()
+    const [user] = useUser()
 
     const handlePostComment = () => {
-        if (inputRef.current)
-            addComment(inputRef.current.value, postId)
+        if (inputRef.current) {
+            addComment(inputRef.current.value, post._id)
+            if (post.instructorAnswer && post.instructorAnswer.authorEmail !== user?.email) {
+                notify({
+                    "to": post.instructorAnswer.authorEmail,
+                    "type": "NEW COMMENT ADDED",
+                    "cls": path.split("/")[2],
+                    "question": post.question,
+                    "description": inputRef.current.value,
+                    "post_link": location.href
+                })
+            }
+            inputRef.current.value = ""
+        }
     }
 
     return <div className="shadow-md ">

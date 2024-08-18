@@ -35,7 +35,8 @@ const useForumPosts = (forum: string) => {
             method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify({
                 "author": user?.displayName,
                 role, content,
-                "authorPhotoURL": user?.photoURL
+                "authorPhotoURL": user?.photoURL,
+                "authorEmail": user?.email
             })
         })
     }
@@ -60,7 +61,8 @@ const useForumPosts = (forum: string) => {
             method: "PATCH", headers: { ...baseHeaders, "Authorization": `Bearer ${token}` }, body: JSON.stringify({
                 "author": user?.displayName,
                 role: "comment", content,
-                "authorPhotoURL": user?.photoURL
+                "authorPhotoURL": user?.photoURL,
+                "authorEmail": user?.email
             })
         })
     }

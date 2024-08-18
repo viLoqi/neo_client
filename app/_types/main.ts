@@ -43,6 +43,7 @@ export interface Answer {
     author: string
     role: string
     content: string
+    authorEmail: string
     authorPhotoURL: string
     timestamp: Timestamp
 }
@@ -96,7 +97,7 @@ export interface ForumAnswerPostRequest {
 
 export interface NotifyEmailBody {
     to: string
-    type: "NEW ANSWER ADDED" | "NEW QUESTION ADDED"
+    type: "NEW ANSWER ADDED" | "NEW QUESTION ADDED" | "NEW COMMENT ADDED"
     cls: string
     question: string
     description: string

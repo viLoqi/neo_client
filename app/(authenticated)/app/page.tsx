@@ -1,10 +1,11 @@
 "use client";
 import UsersPanel from "@/components/UsersPanel";
 import useUser from '@/hooks/useUser';
-import { Heading } from '@chakra-ui/react';
+import { Button, Card, CardBody, CardFooter, CardHeader, Heading, Text } from '@chakra-ui/react';
 import SemesterCard from './components/SemesterCard';
 import moment from 'moment';
-import { BookBookmark, BookOpenText, Books, Book} from "@phosphor-icons/react";
+import { BookBookmark, BookOpenText, Books, Book, Megaphone } from "@phosphor-icons/react";
+import { Link } from "@chakra-ui/next-js";
 
 export default function App() {
     const [user, loading] = useUser();
@@ -22,7 +23,22 @@ export default function App() {
 
                 {/* Semester Cards */}
                 <div className="flex space-x-4 overflow-x-auto py-2 px-2 scrollbar-hide">
-                <SemesterCard
+                    <Card>
+                        <CardHeader>
+                            <Heading size='md'> <Megaphone size={80} /></Heading>
+                        </CardHeader>
+                        <CardBody>
+                            <Text size={'md'}>Subit your feedbacks here!</Text>
+                        </CardBody>
+                        <CardFooter>
+                            <Link href="https://forms.gle/6bCpjyvAdDJYtJmF6">
+                                <Button variant='solid' color='#326AFD' bgColor={"#DDEAFF"} width="90%" height="44px" fontSize="md" borderRadius="full" px={6}>
+                                    Submit Here
+                                </Button>
+                            </Link>
+                        </CardFooter>
+                    </Card>
+                    {/* <SemesterCard
                     title="Spring 2024"
                     students={42}
                     duration="30 min"
@@ -53,8 +69,8 @@ export default function App() {
                     year="2024"
                     status="Completed"
                     icon={BookBookmark}
-                />
-                {/* <SemesterCard
+                /> */}
+                    {/* <SemesterCard
                     title="Spring 2022"
                     students={42}
                     duration="30 min"

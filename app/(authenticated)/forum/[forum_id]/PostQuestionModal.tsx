@@ -56,7 +56,7 @@ export default function PostQuestionModal({ isOpen, onClose, forumId }: PostQues
                             "cls": path.split("/")[2],
                             "question": question,
                             "description": description,
-                            "post_link": `${location.href}/${post_id}`
+                            "post_link": `${location.href}/posts/${post_id}`
                         })
                     });
 

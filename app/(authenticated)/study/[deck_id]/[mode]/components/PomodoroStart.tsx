@@ -15,15 +15,12 @@ const PomodoroStart = ({ config }: Props) => {
     const [roundsLeft, setroundsLeft] = useState("rounds" in config ? config.rounds : 1)
 
     const handleFinishRound = () => {
-        console.log("rounds left:", roundsLeft)
-        console.log("Decrementing round count")
         setroundsLeft(prev => {
             return prev - 1
         })
     }
 
     const handleResetRound = () => {
-        console.log("Starting new round...")
         setTimeLeft("length" in config ? config.length : 30)
     }
 
@@ -32,6 +29,7 @@ const PomodoroStart = ({ config }: Props) => {
     }
 
     if (timeLeft) {
+        console.log("Current rounds left:", roundsLeft)
         return (
             <PomodoroGame initialTime={timeLeft} setTimeLeft={setTimeLeft} handleFinishRound={handleFinishRound} />
         )

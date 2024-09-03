@@ -277,7 +277,7 @@ export default function Index() {
 
                 {/* Middle Section */}
                 <div className="text-gray-500 text-center md:text-left mb-4 md:mb-0">
-                  © 2024 by [Product Name]. All rights reserved.
+                  © 2024 by Loqi. All rights reserved.
                 </div>
 
                 {/* Right Section */}
@@ -298,7 +298,7 @@ export default function Index() {
               </div>
 
               {/* Bottom Row */}
-              <div className="mt-6 text-gray-500 text-center">
+              <div className=" text-gray-500 text-center">
                 <Link href="/">
                   <span className="hover:text-gray-700 transition duration-300">Privacy Policy</span>
                 </Link>

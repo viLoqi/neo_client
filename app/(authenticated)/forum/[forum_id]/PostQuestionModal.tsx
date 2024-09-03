@@ -50,14 +50,14 @@ export default function PostQuestionModal({ isOpen, onClose, forumId }: PostQues
                 const instructors = forumProperties[0]?.instructors
                 if (instructors)
                     instructors.forEach((email: string) => {
-                        notify({
-                            "to": email,
-                            "type": "NEW QUESTION ADDED",
-                            "cls": path.split("/")[2],
-                            "question": question,
-                            "description": description,
-                            "post_link": `${location.href}/posts/${post_id}`
-                        })
+                        // notify({
+                        //     "to": email,
+                        //     "type": "NEW QUESTION ADDED",
+                        //     "cls": path.split("/")[2],
+                        //     "question": question,
+                        //     "description": description,
+                        //     "post_link": `${location.href}/posts/${post_id}`
+                        // })
                     });
 
             }))

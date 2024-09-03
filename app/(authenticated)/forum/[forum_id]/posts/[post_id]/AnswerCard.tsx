@@ -30,24 +30,24 @@ const AnswerCard = ({ answerer, role, addAnswer, post }: Input) => {
         if (inputRef.current) {
             addAnswer(inputRef.current.value, role, post._id)
             setInputValue(inputRef.current.value)
-            notify({
-                "to": post.authorEmail,
-                "type": "NEW ANSWER ADDED",
-                "cls": path.split("/")[2],
-                "question": post.question,
-                "description": inputRef.current.value,
-                "post_link": location.href
-            })
+            // notify({
+            //     "to": post.authorEmail,
+            //     "type": "NEW ANSWER ADDED",
+            //     "cls": path.split("/")[2],
+            //     "question": post.question,
+            //     "description": inputRef.current.value,
+            //     "post_link": location.href
+            // })
 
             if (post.instructorAnswer) {
-                notify({
-                    "to": post.instructorAnswer.authorEmail,
-                    "type": "NEW ANSWER ADDED",
-                    "cls": path.split("/")[2],
-                    "question": post.question,
-                    "description": inputRef.current.value,
-                    "post_link": location.href
-                })
+                // notify({
+                //     "to": post.instructorAnswer.authorEmail,
+                //     "type": "NEW ANSWER ADDED",
+                //     "cls": path.split("/")[2],
+                //     "question": post.question,
+                //     "description": inputRef.current.value,
+                //     "post_link": location.href
+                // })
             }
         }
     }

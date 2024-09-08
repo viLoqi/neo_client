@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import ChoiceButton from "@/components/ChoiceButton";
 import { CardSchema } from "@/app/_types/deck";
 
-const Flashcard = ({ card, getNextCard, incorrectAttempts }: { card: CardSchema, getNextCard: () => void, incorrectAttempts: number }) => {
+const Flashcard = ({ card, getNextCard, incorrectAttempts, isTimerOver }: { card: CardSchema, getNextCard: () => void, incorrectAttempts: number, isTimerOver: boolean }) => {
     const stackVariants = {
         onTop: {
             x: "0",
@@ -56,6 +56,7 @@ const Flashcard = ({ card, getNextCard, incorrectAttempts }: { card: CardSchema,
                             isCorrect={choice === card.answer}
                             getNextCard={getNextCard}
                             incorrectAttempts={incorrectAttempts}
+                            isTimerOver={isTimerOver}
                         />
                     );
                 })}

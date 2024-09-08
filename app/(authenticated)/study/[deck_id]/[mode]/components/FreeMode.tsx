@@ -12,7 +12,7 @@ import useDecks from "@/hooks/useDecks";
 import { ArrowLeft, CaretLeft } from "@phosphor-icons/react";
 import { Box, Button, ScaleFade } from "@chakra-ui/react";
 import moment from "moment";
-// Carolsuole
+
 const FreeMode = () => {
     const router = useRouter();
     const [cards, setCards] = useState<CardSchema[]>([])
@@ -37,6 +37,7 @@ const FreeMode = () => {
         setQuestionAnswered(prev => prev - 1)
         console.log("getting prev card...");
         setTimerKey(prevKey => prevKey + 1); // reset timer
+        setIsOver(false)
     }
 
     const getNextCard = () => {
@@ -64,7 +65,7 @@ const FreeMode = () => {
         setQuestionAnswered((prev) => prev + 1 <= cards.length ? prev + 1 : prev)
         setTimerKey(prevKey => prevKey + 1); // reset timer
 
-
+        setIsOver(false)
     }
 
     useEffect(() => {
@@ -102,10 +103,21 @@ const FreeMode = () => {
     // }
 
     const duration = 60;
+    const isOverDuration = 5;
+    const [isOver, setIsOver] = useState(false)
+    const handleTimerOver = () => {
+        if (!isOver) {
+            console.log("Timer over...")
+            setIsOver(true)
+            setTimerKey(prevTimerKey => prevTimerKey + 1)
+        } else if (activeCardIndex != cards.length - 1) {
+            getNextCard()
+        }
+    }
+
     const course = decks[parseInt(deck_id)] ? decks[parseInt(deck_id)].name : ""
     const deckLength = cards.length
 
-    console.log("current card index: " + activeCardIndex);
     return (
         <div className="flex w-full h-screen">
             <div className="flex flex-col w-full h-full ">
@@ -128,15 +140,26 @@ const FreeMode = () => {
                                 isPlaying
                                 key={timerKey}
                                 size={150}
-                                duration={duration}
+                                duration={isOver ? activeCardIndex == cards.length - 1 ? 0 : isOverDuration : duration}
                                 colors={["#29A383", "#F5D90A", "#CA244D"]}
                                 onUpdate={(remainingTime) => { timeTaken = (duration - remainingTime) }}
+                                onComplete={handleTimerOver}
                                 colorsTime={[duration, duration / 2, 0]}
                             >
                                 {({ remainingTime }) => {
                                     const minutes = Math.floor(remainingTime / 60)
                                     const seconds = (remainingTime % 60).toString().padStart(2, '0')
-                                    return `${minutes}:${seconds}`;
+
+                                    if (isOver) {
+                                        return (
+                                            <div className="flex flex-col items-center">
+                                                <h1 className="animate-bounce">Times up!</h1>
+                                                <h1 className="text-sm">{activeCardIndex == cards.length - 1 ? "Session over!" : `Next card in ${remainingTime}`}</h1>
+                                            </div>
+                                        )
+                                    }
+
+                                    return `${minutes}:${seconds}`
                                 }}
                             </CountdownCircleTimer>
                         </div>
@@ -152,7 +175,7 @@ const FreeMode = () => {
                                 {
                                     cards.map((card, index) => {
                                         return (activeCardIndex == index &&
-                                            <Flashcard key={card.answer + index} card={card} getNextCard={getNextCard} incorrectAttempts={incorrectAttempts} />
+                                            <Flashcard key={card.answer + index} card={card} getNextCard={getNextCard} incorrectAttempts={incorrectAttempts} isTimerOver={isOver} />
                                         )
                                     })
                                 }

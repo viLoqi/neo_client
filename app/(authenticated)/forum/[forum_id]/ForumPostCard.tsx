@@ -16,6 +16,7 @@ const ForumPostCard = ({ post, idx, upvote, delForumPost }: { post: ForumPostSch
         setValue(`https://loqi.jiechen.dev${basePath}/posts/${post._id}`)
     }, [])
     const toast = useToast()
+    const shareToast = useToast()
     return (
         <div className="flex bg-light-bg-subtle shadow-md rounded-md">
             <div className="w-[5%] flex items-center text-center justify-center ">--</div>
@@ -97,7 +98,16 @@ const ForumPostCard = ({ post, idx, upvote, delForumPost }: { post: ForumPostSch
                         </Link>
                     </div>
                     <div className="flex gap-2 text-center items-center">
-                        <Button aria-label="Share Post" leftIcon={<ShareFat />} bg={"none"} onClick={onCopy} >
+                        <Button aria-label="Share Post" leftIcon={<ShareFat />} bg={"none"} onClick={() => {
+                                    onCopy
+                                    shareToast({
+                                        title: 'Question Link Copied To ClipBoard',
+                                        description: `You Can Now Share The Link For The Question: ${post.question}`,
+                                        status: 'success',
+                                        duration: 5000,
+                                        isClosable: true,
+                                      })
+                                }} >
                             <span className="text-light-fg-text">Share</span>
                         </Button>
                     </div>

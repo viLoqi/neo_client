@@ -60,30 +60,30 @@ const SideBar = () => {
 
     if (user) {
         return (
-            <> 
-            {isMobile ? (
-                <BottomNav pathname={pathname} />
-            ) : (
-            <div className=" bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
-                {/* Logo */}
-                <span className='flex items-center gap-4'>
-                    <Logo />
-                    <Badge colorScheme='purple'>BETA</Badge>
-                </span>
-
-                {/* Nav Items */}
-                {NavItems.map(item =>
-                    <Link key={item.title} href={item.dest} className={`py-2 pr-2 ${pathname === item.dest ? "border-r-4 border-r-light-primary" : ""}`} >
-                        <span className={`flex items-center gap-2 text-xl ${pathname === item.dest ? "text-light-primary-text" : ""}`}>
-                            {item.icon} {item.title}  {item.title === "Quizzes" ? <Badge colorScheme='purple'>BETA</Badge> : <></>}
+            <>
+                {isMobile ? (
+                    <BottomNav pathname={pathname} />
+                ) : (
+                    <div className=" bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
+                        {/* Logo */}
+                        <span className='flex items-center gap-4'>
+                            <Logo />
+                            <Badge colorScheme='purple'>BETA</Badge>
                         </span>
-                    </Link>)
-                }
-                <Divider />
-                <FcmTokenComp reset={reset} />
 
-                {/* Your Courses */}
-                {/* <Heading size='md' fontWeight={"normal"} py={4}>Your Courses</Heading>
+                        {/* Nav Items */}
+                        {NavItems.map(item =>
+                            <Link key={item.title} href={item.dest} className={`py-2 pr-2 ${pathname === item.dest ? "border-r-4 border-r-light-primary" : ""}`} >
+                                <span className={`flex items-center gap-2 text-xl ${pathname === item.dest ? "text-light-primary-text" : ""}`}>
+                                    {item.icon} {item.title}  {item.title === "Quizzes" ? <Badge colorScheme='purple'>BETA</Badge> : <></>}
+                                </span>
+                            </Link>)
+                        }
+                        <Divider />
+                        <FcmTokenComp reset={reset} />
+
+                        {/* Your Courses */}
+                        {/* <Heading size='md' fontWeight={"normal"} py={4}>Your Courses</Heading>
                 {COURSES.map((course) => {
                     return (
                         <div key={course.cid}>
@@ -94,39 +94,39 @@ const SideBar = () => {
                         </div>
                     );
                 })} */}
-                {/* Recent Courses */}
-                <Heading size='md' fontWeight={"normal"} py={4}>Recent Forums</Heading>
-                {
-                    courses.toReversed().map((course) => {
-                        return (
-                            <div key={course.cid}>
-                                <CoursesCard
-                                    course={course.cid}
-                                    link={course.link}
-                                />
-                            </div>
-                        );
-                    })
-                }
-                {/* Sign Out */}
-                <div className='grid grid-flow-col p-4 items-center mt-auto display-hidden'>
-                    <span className='flex gap-2 items-center'>
-                        <Avatar name={user.displayName!} src={user.photoURL!} width={38} height={38} />
-                        <span className='items-center'>{user.displayName}</span>
-                    </span>
-                    <Button size='sm' variant='outline' onClick={() => auth.signOut()}>
-                        Sign Out
-                    </Button>
-                </div>
-            </div >
-        )}
-        </>
-    );
-}
-return null;
+                        {/* Recent Courses */}
+                        <Heading size='md' fontWeight={"normal"} py={4}>Recent Forums</Heading>
+                        {
+                            courses.toReversed().map((course) => {
+                                return (
+                                    <div key={course.cid}>
+                                        <CoursesCard
+                                            course={course.cid}
+                                            link={course.link}
+                                        />
+                                    </div>
+                                );
+                            })
+                        }
+                        {/* Sign Out */}
+                        <div className='grid grid-flow-col p-4 items-center mt-auto display-hidden'>
+                            <span className='flex gap-2 items-center'>
+                                <Avatar name={user.displayName!} src={user.photoURL!} width={38} height={38} />
+                                <span className='items-center'>{user.displayName}</span>
+                            </span>
+                            <Button size='sm' variant='outline' onClick={() => auth.signOut()}>
+                                Sign Out
+                            </Button>
+                        </div>
+                    </div >
+                )}
+            </>
+        );
+    }
+    return null;
 };
 const BottomNav = ({ pathname }: { pathname: string }) => (
-    <div className="bottom-nav bg-light-bg-subtle fixed bottom-0 w-full flex justify-around items-center py-2 border-t border-light-primary">
+    <div className="bottom-nav bg-light-bg-subtle fixed bottom-0 w-full flex justify-around items-center py-2 border-t border-light-primary z-10">
         {NavItems.map((item) => (
             <Link key={item.title} href={item.dest} className="flex flex-col items-center text-xs">
                 {item.icon}

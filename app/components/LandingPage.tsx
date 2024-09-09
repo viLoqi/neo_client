@@ -1,7 +1,7 @@
 import React from "react";
 import Head from 'next/head';
-import Feature from '../components/Feature';
-import { Navbar } from "./Navbar";
+// import Feature from '../components/Feature';
+// import { Navbar } from "./Navbar";
 
 
 const LandingPage = () => {
@@ -62,13 +62,13 @@ const LandingPage = () => {
             {/* Features */}
             <div className="">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4">
-                    {features.map((feature, index) => (
+                    {/* {features.map((feature, index) => (
                         <Feature
                             key={index}
                             icon={feature.icon}
                             title={feature.title}
                         />
-                    ))}
+                    ))} */}
                 </div>
             </div>
 

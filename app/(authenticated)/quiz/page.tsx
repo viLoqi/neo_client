@@ -78,7 +78,7 @@ export default function BrowseDeckPage() {
                     {/* main body */}
                     <div className='flex flex-col w-full h-full px-4 md:px-6 overflow-scroll no-scrollbar'>
                         <div className='flex flex-col md:flex-row justify-between items-center py-2 my-4 h-auto md:h-14 rounded-lg bg-light-bg-subtle'>
-                            <div className="flex items-center w-full md:w-auto p-2 md:p-4">
+                            <div className="flex items-center w-full p-2 md:p-4 ">
                                 <MagnifyingGlass />
                                 <Input placeholder='Search by Subject or Keyword' className='ml-2 focus:outline-none w-full bg-inherit' onChange={(e) => { setFilter(e.target.value) }} variant='unstyled' />
                             </div>

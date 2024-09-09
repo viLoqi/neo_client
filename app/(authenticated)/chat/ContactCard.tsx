@@ -2,7 +2,7 @@
 import useUserOnlineStatus from "@/hooks/useUserOnlineStatus";
 import { Link } from "@chakra-ui/next-js";
 import { Avatar, AvatarBadge, Box, Flex, Text } from "@chakra-ui/react";
-
+import { useToggle } from '../../contexts/ToggleContext';
 interface Props {
   userName: string;
   userProfilePicture: string;
@@ -12,9 +12,12 @@ interface Props {
 
 const ContactCard = ({ uid, userName, userProfilePicture, selected }: Props) => {
   const online = useUserOnlineStatus(uid);
-
+  const { isContactListVisible, toggleContactList } = useToggle();
+  const handleClick = () => {
+    toggleContactList();
+  };
   return (
-    <Link href={`/chat/${uid}`} w="full">
+    <Link href={`/chat/${uid}`} w="full" onClick={handleClick}>
       <Flex
         align="center"
         w="full"

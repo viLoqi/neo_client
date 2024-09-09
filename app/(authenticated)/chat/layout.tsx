@@ -29,7 +29,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (path.split("/").length > 2) localStorage.setItem("lastChat", path);
-    toggleContactList();
   }, [contacts, path]);
 
   if (loading) {

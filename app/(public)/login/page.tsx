@@ -30,7 +30,7 @@ const LoginPage = () => {
     return (
         <div className="flex min-h-screen">
             {/* Left Section */}
-            <div className="w-1/2 bg-cover bg-center relative" style={{ backgroundImage: "url('/classroom.jpeg')" }}>
+            <div className="w-1/2 bg-cover bg-center relative hidden md:block" style={{ backgroundImage: "url('/classroom.jpeg')" }}>
                 <div className="absolute bottom-0 left-0 p-6 text-white bg-black bg-opacity-50">
                     <p className="text-sm">
                         Penatibus et feugiat sed et dui eget eget. Arcu amet tempor tristique nunc lacus
@@ -47,7 +47,7 @@ const LoginPage = () => {
             </div>
 
             {/* Right Section */}
-            <div className="w-1/2 flex flex-col justify-center p-8 bg-[#FBFCFD] relative">
+            <div className="w-full md:w-1/2 flex flex-col justify-center p-8 bg-[#FBFCFD] relative">
                 {/* Navbar */}
                 <div className="absolute top-0 left-0 right-0 p-4 z-10">
                     <div className="flex justify-between items-center">

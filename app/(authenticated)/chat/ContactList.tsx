@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Heading, Input, InputGroup, InputLeftElement, Progress, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Alert, AlertIcon, Heading, Input, InputGroup, InputLeftElement, Progress, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, useBreakpointValue, Box} from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useRef } from "react";
 import ContactCard from "./ContactCard";
 import { Contact } from "@/app/_types/main";
@@ -45,53 +45,70 @@ const ContactList = ({ contacts, selectedContact }: { contacts: Contact[], selec
             }
         }
     }
+    const tabSize = useBreakpointValue({ base: "sm", md: "md" }); 
+    const headingSize = useBreakpointValue({ base: "md", md: "lg" }); 
 
-
-    if (contacts)
-        return (<div>
-            <Heading className="my-8 ml-4" size="lg">Messages</Heading>
-            <Tabs isFitted position='relative' variant='unstyled'>
-                <TabList>
-                    <Tab>All</Tab>
-                    <Tab>Groups</Tab>
-                    <Tab>Active</Tab>
-                </TabList>
-                <TabIndicator mt='-1.5px' height='2px' bg='blue.500' borderRadius='1px' />
-                <TabPanels>
-                    <TabPanel>
-                        <div className="flex flex-col items-center w-full p-4 ">
-                            <InputGroup>
-                                <InputLeftElement pointerEvents='none'>
-                                    <MagnifyingGlass />
-                                </InputLeftElement>
-                                <Input placeholder='Search @stonybrook.edu email' onKeyDown={(e) => { handleKeyDown(e) }} border={0} ref={inputRef} autoComplete="ASD" />
-                            </InputGroup>
-                        </div>
-                        {loading ? <Progress size='xs' isIndeterminate /> : <></>}
-                        {error ? <Alert status='error'>
-                            <AlertIcon />
-                            {inputRef.current!.value} does not exist in our app
-                        </Alert> : <></>}
-
-                        <div className="my-4">
-                            {selectedContact ?
-                                contacts.map(contact => {
-                                    return <ContactCard key={contact.uid} uid={contact.uid} userName={contact.name} userProfilePicture={contact.photoURL} selected={contact.uid == selectedContact.uid} />
-                                })
-                                : <></>
-                            }
-                        </div>
-                    </TabPanel>
-                    <TabPanel>
-                        <p>Coming soon.</p>
-                    </TabPanel>
-                    <TabPanel>
-                        <p>Coming soon.</p>
-                    </TabPanel>
-                </TabPanels>
+    if (contacts) { 
+        return (
+          <Box p={4}>
+            <Heading size={headingSize} my={8} ml={4}>
+              Messages
+            </Heading>
+            <Tabs isFitted position="relative" variant="unstyled">
+              <TabList>
+                <Tab fontSize={tabSize}>All</Tab>
+                <Tab fontSize={tabSize}>Groups</Tab>
+                <Tab fontSize={tabSize}>Active</Tab>
+              </TabList>
+              <TabIndicator mt="-1.5px" height="2px" bg="blue.500" borderRadius="1px" />
+              <TabPanels>
+                <TabPanel>
+                  <Box className="flex flex-col items-center w-full p-4">
+                    <InputGroup>
+                      <InputLeftElement pointerEvents="none">
+                        <MagnifyingGlass />
+                      </InputLeftElement>
+                      <Input
+                        placeholder="Search @stonybrook.edu email"
+                        onKeyDown={handleKeyDown}
+                        border={0}
+                        ref={inputRef}
+                        autoComplete="off"
+                      />
+                    </InputGroup>
+                  </Box>
+                  {loading ? <Progress size="xs" isIndeterminate /> : null}
+                  {error ? (
+                    <Alert status="error">
+                      <AlertIcon />
+                      {inputRef.current?.value} does not exist in our app
+                    </Alert>
+                  ) : null}
+                  <Box my={4}>
+                    {selectedContact ? (
+                      contacts.map((contact) => (
+                        <ContactCard
+                          key={contact.uid}
+                          uid={contact.uid}
+                          userName={contact.name}
+                          userProfilePicture={contact.photoURL}
+                          selected={contact.uid === selectedContact.uid}
+                        />
+                      ))
+                    ) : null}
+                  </Box>
+                </TabPanel>
+                <TabPanel>
+                  <p>Coming soon.</p>
+                </TabPanel>
+                <TabPanel>
+                  <p>Coming soon.</p>
+                </TabPanel>
+              </TabPanels>
             </Tabs>
-        </div>
+          </Box>
         );
-}
+      }
+    }
 
 export default ContactList;

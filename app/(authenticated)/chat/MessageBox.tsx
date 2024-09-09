@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import useUserFCMToken from "@/hooks/useUserFCMToken";
 import { usePathname } from "next/navigation";
 
-const MessageBox = ({ contact }: { contact: Contact }) => {
+const MessageBox = ({ contact , onToggle}: { contact: Contact; onToggle: () => void }) => {
     const [user] = useUser()
     const path = usePathname()
     const { chatMessages, addChatMessage } = useChat({ uid: user?.email!, tuid: contact?.email })
@@ -67,18 +67,18 @@ const MessageBox = ({ contact }: { contact: Contact }) => {
 
     if (contact) {
         return <div className="grid grid-rows-10 w-full h-screen overflow-hidden">
-            <div className="row-span-1 flex justify-between bg-light-bg-subtle shadow-md p-4">
-                <MessageBoxHeader contact={contact} />
+            <div className="md:row-span-1 row-span-1 flex justify-between bg-light-bg-subtle shadow-md p-4">
+                <MessageBoxHeader contact={contact} onToggle={onToggle} />
             </div>
 
-            <div className="grid grid-rows-9 row-span-9 p-4 ">
-                <div className="row-span-8 flex flex-col h-full w-full rounded-lg  overflow-y-auto" ref={scrollRef}>
+            <div className="grid grid-rows-9 md:grid-rows-9 row-span-9 p-4 ">
+                <div className="md:row-span-8 row-span-7 flex flex-col h-full w-full rounded-lg  overflow-y-auto" ref={scrollRef}>
                     {chatMessages?.map(e => {
                         const currMsg = e as MessageSchema
                         return <Message key={crypto.randomUUID()} {...currMsg} />
                     })}
                 </div>
-                <div className="row-span-1 flex w-full h-full rounded-lg  flex-col border-2 border-light-bg-active shadow-md p-4 gap-2">
+                <div className="md:row-span-1 row-span-1 flex w-full h-full rounded-lg  flex-col border-2 border-light-bg-active shadow-md p-4 gap-2">
                     <Input placeholder={`Message ${contact.name}`} border={0} px={0} onKeyDown={e => handleKeyDown(e)} ref={inputRef} variant={"unstyled"} />
                     <div className="flex justify-between ">
                         <div className="flex gap-2">

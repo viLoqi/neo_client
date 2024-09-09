@@ -1,10 +1,18 @@
+import React, { useState } from "react";
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import { VideoCamera, Phone, DotsThreeOutlineVertical } from "@phosphor-icons/react";
 import { Contact } from "@/app/_types/main";
 import useUserOnlineStatus from "@/hooks/useUserOnlineStatus";
 
-const MessageBoxHeader = ({ contact }: { contact: Contact }) => {
+const MessageBoxHeader = ({ contact, onToggle}: { contact: Contact; onToggle: () => void   }) => {
     const online = useUserOnlineStatus(contact.uid);
+    
+    const handleClick = () => {
+        console.log('DotsThreeOutlineVertical clicked'); 
+        onToggle(); 
+      };
+    
+
     return (
         <>
             <div className="flex items-center gap-4">
@@ -16,7 +24,7 @@ const MessageBoxHeader = ({ contact }: { contact: Contact }) => {
             <div className="flex items-center gap-4">
                 <VideoCamera size={32} />
                 <Phone size={32} />
-                <DotsThreeOutlineVertical size={32} />
+                <DotsThreeOutlineVertical size={32} onClick={handleClick}  className="cursor-pointer hover:scale-110 transition duration-200"/>
             </div></>
     )
 }

@@ -38,7 +38,17 @@ const SideBar = () => {
 
     const [courses, setCourses] = useState<Course[]>([])
     const [reset, setReset] = useState(false)
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768); // Consider screen width <= 768px as mobile
+        };
 
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Check on mount
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     useEffect(() => {
         const local = localStorage.getItem("recent")
         if (local)
@@ -48,8 +58,12 @@ const SideBar = () => {
             setReset((prev) => !prev)
     }, [pathname])
 
-    if (user)
+    if (user) {
         return (
+            <> 
+            {isMobile ? (
+                <BottomNav pathname={pathname} />
+            ) : (
             <div className=" bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
                 {/* Logo */}
                 <span className='flex items-center gap-4'>
@@ -105,7 +119,21 @@ const SideBar = () => {
                     </Button>
                 </div>
             </div >
-        );
+        )}
+        </>
+    );
 }
+return null;
+};
+const BottomNav = ({ pathname }: { pathname: string }) => (
+    <div className="bottom-nav bg-light-bg-subtle fixed bottom-0 w-full flex justify-around items-center py-2 border-t border-light-primary">
+        {NavItems.map((item) => (
+            <Link key={item.title} href={item.dest} className="flex flex-col items-center text-xs">
+                {item.icon}
+                <span className={pathname === item.dest ? "text-light-primary" : ""}>{item.title}</span>
+            </Link>
+        ))}
+    </div>
+);
 
 export default SideBar;

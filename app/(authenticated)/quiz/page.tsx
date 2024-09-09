@@ -72,13 +72,13 @@ export default function BrowseDeckPage() {
             <div className="flex w-full h-screen p-6 overflow-hidden">
                 <div className='flex flex-col items-center w-full h-full'>
                     {/* course name */}
-                    <h1 className="flex w-full justify-center  font-semibold border-b-[1px] py-2 mb-1 border-black">
+                    <h1 className="flex w-full justify-center font-semibold border-b border-black py-2 mb-1">
                         Search Your Quizzes
                     </h1>
                     {/* main body */}
-                    <div className='flex flex-col w-full h-full px-6 overflow-scroll no-scrollbar'>
-                        <div className='flex justify-between items-center py-2 my-4 h-14 rounded-lg bg-light-bg-subtle'>
-                            <div className="flex items-center w-full p-4">
+                    <div className='flex flex-col w-full h-full px-4 md:px-6 overflow-scroll no-scrollbar'>
+                        <div className='flex flex-col md:flex-row justify-between items-center py-2 my-4 h-auto md:h-14 rounded-lg bg-light-bg-subtle'>
+                            <div className="flex items-center w-full md:w-auto p-2 md:p-4">
                                 <MagnifyingGlass />
                                 <Input placeholder='Search by Subject or Keyword' className='ml-2 focus:outline-none w-full bg-inherit' onChange={(e) => { setFilter(e.target.value) }} variant='unstyled' />
                             </div>
@@ -97,7 +97,7 @@ export default function BrowseDeckPage() {
                         </div>
                         {loading ? <Progress size='xs' isIndeterminate /> : <></>}
 
-                        <div className="pb-[2rem] grid grid-cols-2 gap-4 overflow-scroll no-scrollbar">
+                        <div className="pb-8 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-scroll no-scrollbar">
                             {filteredDecks.map((deck, idx) => (
                                 <Deck key={deck.name + idx} deck={deck} idx={idx} delDeckfromPrivateRepo={delDeckfromPrivateRepo} />
                             ))}

@@ -1,9 +1,10 @@
 import { CardSchema } from "@/app/_types/deck";
 import CardChoice from "./CardChoice";
-import { Button, Card, CardBody, CardFooter, CardHeader, Editable, EditablePreview, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, OrderedList, Select, useToast } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Editable, EditablePreview, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, OrderedList, Select, useToast, useToken } from "@chakra-ui/react";
 import { DotsThreeOutlineVertical, FloppyDisk, Lightbulb } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import useDecks from "@/hooks/useDecks";
+import useAuthToken from "@/hooks/useAuthToken";
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
@@ -18,6 +19,7 @@ const DeckCard = ({ card, cardIndex, deckIndex }: { card: CardSchema, cardIndex:
     // Intermediate representation of the card when it changes
     const [varCard, setVarCard] = useState<CardSchema>(card)
     const [selected, setSelected] = useState(varCard.difficulty)
+    const token = useAuthToken()
 
     const { decks, editCardInDeck } = useDecks()
 
@@ -43,7 +45,7 @@ const DeckCard = ({ card, cardIndex, deckIndex }: { card: CardSchema, cardIndex:
             try {
                 const response = await fetch('https://us-east1-loqi-loqi.cloudfunctions.net/ai', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${token}` },
                     body: JSON.stringify(payload),
                 });
 

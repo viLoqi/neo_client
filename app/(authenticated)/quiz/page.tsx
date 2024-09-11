@@ -7,6 +7,7 @@ import { CardSchema } from '@/app/_types/deck';
 import useDecks from '@/hooks/useDecks';
 import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
 import { Input, Progress } from '@chakra-ui/react';
+import useAuthToken from '@/hooks/useAuthToken';
 
 function parseToCardSchema(generatedQuestions: string): CardSchema[] {
     const questionsObj = JSON.parse(generatedQuestions);
@@ -18,7 +19,7 @@ function parseToCardSchema(generatedQuestions: string): CardSchema[] {
 
 export default function BrowseDeckPage() {
     const { decks, loading, addDeckToPrivateRepo, delDeckfromPrivateRepo } = useDecks()
-
+    const token = useAuthToken()
     const [filter, setFilter] = useState("")
 
     const filteredDecks = useMemo(
@@ -28,16 +29,16 @@ export default function BrowseDeckPage() {
 
     const [isGenerateDeckModalOpen, setIsGenerateDeckModalOpen] = useState(false);
 
-    const handleGenerateDeck = async (numQuestions: string, questionType: string, difficulty: "EASY" | "MEDIUM" | "HARD") => {
+    const handleGenerateDeck = async (numQuestions: string, questionType: string, difficulty: "EASY" | "MEDIUM" | "HARD", notes: string) => {
         console.log(`Number of Questions: ${numQuestions}, Question Type: ${questionType}, Difficulty: ${difficulty}`);
 
-        const payload = { numQuestions, questionType, difficulty };
+        const payload = { numQuestions, questionType, difficulty, notes };
         console.log("type of: ", typeof payload);
 
         try {
             const response = await fetch('https://us-east1-loqi-loqi.cloudfunctions.net/ai', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${token}` },
                 body: JSON.stringify(payload),
             });
 

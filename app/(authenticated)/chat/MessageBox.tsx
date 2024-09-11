@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import useUserFCMToken from "@/hooks/useUserFCMToken";
 import { usePathname } from "next/navigation";
 
-const MessageBox = ({ contact , onToggle}: { contact: Contact; onToggle: () => void }) => {
+const MessageBox = ({ contact, onToggle }: { contact: Contact; onToggle: () => void }) => {
     const [user] = useUser()
     const path = usePathname()
     const { chatMessages, addChatMessage } = useChat({ uid: user?.email!, tuid: contact?.email })
@@ -47,9 +47,9 @@ const MessageBox = ({ contact , onToggle}: { contact: Contact; onToggle: () => v
                     if (inputRef.current)
                         inputRef.current.value = ""
                 })
-
                 if (fcm) {
                     const redirectLink = path.split("/")
+                    console.log(redirectLink)
                     redirectLink[2] = user?.uid!
 
                     fetch(`https://us-east1-loqi-loqi.cloudfunctions.net/notify?token=${fcm}`, {

@@ -13,6 +13,7 @@ type GenerateDeckModalProps = {
 export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: GenerateDeckModalProps) {
   const [numQuestions, setNumQuestions] = useState<string>('5');
   const [questionType, setQuestionType] = useState<string>('');
+  const [notes, setNotes] = useState('');
   const [diff, setDiff] = useState("EASY")
   const toast = useToast()
 
@@ -23,7 +24,7 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
   }
 
   const handleGenerateClick = () => {
-    toast.promise(onGenerate(numQuestions, questionType, diff)
+    toast.promise(onGenerate(numQuestions, questionType, diff, notes)
       , {
         success: { title: 'Deck Generated', description: 'Looks great' },
         error: { title: 'Deck Was Not Generated', description: 'Something wrong, please try again' },
@@ -69,10 +70,12 @@ export default function GenerateDeckModal({ isOpen, onClose, onGenerate }: Gener
 
 
           <FormControl mt={4}  >
-            <FormLabel>Notes (Coming Soon...)</FormLabel>
-            <Select disabled value={"SELECT"}>
+            <FormLabel>Notes</FormLabel>
+            {/* <Select value={"SELECT"}>
               <option value='SELECT'>Select notes to be used for question generation</option>
-            </Select>
+            </Select> */}
+            <Input placeholder='Paste your notes here' onChange={(e) => setNotes(e.target.value)} />
+
           </FormControl>
 
 

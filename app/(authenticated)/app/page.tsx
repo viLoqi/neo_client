@@ -28,7 +28,7 @@ export default function App() {
                             <Heading size='md'> <Megaphone size={80} /></Heading>
                         </CardHeader>
                         <CardBody>
-                            <Text size={'md'}>Subit your feedbacks here!</Text>
+                            <Text size={'md'}>Submit your feedbacks here!</Text>
                         </CardBody>
                         <CardFooter>
                             <Link href="https://forms.gle/6bCpjyvAdDJYtJmF6">

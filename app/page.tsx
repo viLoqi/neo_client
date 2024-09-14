@@ -8,18 +8,22 @@ export default function Index() {
     {
       icon: '/respond.png',
       title: 'Rapid Response Learning',
+      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
     {
       icon: '/co-system.png',
       title: 'Collaborative System',
+      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
     {
       icon: '/crit-thinking.png',
       title: 'Enhance Critical Thinking',
+      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
     {
       icon: '/brain.png',
       title: 'Generative AI-powered',
+      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
   ];
   const plans = [
@@ -123,10 +127,10 @@ export default function Index() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="text-blue-600 text-base font-semibold mb-2">Best learning Platform</div>
+                <div className="text-light-primary text-base font-semibold mb-2">Best learning Platform</div>
                 <h1 className="text-3xl md:text-6xl font-bold text-gray-900 mb-4 text-center md:text-left">
-                  Top Quality <span className="text-blue-600">Education</span> Is Now More Accessible{' '}
-                  <span className="text-blue-600">Than Ever!</span>
+                  Top Quality <span className="text-light-primary">Education</span> Is Now More Accessible{' '}
+                  <span className="text-light-primary">Than Ever!</span>
                 </h1>
                 <p className="text-gray-600 mb-6 md:w-3/4">
                   Odio pretium cras proin sit duis vel eget tincidunt vel. Pulvinar luctus id aliquam
@@ -175,7 +179,7 @@ export default function Index() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-blue-600 text-base font-semibold mb-2">Features</h2>
+          <h2 className="text-light-primary text-base font-semibold mb-2">Features</h2>
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">What Can it Do?</h1>
           <p className="text-gray-600 mb-8">
             Tempus vel nulla feugiat ut massa enim tincidunt sit.
@@ -196,18 +200,21 @@ export default function Index() {
                 <Image
                   src={feature.icon}
                   alt={feature.title}
-                  width={50}
-                  height={50}
+                  width={100}
+                  height={120}
                   className="mx-auto"
                 />
               </div>
               <h3 className="text-2xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+              <p className="text-gray-500 text-center">
+                {feature.description}
+            </p>
             </motion.div>
           ))}
         </div>
       </div>
       {/* Pricing Plan Section */}
-      <div id="pricing-plan" className="py-16 bg-[#FBFCFD] min-h-screen px-4">
+      <div id="pricing-plan" className="py-16 bg-[#FBFCFD] min-h-screen px-4 flex items-center justify-center">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-center text-gray-900 mb-12">
             Pricing Plan
@@ -222,7 +229,7 @@ export default function Index() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
               >
-                <h3 className="text-blue-600 font-semibold mb-2 text-xl">
+                <h3 className="text-light-primary font-semibold mb-2 text-xl">
                   {plan.title}
                 </h3>
                 <p className="text-gray-600 mb-4 text-center">
@@ -241,7 +248,7 @@ export default function Index() {
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-center">
                       <svg
-                        className="w-5 h-5 text-blue-600 mr-2"
+                        className="w-5 h-5 text-light-primary mr-2"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"

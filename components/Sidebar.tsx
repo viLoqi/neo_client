@@ -5,7 +5,7 @@ import CoursesCard from '@/app/(authenticated)/app/components/CoursesCard';
 import useUser from '@/hooks/useUser';
 import { Avatar, Badge, Button, Divider, Heading } from '@chakra-ui/react';
 import Logo from '@/components/Logo';
-import { Chat, Club, House, PlusCircle, Question, Table } from "@phosphor-icons/react";
+import { Chat, Club, House, PlusCircle, Question, Table, ChartLineUp} from "@phosphor-icons/react";
 import { usePathname } from 'next/navigation'
 import { Link } from '@chakra-ui/next-js'
 import FcmTokenComp from './FirebaseForeground';

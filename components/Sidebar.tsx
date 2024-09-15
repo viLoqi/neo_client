@@ -62,7 +62,7 @@ const SideBar = () => {
         return (
             <>
                 {isMobile ? (
-                    <BottomNav pathname={pathname} />
+                    <BottomNav pathname={pathname} user={user}/>
                 ) : (
                     <div className=" bg-light-bg-subtle carousel carousel-vertical flex-col w-[400px] p-4 overflow-y-scroll whitespace-nowrap">
                         {/* Logo */}
@@ -125,7 +125,8 @@ const SideBar = () => {
     }
     return null;
 };
-const BottomNav = ({ pathname }: { pathname: string }) => (
+const BottomNav = ({ pathname, user }: { pathname: string; user: any  }) => (
+    
     <div className="bottom-nav bg-light-bg-subtle fixed bottom-0 w-full flex justify-around items-center py-2 border-t border-light-primary z-10">
         {NavItems.map((item) => (
             <Link key={item.title} href={item.dest} className="flex flex-col items-center text-xs">
@@ -133,6 +134,10 @@ const BottomNav = ({ pathname }: { pathname: string }) => (
                 <span className={pathname === item.dest ? "text-light-primary" : ""}>{item.title}</span>
             </Link>
         ))}
+        <Link href="/profile" className="flex flex-col items-center text-xs">
+            <Avatar name={user.displayName!} src={user.photoURL!} width={5} height={5} />
+            <span className={pathname === "/profile" ? "text-light-primary" : ""}>Profile</span>
+        </Link>
     </div>
 );
 

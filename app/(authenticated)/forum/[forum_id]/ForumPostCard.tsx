@@ -78,7 +78,7 @@ const ForumPostCard = ({ post, idx, upvote, delForumPost }: { post: ForumPostSch
                         {post.question}
                     </div>
                     <div className="border p-4 rounded-2xl border-light-bg-active text-light-fg-text">
-                        {post.instructorAnswer ? post.instructorAnswer.content : "--"}
+                        {post.instructorAnswer ? post.instructorAnswer.content : post.studentAnswer?.content}
                     </div>
                 </CardBody>
                 <CardFooter className="flex justify-between text-light-fg-text bg-light-bg-subtle">

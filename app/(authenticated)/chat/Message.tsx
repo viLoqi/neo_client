@@ -14,7 +14,7 @@ export default function Message({ author, content, authorPhotoURL, lastUpdated }
                 {/* Username, dummy name for now */}
                 <h1 className=" font-semibold">{author} <span className="text-xs font-semibold text-gray-500">{moment(lastUpdated.seconds * 1000).fromNow()}</span></h1>
                 {/* Message,  */}
-                <p className=" ">
+                <p className="break-all w-full">
                     {content}
                 </p>
             </div>

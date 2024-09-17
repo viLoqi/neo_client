@@ -12,7 +12,7 @@ export default function Message({ author, content, authorPhotoURL, lastUpdated }
             </div>
             <div className="flex flex-col">
                 {/* Username, dummy name for now */}
-                <h1 className=" font-semibold">{author} <span>{moment(lastUpdated.seconds * 1000).fromNow()}</span></h1>
+                <h1 className=" font-semibold">{author} <span className="text-xs font-semibold text-gray-500">{moment(lastUpdated.seconds * 1000).fromNow()}</span></h1>
                 {/* Message,  */}
                 <p className=" ">
                     {content}

@@ -8,22 +8,22 @@ export default function Index() {
     {
       icon: '/respond.png',
       title: 'Rapid Response Learning',
-      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
+      //description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
     {
       icon: '/co-system.png',
       title: 'Collaborative System',
-      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
+      //description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
     {
       icon: '/crit-thinking.png',
       title: 'Enhance Critical Thinking',
-      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
+      //description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
     {
       icon: '/brain.png',
       title: 'Generative AI-powered',
-      description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
+      //description:'Purus sagittis diam consequat neque risus nam commodo. Vitae risus faucibus habitant mi scelerisque quam eget enim non.'
     },
   ];
   const plans = [
@@ -133,8 +133,7 @@ export default function Index() {
                   <span className="text-light-primary">Than Ever!</span>
                 </h1>
                 <p className="text-gray-600 mb-6 md:w-3/4">
-                  Odio pretium cras proin sit duis vel eget tincidunt vel. Pulvinar luctus id aliquam
-                  molestie amet massa sapien.
+                  A platform leverages the latest technology to enhance your studying experience with personalized and interactive learning tools.
                 </p>
                 <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 items-center md:items-start">
                   <Link href="/login">
@@ -281,9 +280,9 @@ export default function Index() {
         >
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">Ready to get started?</h2>
           <p className="text-gray-600 mb-8 text-lg md:text-xl">
-            Lorem ipsum dolor sit amet consectetur. Lacus aliquet vitae nulla netus sollicitudin.
-            In enim tortor sed libero velit lectus. Egestas facilisi neque a arcu vitae dignissim.
-            Sit lobortis orci risus volutpat eu habitasse.
+            Begin your journey today and take the first steps toward achieving academic success. 
+            Seize every opportunity to enhance your skills and knowledge, making a lasting impression 
+            on your instructors. 
           </p>
           <Link href="/login">
             <span className="inline-block bg-blue-600 text-white py-3 px-8 rounded-full shadow-md hover:bg-blue-700 transition duration-300">

@@ -205,9 +205,9 @@ export default function Index() {
                 />
               </div>
               <h3 className="text-2xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-500 text-center">
+              {/* <p className="text-gray-500 text-center">
                 {feature.description}
-            </p>
+            </p> */}
             </motion.div>
           ))}
         </div>

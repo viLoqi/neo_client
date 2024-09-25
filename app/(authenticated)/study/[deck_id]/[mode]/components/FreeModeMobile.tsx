@@ -76,7 +76,7 @@ const FreeModeMobile = () => {
             setCards([])
     }, [deck_id, decks])
 
-    const duration = 60;
+    const duration = 4;
     const isOverDuration = 5;
     const [isOver, setIsOver] = useState(false)
     const handleTimerOver = () => {
@@ -111,11 +111,11 @@ const FreeModeMobile = () => {
                     numCards={cards.length}
                     onComplete={handleTimerOver}
                 />
-                <div className={`flex w-full h-4/5 items-center justify-evenly duration-500`}>
+                <div className={`flex w-full ${questionAnswered == cards.length ? "h-4/5" : "h-full"} items-center justify-evenly duration-500`}>
                     {/* prev button */}
                     <button className={`${activeCardIndex == 0 ? "invisible w-[3rem]" : "btn"}`} onClick={getPrevCard}><FaChevronLeft /></button>
                     {/* card */}
-                    <div className="flex w-3/5 h-4/5 items-center justify-center relative" >
+                    <div className={`flex w-3/5 h-full items-center justify-center relative`}>
                         <AnimatePresence>
                             {
                                 cards.map((card, index) => {

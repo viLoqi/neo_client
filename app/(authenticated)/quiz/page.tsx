@@ -9,13 +9,13 @@ import { MagicWand, MagnifyingGlass } from '@phosphor-icons/react';
 import { Input, Progress } from '@chakra-ui/react';
 import useAuthToken from '@/hooks/useAuthToken';
 
-function parseToCardSchema(generatedQuestions: string): CardSchema[] {
-    const questionsObj = JSON.parse(generatedQuestions);
-    return Object.keys(questionsObj).map((key, index) => {
-        const { question, answer, choices, hint, difficulty } = questionsObj[key];
-        return { question, answer, choices, hint, order: index, difficulty };
-    });
-}
+// function parseToCardSchema(generatedQuestions: string): CardSchema[] {
+//     // const questionsObj = JSON.parse(generatedQuestions);
+//     return Object.keys(questionsObj).map((key, index) => {
+//         const { question, answer, choices, hint, difficulty } = questionsObj[key];
+//         return { question, answer, choices, hint, order: index, difficulty };
+//     });
+// }
 
 export default function BrowseDeckPage() {
     const { decks, loading, addDeckToPrivateRepo, delDeckfromPrivateRepo } = useDecks()
@@ -50,7 +50,7 @@ export default function BrowseDeckPage() {
             console.log("type of2: ", typeof generatedQuestions);
 
             console.log("generatedQuestions:", generatedQuestions);
-            const cardSchemas = parseToCardSchema(generatedQuestions);
+            const cardSchemas = generatedQuestions;
 
             console.log('Generated Questions:', generatedQuestions);
             if (cardSchemas.length > 0) {

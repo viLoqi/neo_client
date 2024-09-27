@@ -9,7 +9,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Flashcard from "./Flashcard";
 import { AnimatePresence } from "framer-motion"
 import useDecks from "@/hooks/useDecks";
-import { ArrowLeft, CaretLeft } from "@phosphor-icons/react";
+import { CaretLeft } from "@phosphor-icons/react";
 import { Box, Button, ScaleFade } from "@chakra-ui/react";
 import moment from "moment";
 
@@ -77,30 +77,6 @@ const FreeMode = () => {
         else
             setCards([])
     }, [deck_id, decks])
-
-    // Flashcard Carousel functionalities
-    // const stackVariants = {
-    //     onTop: {
-    //         x: "0",
-    //         opacity: 1,
-    //         transition: {
-    //             duration: 1,
-    //         },
-    //     },
-    //     onBottom: {
-    //         x: "0",
-    //         scale: 0.8,
-    //         transition: {
-    //             duration: 1,
-    //         },
-    //     },
-    //     exit: {
-    //         x: "-100%",
-    //         transition: {
-    //             duration: 0.5,
-    //         }
-    //     }
-    // }
 
     const duration = 60;
     const isOverDuration = 5;

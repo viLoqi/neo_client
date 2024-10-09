@@ -62,7 +62,7 @@ const LoginPage = () => {
                 <div className="">
                     <div className="mb-8 max-w-sm mx-auto">
                         <div className="flex justify-center mb-4">
-                        <button
+                        {/* <button
                             onClick={() => handleRoleClick("Professor")}
                             className={`px-4 py-2 mr-2 rounded-full ${
                             selectedRole === "Professor"
@@ -81,7 +81,7 @@ const LoginPage = () => {
                             }`}
                         >
                             Student
-                        </button>
+                        </button> */}
                         </div>
                         <h1 className="text-center text-4xl font-bold text-gray-800 mb-4">Welcome to Loqi</h1>
                         <p className="text-base text-center text-gray-500 mb-6">Get started by logging in.</p>

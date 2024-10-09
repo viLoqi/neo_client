@@ -82,10 +82,10 @@ const MessageBox = ({ contact, onToggle }: { contact: Contact; onToggle: () => v
                     <Input placeholder={`Message ${contact.name}`} border={0} px={0} onKeyDown={e => handleKeyDown(e)} ref={inputRef} variant={"unstyled"} />
                     <div className="flex justify-between ">
                         <div className="flex gap-2">
-                            <Smiley />
-                            <ImageSquare />
+                            {/* <Smiley /> */}
+                            {/* <ImageSquare /> */}
                         </div>
-                        <PaperPlaneRight onClick={() => { handleSubmit() }} />
+                        <PaperPlaneRight size={24} onClick={() => { handleSubmit() }} className="hover:bg-slate-100" />
                     </div>
                     {loading ? <Progress size='xs' isIndeterminate /> : <></>}
                 </div>

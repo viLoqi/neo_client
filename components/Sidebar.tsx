@@ -23,7 +23,7 @@ export interface Course {
 
 const NavItems = [
     { dest: "/app", title: "Home", icon: <House weight='duotone' /> },
-    { dest: "/forum", title: "Forum", icon: <Table weight='duotone' /> },
+    // { dest: "/forum", title: "Forum", icon: <Table weight='duotone' /> },
     // { dest: "/dashboard", title: "Dashboard", icon: <ChartLineUp /> },
     { dest: "/quiz", title: "Quizzes", icon: <Question weight='duotone' /> },
     {
@@ -95,7 +95,7 @@ const SideBar = () => {
                     );
                 })} */}
                         {/* Recent Courses */}
-                        <Heading size='md' fontWeight={"normal"} py={4}>Recent Forums</Heading>
+                        {/* <Heading size='md' fontWeight={"normal"} py={4}>Recent Forums</Heading>
                         {
                             courses.toReversed().map((course) => {
                                 return (
@@ -107,7 +107,7 @@ const SideBar = () => {
                                     </div>
                                 );
                             })
-                        }
+                        } */}
                         {/* Sign Out */}
                         <div className='grid grid-flow-col p-4 items-center mt-auto display-hidden'>
                             <span className='flex gap-2 items-center'>

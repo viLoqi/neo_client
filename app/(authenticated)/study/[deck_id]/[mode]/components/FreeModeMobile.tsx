@@ -76,7 +76,7 @@ const FreeModeMobile = () => {
             setCards([])
     }, [deck_id, decks])
 
-    const duration = 4;
+    const duration = 60;
     const isOverDuration = 5;
     const [isOver, setIsOver] = useState(false)
     const handleTimerOver = () => {
@@ -102,7 +102,7 @@ const FreeModeMobile = () => {
                 {course}
             </h1>
             {/* main body */}
-            <div className="flex flex-col h-full items-center justify-start relative">
+            <div className="flex flex-col h-full items-center justify-center relative">
                 <ProgressBarTimer
                     key={timerKey}
                     duration={isOver ? activeCardIndex == cards.length - 1 ? 0 : isOverDuration : duration}
@@ -111,11 +111,9 @@ const FreeModeMobile = () => {
                     numCards={cards.length}
                     onComplete={handleTimerOver}
                 />
-                <div className={`flex w-full ${questionAnswered == cards.length ? "h-4/5" : "h-full"} items-center justify-evenly duration-500`}>
-                    {/* prev button */}
-                    <button className={`${activeCardIndex == 0 ? "invisible w-[3rem]" : "btn"}`} onClick={getPrevCard}><FaChevronLeft /></button>
+                <div className={`flex w-full ${questionAnswered == cards.length ? "h-3/5" : "h-3/5"} items-center justify-evenly duration-500`}>
                     {/* card */}
-                    <div className={`flex w-3/5 h-full items-center justify-center relative`}>
+                    <div className={`flex mx-2 w-full h-full items-center justify-center relative`}>
                         <AnimatePresence>
                             {
                                 cards.map((card, index) => {
@@ -125,16 +123,19 @@ const FreeModeMobile = () => {
                                 })
                             }
                         </AnimatePresence>
-                        <div className="flex absolute bottom-[4%] h-10 w-16 bg-white justify-center items-center rounded-full">
-                            <p>{activeCardIndex + 1}/{deckLength}</p>
-                        </div>
+                    </div>
+                </div>
+                <div className="flex items-center py-2">
+                    {/* prev button */}
+                    <button className={`${activeCardIndex == 0 ? "invisible w-[3rem]" : "btn"}`} onClick={getPrevCard}><FaChevronLeft /></button>
+                    <div className="flex h-10 w-16 bg-white justify-center items-center rounded-full">
+                        <p>{activeCardIndex + 1}/{deckLength}</p>
                     </div>
                     {/* next button */}
                     <button className={`${activeCardIndex == deckLength - 1 ? "invisible w-[3rem]" : "btn"}`} onClick={getNextCard}><FaChevronRight /></button>
                 </div>
                 <ScaleFade initialScale={0} in={questionAnswered == cards.length}>
-                    <Button 
-                        
+                    <Button
                         p='40px'
                         color='white'
                         mt='4'

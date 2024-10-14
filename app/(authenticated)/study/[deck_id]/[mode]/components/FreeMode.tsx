@@ -146,7 +146,7 @@ const FreeMode = () => {
                         {/* prev button */}
                         <button className={`${activeCardIndex == 0 ? "invisible w-[3rem]" : "btn"}`} onClick={getPrevCard}><FaChevronLeft /></button>
                         {/* card */}
-                        <div className="flex w-4/5 h-full mx-10 items-center justify-center relative " >
+                        <div className="flex min-w-[400px] w-4/5 h-full mx-5 items-center justify-center relative " >
                             <AnimatePresence>
                                 {
                                     cards.map((card, index) => {
@@ -161,7 +161,7 @@ const FreeMode = () => {
                             </div>
                         </div>
                         {/* next button */}
-                        <ScaleFade initialScale={0} in={questionAnswered == cards.length}>
+                        <ScaleFade className={questionAnswered == cards.length ? "" : "hidden"} initialScale={0} in={questionAnswered == cards.length}>
                             <Button p='40px'
                                 color='white'
                                 mt='4'

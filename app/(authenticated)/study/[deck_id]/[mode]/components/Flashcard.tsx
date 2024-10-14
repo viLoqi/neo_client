@@ -3,8 +3,23 @@ import { motion } from "framer-motion"
 
 import ChoiceButton from "@/components/ChoiceButton";
 import { CardSchema } from "@/app/_types/deck";
+import { useEffect, useState } from "react";
 
 const Flashcard = ({ card, getNextCard, incorrectAttempts, isTimerOver }: { card: CardSchema, getNextCard: () => void, incorrectAttempts: number, isTimerOver: boolean }) => {
+    const [width, setWidth] = useState(window.innerWidth);
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth);
+    }
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
+    }, [])
+
+    const isMobile = width <= 760
+
     const stackVariants = {
         onTop: {
             x: "0",
@@ -35,7 +50,7 @@ const Flashcard = ({ card, getNextCard, incorrectAttempts, isTimerOver }: { card
         return <>NO CARD</>
 
     return (
-        <motion.div className="absolute flex flex-col w-full h-3/5 md:h-4/5 py-8 items-center justify-evenly rounded-[50px] bg-light-bg-subtle border-2 border-bg-light-bg-active"
+        <motion.div className="absolute flex flex-col w-full h-full md:h-4/5 py-8 items-center justify-evenly rounded-[50px] bg-light-bg-subtle border-2 border-bg-light-bg-active"
             initial={"onBottom"}
             animate={"onTop"}
             exit={"exit"}
@@ -46,7 +61,7 @@ const Flashcard = ({ card, getNextCard, incorrectAttempts, isTimerOver }: { card
                 {card.question}
             </h1>
             {/* Answer choices */}
-            <div className="grid grid-cols-2 gap-3 w-4/5">
+            <div className={isMobile ? "flex flex-col w-[90%] space-y-4" : "grid grid-cols-2 gap-3 w-4/5"}>
                 {card.choices.map((choice) => {
                     return (
                         <ChoiceButton

@@ -112,12 +112,12 @@ export default function Index() {
   ];
   return (
     <div className='h-screen bg-gradient-to-b bg-[#FBFCFD] overflow-auto no-scrollbar scroll-smooth'>
-      <div className="z-20 absolute top-0 left-0 w-screen">
+      <div className="z-20 fixed top-0 left-0 w-screen">
         <Navbar />
       </div>
 
       {/* Main block */}
-      <div className="min-h-screen bg-[#FBFCFD] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FBFCFD] flex items-center justify-center md:pt-0 pt-5">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center">
             {/* Text Section */}
@@ -172,7 +172,7 @@ export default function Index() {
       </div>
 
       {/* Features Section */}
-      <div id="features" className="min-h-screen container mx-auto flex flex-col justify-center items-center py-16 px-4 text-center">
+      <div id="features" className="min-h-screen container mx-auto flex flex-col justify-center items-center py-16 px-4 text-center md:pt-0 pt-5">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ export default function Index() {
           <h2 className="text-light-primary text-base font-semibold mb-2">Features</h2>
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">What Can it Do?</h1>
           <p className="text-gray-600 mb-8">
-            Tempus vel nulla feugiat ut massa enim tincidunt sit.
+          Enhance your learning journey with collaborative and intelligent systems.
           </p>
         </motion.div>
 

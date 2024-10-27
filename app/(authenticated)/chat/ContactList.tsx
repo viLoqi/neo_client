@@ -69,7 +69,7 @@ const ContactList = ({ contacts, selectedContact }: { contacts: Contact[], selec
                         <MagnifyingGlass />
                       </InputLeftElement>
                       <Input
-                        placeholder="Search @stonybrook.edu email"
+                        placeholder="Search by email"
                         onKeyDown={handleKeyDown}
                         border={0}
                         ref={inputRef}

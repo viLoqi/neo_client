@@ -117,7 +117,7 @@ export default function Index() {
       </div>
 
       {/* Main block */}
-      <div className="min-h-screen bg-[#FBFCFD] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FBFCFD] flex items-center justify-center pt-2 md:pt-0">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center">
             {/* Text Section */}
@@ -205,9 +205,7 @@ export default function Index() {
                 />
               </div>
               <h3 className="text-2xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-500 text-center">
-                {feature.description}
-            </p>
+              
             </motion.div>
           ))}
         </div>

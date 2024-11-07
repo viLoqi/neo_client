@@ -34,9 +34,9 @@ export default function BrowseDeckPage() {
 
         const payload = { numQuestions, questionType, difficulty, notes };
         console.log("type of: ", typeof payload);
-
+//https://us-east1-loqi-loqi.cloudfunctions.net/ai
         try {
-            const response = await fetch('https://us-east1-loqi-loqi.cloudfunctions.net/ai', {
+            const response = await fetch('https://loqi-imaginecup.azurewebsites.net/api/httpTrigger1', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${token}` },
                 body: JSON.stringify(payload),

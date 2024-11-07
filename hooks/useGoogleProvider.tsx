@@ -7,9 +7,10 @@ const useGoogleProvider = () => {
     useEffect(() => {
         const googleProvider = new GoogleAuthProvider();
 
-        googleProvider.setCustomParameters({
-            hd: "stonybrook.edu"
-        })
+        // For Imagine Cup Submission
+        // googleProvider.setCustomParameters({
+        //     hd: "stonybrook.edu"
+        // })
 
         setProvider(googleProvider)
     }, [])

@@ -12,7 +12,7 @@ export default function UsersPanel() {
                 <Heading size="sm" py={2}>Active Students</Heading>
                 {activeUsers.map(user => <UserCard
                     key={user.photoURL}
-                    userName={"longggggggggggggggggggggggggggggggggs"}
+                    userName={user.name}
                     userHandle={user.handle}
                     userProfilePicture={user.photoURL}
                 />)}
